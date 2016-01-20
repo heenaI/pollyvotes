@@ -1,0 +1,82 @@
+.pagination {
+margin: 0px !important;
+}
+
+.deckgrid{
+  padding-top: 10%;
+
+}
+.grid_images{
+  width: 15%;
+}
+
+.grid_images:hover{
+  opacity: 0.55;
+}
+
+.deckgrid[deckgrid]::before {
+    /* Specifies that the grid should have a maximum of 4 columns. Each column will have the classes 'column' and 'column-1-4' */
+    content: '4 .column.column-1-4';
+    font-size: 0; /* See https://github.com/akoenig/angular-deckgrid/issues/14#issuecomment-35728861 */
+    visibility: hidden;
+}
+
+.deckgrid .column {
+    float: left;
+}
+
+.deckgrid .column-1-4 {
+    width: 25%;
+}
+
+.grid_images{
+  position: absolute;
+}
+
+.deckgrid .column-1-1 {
+    width: 100%;
+}
+
+
+.image_title{
+  color: #373d3f;
+  font-weight: bold;
+  text-align: left;
+  z-index: 1000;
+  -webkit-transition: opacity 500ms;
+  -moz-transition: opacity 500ms;
+  -o-transition: opacity 500ms;
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+  padding-top: 60%;
+
+}
+
+
+a:hover .desc{
+    display: block;
+    color: #373d3f;
+    font-style: italic;
+    position: absolute;
+    padding: 29px;
+    width: auto;
+}
+
+ a:hover .desc .image_title {
+    display: block;
+    visibility: visible;
+    opacity: 1;
+}
+
+.chartContainer{
+  margin-top: 60%;
+  padding-left: 2%;
+
+}
+
+@media screen and (max-width: 480px){
+    .deckgrid[deckgrid]::before {
+        content: '1 .column.column-1-1';
+    }
+}

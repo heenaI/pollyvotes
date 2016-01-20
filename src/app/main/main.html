@@ -1,0 +1,43 @@
+<div class="container">
+<div class="page-header">
+  <h1>Pollyvotes page Title <small>Subtext for header</small></h1>
+</div>
+
+<nav>
+
+  <ul class="pagination pull-right">
+  <h4>Select Chart</h4>
+    <li><a href="#">1</a></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="#">5</a></li>
+  </ul>
+</nav>
+
+
+<div deckgrid class="deckgrid" source="photos">
+   <a href="{{card.href}}">
+    <div class="a-card">
+        <img class="grid_images img-responsive" data-ng-src="{{card.src}}">
+        <span class="desc">
+        <h4 class="image_title">{{card.name}}</h4>
+        <p class="image_discription">{{card.discription}}</p>
+        </span>
+        </a>
+    </div>
+</div>
+
+<div class="chartContainer">
+<div class="row">
+        <div class="col-xs-4" style="background-color: grey">1</div>
+    </div>
+    <div class="row">
+        <div class="col-xs-4" style="background-color: grey">2</div>
+    </div>
+    <div class="row">
+        <div class="col-xs-4" style="background-color: grey">3</div>
+    </div>
+</div>
+
+</div>
