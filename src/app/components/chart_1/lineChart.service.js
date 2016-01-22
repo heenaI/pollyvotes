@@ -3,7 +3,7 @@
 
   angular
     .module('pollyvotes')
-    .service('lineChartService', lineChart);
+    .service('lineChart', lineChart);
 
     /** @ngInject */
     function lineChart($scope, $http){
