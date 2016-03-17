@@ -1,0 +1,54 @@
+<h2 class='leadText'>{{heading}}</h2>
+
+        <div class="col-xs-3 textPanel" id= "textChart1">
+        <p class="paragraph">{{lastCandidate}}</p>
+        <p class='footerDate'>Latest prediction ({{dateWithyear}}; updated daily)</p>
+        <div>
+        <li style="list-style: none;">
+        <p class='numbers' id='democrates'>Democrats: <span class='values'>{{democrates}}%</span></p>
+        </li>
+        <li style="list-style: none;">
+        <p class='numbers' id='republicans'>Republicans: <span class='values'>{{repulicans}}%</span></p>
+        </li>
+        </div>
+        </div>
+
+
+
+
+        <!--smallscreen-->
+
+        <div class="col-xs-12" id= "textChart1Small">
+        <p class="paragraph">{{lastCandidate}}</p>
+        <p>Latest prediction ( {{dateWithyear}}; updated daily)</p>
+        <div>
+        <ul class="list-inline">
+        <li style="list-style: none;">
+        <p class='numbersSmall' id='democrates'>Democrats: <span class='values'>{{democrates}}%</span></p>
+        </li>
+        <li style="list-style: none;">
+        <p class='numbersSmall' id='republicans'>Republicans: <span class='values'>{{repulicans}}%</span></p>
+        </li>
+        </ul>
+        </div>
+        </div>
+
+
+        <div class="checkbox">
+        <label class='checkboxes' id='checkbox_1'>
+        <input type="checkbox" ng-model="thirtyDay" ng-change="changeAxis1()">
+        Last 30 days
+        </label>
+         <label class='checkboxes' id='checkbox_2'>
+        <input type="checkbox" ng-model="wholeTimeline" ng-change="changeAxis2()">
+        Election timeline
+        </label>
+
+         </div>
+        <div class="col-xs-9 chartDiv" >
+        <div id= "lineChart"></div>
+        </div>
+        <div class='chartFooter'> <div class='pull-right '><a href="http://pollyvote.com/en/about/data/" target="_blank"><span class='source'>Source:</span> PollyVote<img class='footerLogo' src="assets/images/chartFooterLogo.png" width="15%"></div></a>
+        </div>
+
+        </div>

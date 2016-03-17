@@ -3,38 +3,10 @@
 
   angular
     .module('pollyvotes')
-    .controller('MainController', MainController);
+    .controller('LineChartController', LineChartController);
 
   /** @ngInject */
-  function MainController($scope, $timeout, lineChart) {
-
-    $scope.photos = [   {id: 'chart-1',
-                         name: 'Predicting which party will win. Updated daily',
-                         src: "assets/images/Image_Mirrored_Graph_3.png",
-                         href: "https://www.google.de/?gws_rd=ssl",
-                         discription: " "},
-                        {id: 'chart-3',
-                        name: 'Predicting the winner in each U.S. State',
-                        src: "assets/images/Image_Map_new size.png",
-                        href: "https://www.google.de/?gws_rd=ssl",
-                        discription: " "},
-                        {id: 'chart-2',
-                        name: 'Past predictions: 2004, 2008 & 2012',
-                        src: "assets/images/Image_PollyVoteinAction_new size.png",
-                        href: "https://www.google.de/?gws_rd=ssl",
-                        discription: " "},
-                         {id: 'chart-4',
-                        name: 'Election analytics as newsletter',
-                        src: "assets/images/Image_RobotText.png",
-                        href: "https://www.google.de/?gws_rd=ssl",
-                        discription: " "},
-                        {id: 'chart-5',
-                        name: 'What is PollyVote? And who is behind this?',
-                        src: "assets/images/Image_About us.png",
-                        href: "https://www.google.de/?gws_rd=ssl",
-                        discription: " "}
-                    ];
-
+  function LineChartController($scope, $timeout, lineChart) {
 
    lineChart.getData()
          .success(function(data){
@@ -222,7 +194,7 @@ function generateChartOne(){
     grid: {
      y: {
         lines: [
-                {value: 50},
+                {value: 50}
 
             ]
      }
@@ -257,8 +229,9 @@ function generateChartOne(){
             }
         }
     }
+
 });
-};
+}
 
 function generateChartTwo(){
   var chart = c3.generate({
@@ -437,6 +410,7 @@ function generateChartThree(){
         }
     }
 });
+
 
 }
 generateChartOne();

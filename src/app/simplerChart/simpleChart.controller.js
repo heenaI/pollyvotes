@@ -3,38 +3,10 @@
 
   angular
     .module('pollyvotes')
-    .controller('MainController', MainController);
+    .controller('SimpleChartController', SimpleChartController);
 
   /** @ngInject */
-  function MainController($scope, $timeout, lineChart) {
-
-    $scope.photos = [   {id: 'chart-1',
-                         name: 'Predicting which party will win. Updated daily',
-                         src: "assets/images/Image_Mirrored_Graph_3.png",
-                         href: "https://www.google.de/?gws_rd=ssl",
-                         discription: " "},
-                        {id: 'chart-3',
-                        name: 'Predicting the winner in each U.S. State',
-                        src: "assets/images/Image_Map_new size.png",
-                        href: "https://www.google.de/?gws_rd=ssl",
-                        discription: " "},
-                        {id: 'chart-2',
-                        name: 'Past predictions: 2004, 2008 & 2012',
-                        src: "assets/images/Image_PollyVoteinAction_new size.png",
-                        href: "https://www.google.de/?gws_rd=ssl",
-                        discription: " "},
-                         {id: 'chart-4',
-                        name: 'Election analytics as newsletter',
-                        src: "assets/images/Image_RobotText.png",
-                        href: "https://www.google.de/?gws_rd=ssl",
-                        discription: " "},
-                        {id: 'chart-5',
-                        name: 'What is PollyVote? And who is behind this?',
-                        src: "assets/images/Image_About us.png",
-                        href: "https://www.google.de/?gws_rd=ssl",
-                        discription: " "}
-                    ];
-
+  function SimpleChartController($scope, $timeout, lineChart) {
 
    lineChart.getData()
          .success(function(data){
@@ -156,6 +128,30 @@
 
         }
 
+        function addLogoToTheChart(){
+          d3.select(".c3-axis-x")
+          .append("a")
+          .attr("class", "textInsideChart")
+          .attr("xlink:href", "http://pollyvote.com/en/news/")
+          .append("text")
+          .text("PollyVote")
+          .style("fill", "#7b979e")
+          .style("text-decoration", "none")
+          .style("font-size", "1.5em")
+          .attr("y", "-0.2em")
+          .attr("x", "0.1em");
+
+            d3.select(".c3-axis-x")
+                .append("image")
+                .attr("class", "footerLogo")
+                .attr("xlink:href", "assets/images/chartFooterLogo.png")
+                .attr("width", "20")
+                .attr("height", "20")
+                .attr("x", "6.5em")
+                .attr("y", -20);
+
+        }
+
         $scope.lastCandidate = computeCandidates();
         $scope.heading = computeHeading();
 
@@ -167,8 +163,11 @@
           }
 
         }
+
+
+
 function generateChartOne(){
-       var chartOne = c3.generate({
+       var chart = c3.generate({
          bindto: '#lineChart',
     data: {
       x: 'x',
@@ -222,7 +221,7 @@ function generateChartOne(){
     grid: {
      y: {
         lines: [
-                {value: 50},
+                {value: 50}
 
             ]
      }
@@ -257,8 +256,10 @@ function generateChartOne(){
             }
         }
     }
+
 });
-};
+
+}
 
 function generateChartTwo(){
   var chart = c3.generate({
@@ -343,7 +344,6 @@ function generateChartTwo(){
         }
     }
 });
-
 
 }
 
@@ -437,10 +437,8 @@ function generateChartThree(){
         }
     }
 });
-
 }
 generateChartOne();
-
 
 
 
@@ -470,7 +468,6 @@ generateChartOne();
                   generateChartThree();
                 }
     };
-
 
 
 

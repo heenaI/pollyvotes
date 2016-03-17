@@ -2,10 +2,11 @@
   "name": "pollyvotes",
   "version": "0.0.0",
   "authors": [
-    "Hina Imran <hinaimran.mehr@gmail.com>"
+    "Hina Imran"
   ],
   "dependencies": {
-    },
+    "angular-socialshare": "^0.1.20"
+  },
   "scripts": {
     "test": "gulp test"
   },
