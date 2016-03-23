@@ -1,17 +1,19 @@
-<h4 class='leadText' style='padding-left:2.5%;'>
+<div class='chartBody' tyle='padding-left:2%; font-size: 1em; font-family: Montserrat, sans-serif;'>
+<h3 class='chartHeadline' style='padding-left:2.5%; font-size: 1em; font-weight: bold; text-transform: uppercase; font-family: Montserrat, sans-serif;'>
 2016 US Election: PollyVote forecast of the national popular two-party vote
-</h4>
+</h3>
         <div class='col-xs-12'>
         <div class='pull-left' style='padding-left: 2%;'>
         <label class='label--checkbox'>
         <input type="checkbox" ng-model="wholeTimeline" ng-change="changeAxis2()" class='checkbox'>
-        <span class='checkboxLabelText'>Election timeline</span>
+        <span style='font-family: Montserrat, sans-serif;'>Election timeline</span>
         </label>
         </div>
 
 
+
        <div class='pull-right'>
-        <ul class="list-inline partyValues">
+        <ul class="list-inline" style='font-size: 1em; margin: 0;font-weight: bold; font-family: Montserrat, sans-serif;'>
         <li style="list-style: none;">
         <p id='democrates' style='color:#2980b9;'>Democrats: <span class='values'>{{democrates}}%</span></p>
         </li>
@@ -21,7 +23,7 @@
         </ul>
         </div>
 
-</div>
+        </div>
 
 
         <div class='col-xs-12' id='chartParent'>
@@ -56,8 +58,8 @@ id='twitter'
 socialshare
 socialshare-provider="twitter"
 socialshare-text="@PollyVote forecast of the #2016election:
-#Democrats:   {{democrates}}%
-#Republicans: {{repulicans}}%"
+Democrats:   {{democrates}}%
+Republicans: {{repulicans}}%"
 socialshare-hashtags=" "
 socialshare-url="http://charts.pollyvote.com/lineChart">
 <img class='shareButtonImage' src="assets/images/twitterLogo.png">
@@ -78,6 +80,10 @@ socialshare-caption="Updated daily">
 </a>
 </div>
 
+<div class='col-xs-12' style='color:grey; font-size: 0.7em; vertical-align: baseline; padding-left: 2%;'>
+  For more charts head to <a href="http://charts.pollyvote.com/" target='_blank'>charts.pollyvote.com</a>
+</div>
+</div>
 
 
         <script>

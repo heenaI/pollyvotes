@@ -10,11 +10,15 @@
     $locationProvider.html5Mode(true);
 
     $stateProvider
-      .state('home', {
+      .state('english', {
         url: '/',
         templateUrl: 'app/main/main.html',
-        controller: 'MainController',
-        controllerAs: 'main'
+        controller: 'MainController'
+      })
+      .state('german', {
+        url: '/',
+        templateUrl: 'app/main/main.html',
+        controller: 'MainDeController'
       })
       .state('line', {
         url: '/lineChart',

@@ -1,6 +1,5 @@
+
 <div class="container-fluid">
-
-
 
 <div class="page-header">
 
@@ -10,61 +9,16 @@
 </div>
 
 
-  <h1 class='pageHeading col-xs-12'>
+  <h1 class='pageHeading'>
   {{ 'TITLE' | translate }}<span class="numbersHeader">2016</span></h1>
   <p class='headerDiscription'>{{ 'titleDiscription' | translate }}</p>
-
+  <div class="col-xs-12">
+</div>
 </div>
 
 
 
-<div class="chartRowOdd" id='cardsRow'>
-<div class="row">
- <div class="col-lg-2 col-md-2 col-md-offset-1 col-xs-6 thumb">
-  <a class="thumbnail" href="#" scroll-to="chart-1"  easing="easeInQuint" duration="800">
-  <div class="desc">
-            <p class="desc_content image_title">{{ 'cardTitleOne' | translate }}</p>
-        </div>
-   <img class="img-responsive" src="assets/images/Image_Mirrored_Graph_3.png" />
-   </a>
- </div>
- <div class="col-lg-2 col-md-2 col-xs-6 thumb">
-  <a class="thumbnail" href="#"  scroll-to=" "  easing="easeInQuint" duration="800">
-  <div class="desc">
-            <p class="desc_content image_title">{{ 'chartTwoHeading' | translate }}</p>
-        </div>
-   <img class="img-responsive" src="assets/images/Image_Map_new size.png" />
-   </a>
- </div>
 
- <div class="col-md-2 col-xs-6 thumb">
-  <a class="thumbnail" href="#" scroll-to="chart-2"  easing="easeInQuint" duration="800">
-  <div class="desc">
-            <p class="desc_content image_title">{{ 'chartThreeHeading' | translate }}</p>
-        </div>
-   <img class="img-responsive" src="assets/images/Image_PollyVoteinAction_new size.png" />
-   </a>
- </div>
- <div class="col-lg-2 col-md-2 col-xs-6 thumb"  scroll-to="chart-4"  easing="easeInQuint" duration="800">
-  <a class="thumbnail" href="#">
-   <div class="desc">
-            <p class="desc_content image_title">{{ 'chartFourHeading' | translate }}</p>
-        </div>
-   <img class="img-responsive" src="assets/images/Image_RobotText.png" />
-   </a>
- </div>
- <div class="col-lg-2 col-md-2 col-xs-6 thumb">
-  <a class="thumbnail" href="#" scroll-to="chart-5"  easing="easeInQuint" duration="800">
-   <div class="desc">
-            <p class="desc_content image_title">{{ 'chartFiveHeading' | translate }}</p>
-        </div>
-   <img class="img-responsive" src="assets/images/Image_About us.png" />
-   </a>
- </div>
-</div>
-
-
-</div>
 
 <div class="chartContainer">
 <div class='shareButtons pull-right' style='padding-right: 3%; padding-top:2%;'>
@@ -73,7 +27,7 @@ id='twitter'
 socialshare
 socialshare-provider="twitter"
 socialshare-text="{{ 'twitterTextLineChart' | translate }}
-#{{ 'democrats' | translate }}   {{democrats}}%
+#{{ 'democrats' | translate }}   {{democrates}}%
 #{{ 'republicans' | translate }}  {{republicans}}%"
 socialshare-hashtags=""
 socialshare-url="http://charts.pollyvote.com"
@@ -88,7 +42,7 @@ socialshare-type="feed"
 socialshare-media="http://gfx.pollyvote.com/assets/images/facebookShareImage.png"
 socialshare-text="{{heading}}"
 socialshare-description="{{ 'twitterTextLineChart' | translate }}
-#{{ 'democrats' | translate }}   {{democrats}}%
+#{{ 'democrats' | translate }}   {{democrates}}%
 #{{ 'republicans' | translate }} {{republicans}}%"
 socialshare-hashtags=" "
 socialshare-url="http://charts.pollyvote.com"
@@ -114,17 +68,17 @@ socialshare-trigger="click">
 
         <div class="col-xs-3 textPanel" id= "textChart1">
         <p class="paragraph">{{lastCandidate}}</p>
-        <p class='footerDate'>{{ 'latestPrediction' | translate }} ({{ lastitemDate | date:'longDate'}}; {{ 'updatedDaily' | translate }})</p>
+        <p class='footerDate'>{{ 'latestPrediction' | translate }} ({{ lastitemDate | date:'longDate'}}; {{ 'updatedDaily' | translate }}</p>
         <div>
         <li style="list-style: none;">
         <p class='numbers' id='democrates'>
         {{ 'democrats' | translate }}
-        <span class='values'>{{democrats}}%</span></p>
+        <span class='values'>{{democrates| number}}%</span></p>
         </li>
         <li style="list-style: none;">
         <p class='numbers' id='republicans'>
         {{ 'republicans' | translate }}
-        <span class='values'>{{republicans}}%</span></p>
+        <span class='values'>{{republicans| number}}%</span></p>
         </li>
         </div>
         </div>
@@ -242,47 +196,47 @@ socialshare-trigger="click">
   <tbody>
 
   <tr class='firstRow'>
-  <td class="normalRow"> 2012</td>
+  <td class="normalRow">2012</td>
     <td class="normalRow"><img class='image' src="assets/images/Obama.jpg"></td>
-    <td class="bolderRow">{{52.0| number:1}}%</td>
-    <td class="normalRow">{{51.3| number:1}}%
-    <span class='diffrenceText'>{{ 'predictionError' | translate }} -{{0.7| number:1}}</span>
+    <td class="bolderRow">52,0%</td>
+    <td class="normalRow">51,3%
+    <span class='diffrenceText'>{{ 'predictionError' | translate }} -0,7</span>
     </td>
-    <td class="normalRow">{{52.1| number:1}}%
-       <span class='diffrenceText'>{{ 'predictionError' | translate }} +{{0.1| number:1}}</span>
+    <td class="normalRow">52,1%
+       <span class='diffrenceText'>{{ 'predictionError' | translate }} +0,1</span>
     </td>
 
-    <td class="normalRow">{{52.4| number:1}}%
-    <span class='diffrenceText'>{{ 'predictionError' | translate }} +{{0.4| number:1}}</span>
+    <td class="normalRow">52,4%
+    <span class='diffrenceText'>{{ 'predictionError' | translate }} +0,4</span>
     </td>
   </tr>
   <tr>
 <td class="normalRow">2008</td>
     <td class="normalRow"><img class='image'src="assets/images/Obama.jpg"></td>
-    <td class="bolderRow">{{53.7| number:1}}%</td>
-    <td class="normalRow">{{53.9| number:1}}%
-    <span class='diffrenceText rwd-break'>{{ 'predictionError' | translate }} +{{0.2| number:1}}</span>
+    <td class="bolderRow">53,7%</td>
+    <td class="normalRow">53,9%
+    <span class='diffrenceText rwd-break'>{{ 'predictionError' | translate }} +0,2</span>
     </td>
-    <td class="normalRow">{{52.8| number:1}}%
-    <span class='diffrenceText'>{{ 'predictionError' | translate }} −{{0.9| number:1}}</span>
+    <td class="normalRow">52,8%
+    <span class='diffrenceText'>{{ 'predictionError' | translate }} −0,9</span>
     </td>
-    <td class="normalRow">{{52.7| number:1}}%
-    <span class='diffrenceText'>{{ 'predictionError' | translate }} -{{1.0| number:1}}</span>
+    <td class="normalRow">52,7%
+    <span class='diffrenceText'>{{ 'predictionError' | translate }} -1,0</span>
     </td>
   </tr>
   <tr>
   <td class="normalRow">2004</td>
     <td class="normalRow"><img class='image' src="assets/images/Bush.jpg"></td>
-    <td class="bolderRow">{{51.2| number:1}}%
+    <td class="bolderRow">51,2%
     </td>
-    <td class="normalRow">{{51.5| number:1}}%
-    <span class='diffrenceText'>{{ 'predictionError' | translate }} +{{ 0.3 | number}}</span>
+    <td class="normalRow">51,5%
+    <span class='diffrenceText'>{{ 'predictionError' | translate }} +0,3</span>
     </td>
-    <td class="normalRow">{{52.1| number:1}}%
-      <span class='diffrenceText'>{{ 'predictionError' | translate }} +{{ 0.9 | number}}</span>
+    <td class="normalRow">52,1%
+      <span class='diffrenceText'>{{ 'predictionError' | translate }} +0,9</span>
     </td>
-    <td class="normalRow">{{50.3| number:1}}%
-    <span class='diffrenceText'>{{ 'predictionError' | translate }} -{{ 0.9 | number}}</span>
+    <td class="normalRow">50,3%
+    <span class='diffrenceText'>{{ 'predictionError' | translate }} -0,9</span>
     </td>
   </tr>
   </tbody>

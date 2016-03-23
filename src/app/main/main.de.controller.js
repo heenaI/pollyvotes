@@ -3,19 +3,52 @@
 
   angular
     .module('pollyvotes')
-    .controller('SimpleChartController', SimpleChartController);
+    .controller('MainDeController', MainDeController);
 
   /** @ngInject */
-  function SimpleChartController($scope, $timeout, lineChart) {
+  function MainDeController($scope, $timeout, lineChart, $translate, tmhDynamicLocale, $filter) {
+    $scope.changeLanguage = function (langKey) {
+    $translate.use(langKey);
+  };
+  tmhDynamicLocale.set('de');
+
+
+    $scope.photos = [   {id: 'chart-1',
+                         name: "Welche Partei wird gewinnen?",
+                         src: "assets/images/Image_Mirrored_Graph_3.png",
+                         href: "https://www.google.de/?gws_rd=ssl",
+                         discription: " "},
+                        {id: 'chart-3',
+                        name: 'Prognose des Wahlsiegers je Staat',
+                        src: "assets/images/Image_Map_new size.png",
+                        href: "https://www.google.de/?gws_rd=ssl",
+                        discription: " "},
+                        {id: 'chart-2',
+                        name: 'Frühere Prognosen: 2004, 2008 & 2012',
+                        src: "assets/images/Image_PollyVoteinAction_new size.png",
+                        href: "https://www.google.de/?gws_rd=ssl",
+                        discription: " "},
+                         {id: 'chart-4',
+                        name: 'Wahlanalysen als Newsletter',
+                        src: "assets/images/Image_RobotText.png",
+                        href: "https://www.google.de/?gws_rd=ssl",
+                        discription: " "},
+                        {id: 'chart-5',
+                        name: 'Was ist PollyVote? Wer steckt dahinter?',
+                        src: "assets/images/Image_About us.png",
+                        href: "https://www.google.de/?gws_rd=ssl",
+                        discription: " "}
+                    ];
+
 
    lineChart.getData()
          .success(function(data){
-          var democrates_unordered = [];
-          var republicans_unordered  = [];
+          var Demokraten_unordered = [];
+          var Republikaner_unordered  = [];
           var ForecastsDateWhole_unordered  = [];
           for (var i = 0; i<data.data.length; i++){
-          democrates_unordered.push(data.data[i].fcdemvs);
-          republicans_unordered.push(data.data[i].fcrepvs);
+          Demokraten_unordered.push(data.data[i].fcdemvs);
+          Republikaner_unordered.push(data.data[i].fcrepvs);
           var date = data.data[i].fcdate;
           var dateSplit = date.split('.')
           var reserveDate = dateSplit.reverse();
@@ -23,24 +56,38 @@
           ForecastsDateWhole_unordered.push(joinDate);
         }
 
+        var deLocale = d3.locale({
+          decimal: ",",
+          thousands: ".",
+          grouping: [3],
+          currency: ["", " €"],
+          dateTime: "%A, der %e. %B %Y, %X",
+          date: "%d.%m.%Y",
+          time: "%H:%M:%S",
+          periods: ["AM", "PM"], // unused
+          days: ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"],
+          shortDays: ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"],
+          months: ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"],
+          shortMonths: ["Jan", "Feb", "Mrz", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"]
+        });
+
           function computeLastThirtyItems(items){
           var lastThirtyItems = items.slice(Math.max(items.length - 30, 0))
           return lastThirtyItems
 
         }
 
-        var democrates_ordered = democrates_unordered.reverse();
-        var demoChart = ['Democrats', ]
-        var democratesWhole = demoChart.concat(democrates_ordered);
-        var democratesLastThirtyData = computeLastThirtyItems(democrates_ordered);
-        var democratesLastThirty = demoChart.concat(democratesLastThirtyData);
+        var Demokraten_ordered = Demokraten_unordered.reverse();
+        var demoChart = ['Demokraten', ]
+        var DemokratenWhole = demoChart.concat(Demokraten_ordered);
+        var DemokratenLastThirtyData = computeLastThirtyItems(Demokraten_ordered);
+        var DemokratenLastThirty = demoChart.concat(DemokratenLastThirtyData);
 
-
-        var republicans_ordered = republicans_unordered.reverse();
-        var repChart = ['Republicans', ]
-        var republicansWhole = repChart.concat(republicans_ordered);
-        var republicansLastThirtyData = computeLastThirtyItems(republicans_ordered);
-        var republicansLastThirty = repChart.concat(republicansLastThirtyData);
+        var Republikaner_ordered = Republikaner_unordered.reverse();
+        var repChart = ['Republikaner', ]
+        var RepublikanerWhole = repChart.concat(Republikaner_ordered);
+        var RepublikanerLastThirtyData = computeLastThirtyItems(Republikaner_ordered);
+        var RepublikanerLastThirty = repChart.concat(RepublikanerLastThirtyData);
 
 
         var ForecastsDateWhole_ordered = ForecastsDateWhole_unordered.reverse();
@@ -48,22 +95,17 @@
         var ForecastsDateWhole = dateChart.concat(ForecastsDateWhole_ordered);
         var ForecastsDateLastThirtyData = computeLastThirtyItems(ForecastsDateWhole_ordered);
         var ForecastsDateLastThirty = dateChart.concat(ForecastsDateLastThirtyData);
-
-
         $scope.lastitemDate = _.last(ForecastsDateWhole);
 
         var dateLast = $scope.lastitemDate;
          var date = Date.parse(dateLast.replace(/-/g,"/"))
-         var format = d3.time.format("%B %d");
-         $scope.dateConvert = format(new Date(date))
-         var lastDate = new Date(date)
-         var formatWithyear = d3.time.format("%B %d, %Y");
-          $scope.dateWithyear = formatWithyear(new Date(date))
+         var format = deLocale.timeFormat("%B %d");
+         $scope.dateConvert = format(new Date(date));
 
-        var democreatesLast = _.last(democratesWhole);
-        var republicansLast = _.last(republicansWhole);
-        var democratesSecondlast = democratesWhole[democratesWhole.length - 2]
-        var republicansSecondlast = republicansWhole[republicansWhole.length - 2]
+        var democreatesLast = _.last(DemokratenWhole);
+        var RepublikanerLast = _.last(RepublikanerWhole);
+        var DemokratenSecondlast = DemokratenWhole[DemokratenWhole.length - 2]
+        var RepublikanerSecondlast = RepublikanerWhole[RepublikanerWhole.length - 2]
 
 
 
@@ -74,9 +116,11 @@
 
         }
 
-        $scope.democrates = oneDeci(democreatesLast)
+        $scope.inidemocrates = oneDeci(democreatesLast)
 
-        $scope.repulicans = oneDeci(republicansLast)
+        $scope.democrats = deLocale.numberFormat(",.")($scope.inidemocrates)
+
+        $scope.republicans = deLocale.numberFormat(",.")(oneDeci(RepublikanerLast))
 
 
         function createConcatLastThirty(concatData, concatVari){
@@ -87,64 +131,40 @@
 
         }
 
-        function computepercentageChange(democreatesLast, democratesSecondlast){
-          var x = democreatesLast-democratesSecondlast;
+        function computepercentageChange(democreatesLast, DemokratenSecondlast){
+          var x = democreatesLast-DemokratenSecondlast;
           return x.toFixed(2)
 
         }
 
-        function computeDiffrence(democreatesLast, republicansLast){
-          var x = Math.abs(democreatesLast - republicansLast);
+        function computeDiffrence(democreatesLast, RepublikanerLast){
+          var x = Math.abs(democreatesLast - RepublikanerLast);
           return x.toFixed(1)
 
         }
 
-        $scope.democratesDiffrence = computepercentageChange(democreatesLast, democratesSecondlast);
-        $scope.republicansDiffrence = computepercentageChange(republicansLast, republicansSecondlast);
-        $scope.diffrenceParties = computeDiffrence(democreatesLast, republicansLast);
+        $scope.DemokratenDiffrence = computepercentageChange(democreatesLast, DemokratenSecondlast);
+        $scope.RepublikanerDiffrence = computepercentageChange(RepublikanerLast, RepublikanerSecondlast);
+        $scope.diffrenceParties = computeDiffrence(democreatesLast, RepublikanerLast);
 
 
         function computeCandidates(){
-           if(democreatesLast>republicansLast){
-           return 'As of'+ ' ' +  $scope.dateConvert + ' '+ 'the Democrats are predicted to win the presidential election of 2016.'+ ' ' +'The latest data says that the Democrats will win with'+ ' ' + $scope.democrates +  ' ' + 'of the vote'+ ' ' +'while the Republicans get' + ' ' + $scope.repulicans +  ' ' + 'percent.'
+           if(democreatesLast>RepublikanerLast){
+           return 'Stand heute, den'+ ' ' +  $scope.dateConvert + ',' + ' '+ 'werden die Demokraten als Wahlsieger prognostiziert. Aktuell liegen sie mit einem Stimmenanteil von'+ ' '  + $scope.democrats   +  ' ' + 'Prozent oben auf, während die Republikaner auf' + ' ' + $scope.republicans +  ' ' + 'Prozent kommen.'
            } else {
-           return 'As of'+ ' ' +  $scope.dateConvert + ' '+ 'the Republicans are predicted to win the presidential election of 2016.'+ ' ' +'The latest data says that the Republicans will win with'+ ' ' + $scope.repulicans+  ' ' + 'of the vote'+ ' ' +'while the Democrats get' + ' ' + $scope.democrates +  ' ' + 'percent.'
+           return 'Seit dem'+ ' ' +  $scope.dateConvert + ' '+ 'werden die Demokraten als Wahlsieger prognostiziert. Aktuell liegen sie mit einem Stimmenanteil von'+ ' '  + $scope.Republikaner +  ' ' + 'Prozent oben auf, während die Republikaner auf' + ' ' + $scope.Demokraten +  ' ' + 'Prozent kommen.'
 
            }
 
         }
 
         function computeHeading(){
-           if(democreatesLast>republicansLast){
-            return 'Prediction:  Democrats will win'
+           if(democreatesLast>RepublikanerLast){
+            return 'Prognose: Demokraten werden gewinnen'
            } else {
-             return 'Prediction: Republicans will win'
+             return 'Prognose: Republikaner werden gewinnen'
 
            }
-
-        }
-
-        function addLogoToTheChart(){
-          d3.select(".c3-axis-x")
-          .append("a")
-          .attr("class", "textInsideChart")
-          .attr("xlink:href", "http://pollyvote.com/en/news/")
-          .append("text")
-          .text("PollyVote")
-          .style("fill", "#7b979e")
-          .style("text-decoration", "none")
-          .style("font-size", "1.5em")
-          .attr("y", "-0.2em")
-          .attr("x", "0.1em");
-
-            d3.select(".c3-axis-x")
-                .append("image")
-                .attr("class", "footerLogo")
-                .attr("xlink:href", "assets/images/chartFooterLogo.png")
-                .attr("width", "20")
-                .attr("height", "20")
-                .attr("x", "6.5em")
-                .attr("y", -20);
 
         }
 
@@ -163,18 +183,18 @@
 
 
 function generateChartOne(){
-       var chart = c3.generate({
+       var chartOne = c3.generate({
          bindto: '#lineChart',
     data: {
       x: 'x',
         columns: [
         ForecastsDateWhole,
-            democratesWhole,
-            republicansWhole
+            DemokratenWhole,
+            RepublikanerWhole
         ],
          colors: {
-            Democrates: '#2980b9',
-            Republicans: '#e74c3c'
+            Demokraten: '#2980b9',
+            Republikaner: '#e74c3c'
         },
     },
      oninit: function () {
@@ -196,10 +216,10 @@ function generateChartOne(){
             max: '2016-11-08',
             tick: {
                values: ["2016-02-01", "2016-06-14", "2016-11-08", "2016-09-26", "2016-10-19", "2016-07-18", "2016-07-28" ],
-                format: d3.time.format("%b %d")
+                format: deLocale.timeFormat("%b-%d")
                 },
             label: {
-              text: 'Election Timeline',
+              text: 'Wahlchronik',
               position: 'inner-right'
             }
         },
@@ -209,7 +229,7 @@ function generateChartOne(){
                         format: function (d) { return parseInt(d)+ "%"; }
                     },
              label: {
-                text: 'Two-party vote',
+                text: 'Stimmenanteil',
                 position: 'inner-center'
             }
                 }
@@ -217,7 +237,7 @@ function generateChartOne(){
     grid: {
      y: {
         lines: [
-                {value: 50}
+                {value: 50},
 
             ]
      }
@@ -242,20 +262,21 @@ function generateChartOne(){
     },
      tooltip: {
         format: {
-          title: function (d) { var format=  d3.time.format("%B %d");
+          title: function (d) {
+                           var format=  deLocale.timeFormat("%B %d");
                                 var date = format(d)
                                 return date},
             value: function (value, color) {
 
-                return value.toFixed(1) + '%'
+                var number = value.toFixed(1)
+
+                return deLocale.numberFormat(",.")(number) + '%'
 
             }
         }
     }
-
 });
-
-}
+};
 
 function generateChartTwo(){
   var chart = c3.generate({
@@ -265,12 +286,12 @@ function generateChartTwo(){
 //        xFormat: '%Y%m%d', // 'xFormat' can be used as custom format of 'x'
         columns: [
             ForecastsDateLastThirty,
-            democratesLastThirty,
-            republicansLastThirty
+            DemokratenLastThirty,
+            RepublikanerLastThirty
         ],
          colors: {
-            Democrates: '#2980b9',
-            Republicans: '#e74c3c'
+            Demokraten: '#2980b9',
+            Republikaner: '#e74c3c'
         },
     },
      oninit: function () {
@@ -292,11 +313,11 @@ function generateChartTwo(){
         x: {
             type: 'timeseries',
             tick: {
-                format: '%b-%d',
+                format: deLocale.timeFormat("%b-%d"),
                  count: 7
             },
             label: {
-              text: 'Election Timeline',
+              text: 'Wahlchronik',
               position: 'inner-right'
             }
         },
@@ -306,7 +327,7 @@ function generateChartTwo(){
                         format: function (d) { return parseInt(d)+ "%"; }
                     },
              label: {
-                text: 'Two-party vote',
+                text: 'Stimmenanteil',
                 position: 'inner-center'
             }
                 }
@@ -329,17 +350,20 @@ function generateChartTwo(){
        },
     tooltip: {
         format: {
-          title: function (d) { var format=  d3.time.format("%B %d");
+          title: function (d) {  var format=  deLocale.timeFormat("%B %d");
                                 var date = format(d)
                                 return date},
             value: function (value, color) {
 
-                return value.toFixed(1) + '%'
+               var number = value.toFixed(1)
+
+                return deLocale.numberFormat(",.")(number) + '%'
 
             }
         }
     }
 });
+
 
 }
 
@@ -351,12 +375,12 @@ function generateChartThree(){
 //        xFormat: '%Y%m%d', // 'xFormat' can be used as custom format of 'x'
         columns: [
             ForecastsDateWhole,
-            democratesWhole,
-            republicansWhole
+            DemokratenWhole,
+            RepublikanerWhole
         ],
         colors: {
-            Democrates: '#2980b9',
-            Republicans: '#e74c3c'
+            Demokraten: '#2980b9',
+            Republikaner: '#e74c3c'
         },
     },
      oninit: function () {
@@ -378,11 +402,11 @@ function generateChartThree(){
         x: {
             type: 'timeseries',
             tick: {
-                format: '%b-%d',
+                format: deLocale.timeFormat("%b %d"),
                 count: 7
             },
             label: {
-              text: 'Election Timeline',
+              text: 'Wahlchronik',
               position: 'inner-right'
             }
         },
@@ -392,7 +416,7 @@ function generateChartThree(){
                         format: function (d) { return parseInt(d)+ "%"; }
                     },
              label: {
-                text: 'Two-party vote',
+                text: 'Stimmenanteil',
                 position: 'inner-center'
             }
                 }
@@ -422,19 +446,23 @@ function generateChartThree(){
        },
     tooltip: {
         format: {
-          title: function (d) { var format=  d3.time.format("%B %d");
+          title: function (d) {  var format=  deLocale.timeFormat("%B %d");
                                 var date = format(d)
                                 return date},
             value: function (value, color) {
 
-                return value.toFixed(1) + '%'
+                 var number = value.toFixed(1)
+
+                return deLocale.numberFormat(",.")(number) + '%'
 
             }
         }
     }
 });
+
 }
 generateChartOne();
+
 
 
 
@@ -464,6 +492,7 @@ generateChartOne();
                   generateChartThree();
                 }
     };
+
 
 
 

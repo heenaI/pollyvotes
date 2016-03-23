@@ -6,10 +6,15 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController($scope, $timeout, lineChart) {
+  function MainController($scope, $timeout, lineChart, $translate, tmhDynamicLocale, $filter) {
+
+    $scope.changeLanguage = function (langKey) {
+    $translate.use(langKey);
+  };
+  tmhDynamicLocale.set('en');
 
     $scope.photos = [   {id: 'chart-1',
-                         name: 'Predicting which party will win. Updated daily',
+                         name: "Predicting which party will win. Updated daily",
                          src: "assets/images/Image_Mirrored_Graph_3.png",
                          href: "https://www.google.de/?gws_rd=ssl",
                          discription: " "},
@@ -62,16 +67,13 @@
         var democratesWhole = demoChart.concat(democrates_ordered);
         var democratesLastThirtyData = computeLastThirtyItems(democrates_ordered);
         var democratesLastThirty = demoChart.concat(democratesLastThirtyData);
-        console.log(democratesWhole)
-        console.log(democratesLastThirty)
 
         var republicans_ordered = republicans_unordered.reverse();
         var repChart = ['Republicans', ]
         var republicansWhole = repChart.concat(republicans_ordered);
         var republicansLastThirtyData = computeLastThirtyItems(republicans_ordered);
         var republicansLastThirty = repChart.concat(republicansLastThirtyData);
-        console.log(republicansWhole)
-        console.log(republicansLastThirty)
+
 
         var ForecastsDateWhole_ordered = ForecastsDateWhole_unordered.reverse();
         var dateChart = ['x', ]
@@ -79,18 +81,12 @@
         var ForecastsDateLastThirtyData = computeLastThirtyItems(ForecastsDateWhole_ordered);
         var ForecastsDateLastThirty = dateChart.concat(ForecastsDateLastThirtyData);
 
-        console.log(ForecastsDateWhole)
-        console.log(ForecastsDateLastThirty)
 
         $scope.lastitemDate = _.last(ForecastsDateWhole);
-
         var dateLast = $scope.lastitemDate;
          var date = Date.parse(dateLast.replace(/-/g,"/"))
          var format = d3.time.format("%B %d");
-         $scope.dateConvert = format(new Date(date))
-         var lastDate = new Date(date)
-         var formatWithyear = d3.time.format("%B %d, %Y");
-          $scope.dateWithyear = formatWithyear(new Date(date))
+         $scope.dateConvert = format(new Date(date));
 
         var democreatesLast = _.last(democratesWhole);
         var republicansLast = _.last(republicansWhole);
@@ -106,9 +102,9 @@
 
         }
 
-        $scope.democrates = oneDeci(democreatesLast)
+        $scope.democrats = oneDeci(democreatesLast)
 
-        $scope.repulicans = oneDeci(republicansLast)
+        $scope.republicans = oneDeci(republicansLast)
 
 
         function createConcatLastThirty(concatData, concatVari){
@@ -138,9 +134,9 @@
 
         function computeCandidates(){
            if(democreatesLast>republicansLast){
-           return 'As of'+ ' ' +  $scope.dateConvert + ' '+ 'the Democrats are predicted to win the presidential election of 2016.'+ ' ' +'The latest data says that the Democrats will win with'+ ' ' + $scope.democrates +  ' ' + 'of the vote'+ ' ' +'while the Republicans get' + ' ' + $scope.repulicans +  ' ' + 'percent.'
+           return 'As of'+ ' ' +  $scope.dateConvert + ' '+ 'the Democrats are predicted to win the presidential election of 2016.'+ ' ' +'The latest data says that the Democrats will win with'+ ' ' + $scope.democrats +  ' ' + 'of the vote'+ ' ' +'while the Republicans get' + ' ' + $scope.republicans +  ' ' + 'percent.'
            } else {
-           return 'As of'+ ' ' +  $scope.dateConvert + ' '+ 'the Republicans are predicted to win the presidential election of 2016.'+ ' ' +'The latest data says that the Republicans will win with'+ ' ' + $scope.repulicans+  ' ' + 'of the vote'+ ' ' +'while the Democrats get' + ' ' + $scope.democrates +  ' ' + 'percent.'
+           return 'As of'+ ' ' +  $scope.dateConvert + ' '+ 'the Republicans are predicted to win the presidential election of 2016.'+ ' ' +'The latest data says that the Republicans will win with'+ ' ' + $scope.republicans+  ' ' + 'of the vote'+ ' ' +'while the Democrats get' + ' ' + $scope.democrates +  ' ' + 'percent.'
 
            }
 
