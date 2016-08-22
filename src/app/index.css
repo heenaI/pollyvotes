@@ -7,13 +7,17 @@
 body{
   width: 100%;
     height: 100%;
-    overflow-x: hidden;
     font-family: Merriweather, Georgia, serif;
     font-size: 15px;
     color: #333;
     letter-spacing: -.004em;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    text-overflow: ellipsis;
+}
+.chartBody{
+  width: 100%;
+    height: 100%;
 }
 .container-fluid{
 padding: 0px;
@@ -43,7 +47,11 @@ padding: 0px;
   color: #fff;
   font-weight: bold;
 }
-
+#loading-bar-container{
+  font-size: 2em;
+  padding-left: 40%;
+  color: #004559;
+}
 
 p{
   line-height: 25px;
@@ -161,6 +169,7 @@ padding-right: 0;
 
 .paragraph{
   padding: 0;
+  z.index: 1000;
 }
 
 .btn-group{
@@ -376,7 +385,11 @@ color: #2c3e50;
 }
 .image{
 border-radius: 5px;
-height: auto;
+height: 2em;
+width: 2em;
+}
+.imageMap{
+
 }
 
 
@@ -514,12 +527,246 @@ input[type="checkbox"]:focus{
   font-size: 1.5em;
 }
 
+path {
+  stroke-linejoin: round;
+}
 
+.land-glow {
+  fill-opacity: .2;background-color: #7b979e;
+  filter: url(#blur);
+}
 
+.land-fill {
+  fill: #fff;
+}
 
+.state-boundary {
+  fill: none;
+  stroke: #777;
+  stroke-width: .70px;
+}
 
+.county-boundary {
+  fill: none;
+}
 
+.land-fill,
+.county-boundary {
+  stroke: #777;
+  stroke-width: .35px;
+}
 
+ #legend {
+        padding: 0;
+    }
+
+#legend ul {
+    margin-left: 0;
+}
+
+li.key {
+    border-left-width: 2em;
+    border-left-style: solid;
+    font-size: 1em;
+    display: block;
+
+}
+.features{
+  padding-left: 10%;
+}
+
+path {
+  cursor: pointer;
+}
+.mapmain path{
+   stroke: #fff;
+   stroke-width: 1.2px;
+}
+.simpleMap path{
+  stroke: #e6e6e6;
+  stroke-width: 1.5px;
+}
+
+.mapTooltip {
+  position: absolute;
+  background-color: rgba(236, 240, 241, 0.93);
+  border: 1px solid #dedede;
+  font-weight: bold;
+  visibility: hidden;
+  display: none;
+  padding: 5px;
+  z-index: 100;
+  font-weight: 300;
+}
+#legendList{
+  margin-bottom: 2%;
+}
+.legendHeading{
+  font-size: 1.5em;
+  font-weight: 500;
+}
+.mapTooltip{
+  z-index: 10;
+  border-spacing:0;
+  background-color:#fff;
+  -webkit-box-shadow: 7px 7px 12px -9px rgb(119,119,119);
+     -moz-box-shadow: 7px 7px 12px -9px rgb(119,119,119);
+          box-shadow: 7px 7px 12px -9px rgb(119,119,119);
+  opacity: 0.9;
+  padding: 0;
+  margin: 0.5%;
+  border:1px solid #CCC;
+  max-width: 30%;
+}
+.headerMap{
+  background-color: #7b979e;
+  color: #fff;
+  margin: 0;
+  padding: 2%;
+  font-size: 1.3em;
+}
+.elecVote{
+  padding: 1% 0 0 2%;
+  font-size: 0.9em;
+  line-height: 1.5em;
+}
+#hiddenCheckRep{
+  display: none;
+}
+#hiddenCheckDemo{
+   display: none;
+}
+
+.boldText{
+  font-weight: bold;
+}
+.pollyBot{
+  padding-left: 2%;
+  font-size: 0.9em;
+  line-height: 1.5em;
+}
+#bars{
+  overflow: visible;
+}
+#barsyaxis > g > text{
+  fill: #ecf0f1;
+  font-size: 2em;
+  text-anchor: end;
+}
+#barsyaxis{
+  width: 40px;
+}
+#bars .domain{
+  display: none;
+}
+.barsEndlineText{
+  font-size: 30px;
+}
+.dottedbars{
+  padding: 0;
+  margin: 0;
+  height: 80px;
+}
+.headingMap{
+ margin-left: 15%;
+}
+.mapDate{
+  padding-top: 1%;
+  padding-left: 0;
+}
+.demoNumbers{
+  color: #2980b9;
+  padding-left: 15%;
+  font-size: 3em;
+}
+.barsHeading{
+  text-align: right;
+}
+.barsText{
+display: inline;
+}
+.neutral{
+  color: #f7f7f7;
+}
+.subtext{
+  padding-top: 2%;
+  vertical-align: sub;
+}
+.dottedbars{
+  padding-bottom: 10%;
+}
+#maprepnumbers{
+  color: #e74c3c;
+  font-size: 3em;
+  padding-left: 35%;
+
+}
+#republicansMap{
+color: #e74c3c;
+}
+#democratesMap{
+  color: #2980b9;
+}
+.mapDropDown{
+padding: 0.5%;
+background-color: #fff;
+width: 50%;
+z-index: 1000;
+font-size: 14px;
+text-align: left;
+background-color: #fff;
+border: 1px solid #ccc;
+border: 1px solid rgba(0,0,0,0.15);
+border-radius: 4px;
+box-shadow: 0 6px 12px rgba(0,0,0,0.175);
+}
+
+select > option{
+  border-radius: 4px;
+}
+#trumpText, #clintonText{
+  padding: 0 2% 0 2%;
+}
+#trumpText{
+  color: #e74c3c;
+}
+#clintonText{
+  color: #2980b9;
+
+}
+.barNum{
+
+  padding-bottom: 0;
+  margin-bottom: 0;
+  font-family: ubuntu;
+  padding-top: 10%;
+  align: bottom;
+}
+.barNum > text{
+  font-size: 3.8em;
+
+}
+.barImage{
+  border-radius: 5px;
+  height: 4em;
+  width: 4em;
+}
+.rep{
+margin-right: 6%;
+}
+.myLabel{
+  fill: #fff;
+  font-size: 1em;
+}
+#bars > g > line{
+  stroke: #fff;
+}
+#barsSimple > g > line{
+  stroke: #c0c0c0;
+}
+#bars > g > text{
+  fill: #fff;
+}
 
 @media only screen and (min-resolution: 117dpi) and (max-resolution: 119dpi), only screen and (min-resolution: 131dpi) and (max-resolution: 133dpi), only screen and (min-resolution: 145dpi) and (max-resolution: 154dpi), only screen and (min-resolution: 162dpi) and (max-resolution: 164dpi), only screen and (min-resolution: 169dpi) {
     #touch_logo {
@@ -611,7 +858,7 @@ width: 100%;
   font-size: 0.7em;
 }
 .c3 svg{
-  height: 200px;
+  height: 100%;
 }
 .partyValues{
   padding: 0!important;
@@ -621,6 +868,25 @@ width: 100%;
   width: 15px;
   border-radius: 2px;
 
+}
+#lineChart{
+  width: 100%;
+  height: 100%;
+}
+
+.barNum > text{
+  font-size: 2em;
+
+}
+.barImage{
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+
+}
+.elecVote, .boldText{
+  padding: 0;
+  margin: 0.7%;
 }
 
 }
@@ -709,4 +975,133 @@ width: 100%;
   width: 10px;
   border-radius: 2px;
 }
+#lineChart{
+  width: 100%;
+  height: 100%;
+}
+.barNum > text{
+  font-size: 1.5em;
+
+}
+.barImage{
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+
+}
+.elecVote, .boldText{
+  padding: 0;
+  margin: 0.7;
+}
+}
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+/* IE10+ CSS styles go here */
+#mapUSA{
+  width: 100%;
+  height: 500px;
+}
+}
+
+/* Make clicks pass-through */
+#loading-bar,
+#loading-bar-spinner {
+  pointer-events: none;
+  -webkit-pointer-events: none;
+  -webkit-transition: 350ms linear all;
+  -moz-transition: 350ms linear all;
+  -o-transition: 350ms linear all;
+  transition: 350ms linear all;
+}
+
+#loading-bar.ng-enter,
+#loading-bar.ng-leave.ng-leave-active,
+#loading-bar-spinner.ng-enter,
+#loading-bar-spinner.ng-leave.ng-leave-active {
+  opacity: 0;
+}
+
+#loading-bar.ng-enter.ng-enter-active,
+#loading-bar.ng-leave,
+#loading-bar-spinner.ng-enter.ng-enter-active,
+#loading-bar-spinner.ng-leave {
+  opacity: 1;
+}
+
+#loading-bar .bar {
+  -webkit-transition: width 350ms;
+  -moz-transition: width 350ms;
+  -o-transition: width 350ms;
+  transition: width 350ms;
+
+  background: #29d;
+  position: fixed;
+  z-index: 10002;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  border-bottom-right-radius: 1px;
+  border-top-right-radius: 1px;
+}
+
+/* Fancy blur effect */
+#loading-bar .peg {
+  position: absolute;
+  width: 70px;
+  right: 0;
+  top: 0;
+  height: 2px;
+  opacity: .45;
+  -moz-box-shadow: #29d 1px 0 6px 1px;
+  -ms-box-shadow: #29d 1px 0 6px 1px;
+  -webkit-box-shadow: #29d 1px 0 6px 1px;
+  box-shadow: #29d 1px 0 6px 1px;
+  -moz-border-radius: 100%;
+  -webkit-border-radius: 100%;
+  border-radius: 100%;
+}
+
+#loading-bar-spinner {
+  display: block;
+  position: fixed;
+  z-index: 10002;
+  top: 10px;
+  left: 10px;
+}
+
+#loading-bar-spinner .spinner-icon {
+  width: 14px;
+  height: 14px;
+
+  border:  solid 2px transparent;
+  border-top-color:  #29d;
+  border-left-color: #29d;
+  border-radius: 50%;
+
+  -webkit-animation: loading-bar-spinner 400ms linear infinite;
+  -moz-animation:    loading-bar-spinner 400ms linear infinite;
+  -ms-animation:     loading-bar-spinner 400ms linear infinite;
+  -o-animation:      loading-bar-spinner 400ms linear infinite;
+  animation:         loading-bar-spinner 400ms linear infinite;
+}
+
+@-webkit-keyframes loading-bar-spinner {
+  0%   { -webkit-transform: rotate(0deg);   transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); transform: rotate(360deg); }
+}
+@-moz-keyframes loading-bar-spinner {
+  0%   { -moz-transform: rotate(0deg);   transform: rotate(0deg); }
+  100% { -moz-transform: rotate(360deg); transform: rotate(360deg); }
+}
+@-o-keyframes loading-bar-spinner {
+  0%   { -o-transform: rotate(0deg);   transform: rotate(0deg); }
+  100% { -o-transform: rotate(360deg); transform: rotate(360deg); }
+}
+@-ms-keyframes loading-bar-spinner {
+  0%   { -ms-transform: rotate(0deg);   transform: rotate(0deg); }
+  100% { -ms-transform: rotate(360deg); transform: rotate(360deg); }
+}
+@keyframes loading-bar-spinner {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

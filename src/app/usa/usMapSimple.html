@@ -1,0 +1,110 @@
+<div class="Stage-popup Stage-popup-embed" id='myModal' style='width: 50%; height: 90%; z-index: 1000; vertical-align: middle;'>
+            <div class="popup-body">
+                <a class="popup-close-btn">✕</a>
+                <h2 class='embedHeading'>EMBED</h2>
+                <p>Embed the following link to show chart in your webpage. Embedding and sharing is free for everyone. The content is dynamic, i.e. numbers and text change in accordance with the data.</p>
+                <textarea class="embed-code">
+<iframe width="100%" height="500px" src="http://goo.gl/PyKJQj" frameborder="0" allowfullscreen scrolling="no"></iframe>
+                </textarea>
+                </a>
+            </div>
+        </div>
+<div class='chartHeader col-xs-4' style='padding:0; margin:0;'>
+
+<h2 class='chartHeadline' style='padding-left:2.5%; font-size: 1em; font-weight: bold; text-transform: uppercase; font-family: Montserrat, sans-serif;'>PollyVote electoral vote forecast</h2>
+</div>
+<div class="col-xs-12" id="mapWrapper">
+
+<div class='col-xs-3' style='padding:0; margin:0;'>
+
+</div>
+<div class='col-xs-9 dottedbars' style='padding-left: 0.5%'>
+<img src="assets/images/clinton.png"   class='pull-left inline demo barImage' style="vertical-align:top">
+<span id='clintonText' class='inline barNum pull-left' ></span>
+
+<img src="assets/images/trump.png"   class='pull-right inline rep barImage' style="vertical-align:top">
+<span id='trumpText' class='inline barNum pull-right'></span>
+
+<svg id="barsSimple" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 70"
+ preserveAspectRatio="xMidYMid meet"></svg>
+</div>
+
+
+
+<div  class="col-xs-3" style="padding:2% 0 0 0;">
+<p class='mapDate'>Last update: {{dateFormated | date}} ({{lastUpadate}})</p>
+  <p ><span style='font-weight:bold;'></span>
+  </p>
+
+  <div id="legend" >
+</div>
+<!-- <p style='padding-top: 8%; padding-left: 0; font-size: 1.5em;'>See electoral map per component method</p>
+<select class='mapDropDown' ng-options='x for x in methods' ng-model='selectedModel' ng-change="myFunction(selectedModel)" style='margin-left: 5%;'>
+<option value=''> Please Select Method </option>
+</select> -->
+</div>
+
+
+<div class="globe col-xs-9" id='usawithbigTooltips' style='padding-top: 0;'>
+<div id="loading-bar-container"></div>
+    <svg id="mapUSA" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" preserveAspectRatio="xMidYMid meet" class='simpleMap'></svg>
+</div>
+</div>
+        <div class='col-xs-12'>
+        <div class='pull-left'>
+        <a href="http://pollyvote.com/en/" target='_blank'>
+        <img src="assets/images/PollyVote_header_chart.png">
+        </a>
+        </div>
+
+<div class='shareButtons pull-right'>
+<a class="btn-embed shareButtonImage" data-toggle="modal" data-target="#myModal">EMBED</a>
+
+
+<a
+id='twitter'
+socialshare
+socialshare-provider="twitter"
+socialshare-text="{{ 'twitterTextLineChart' | translate }}
+#{{ 'democrats' | translate }}   {{democrats}}%
+#{{ 'republicans' | translate }}  {{republicans}}%"
+socialshare-hashtags=""
+socialshare-media="//charts.pollyvote.com/assets/images/usaSocial.png"
+socialshare-url="http://charts.pollyvote.com/usaMap"
+socialshare-trigger="click">
+<img class='shareButtonImage' src="assets/images/twitterLogo.png"></a>
+
+<a
+id='facebook'
+socialshare
+socialshare-provider="facebook"
+socialshare-type="feed"
+socialshare-media="http://charts.pollyvote.com/assets/images/usaSocial.png"
+socialshare-text="{{heading}}"
+socialshare-description="{{ 'twitterTextLineChart' | translate }}
+#{{ 'democrats' | translate }}   {{democrats}}%
+#{{ 'republicans' | translate }} {{republicans}}%"
+socialshare-hashtags=" "
+socialshare-url="http://charts.pollyvote.com/usaMap"
+socialshare-caption="{{ 'updatedDaily' | translate }}"
+socialshare-trigger="click">
+<img class='shareButtonImage' src="assets/images/facebookLogo.png"></a>
+
+</div>
+
+<div class='col-xs-12' style='color:grey; font-size: 0.7em; vertical-align: baseline; padding:0;'>
+  For more charts head to <a href="http://charts.pollyvote.com/" target='_blank'>charts.pollyvote.com</a>
+</div>
+</div>
+
+
+        <script>
+  $(".btn-embed").click(function(){
+    $(".Stage-popup").hide();
+     $(".Stage-popup-embed").show();
+    });
+    $('.Stage-popup .popup-close-btn').click(function() { $('.Stage-popup').hide(); });
+</script>
+
+
+

@@ -14,6 +14,7 @@
           var republicans_unordered  = [];
           var ForecastsDateWhole_unordered  = [];
           for (var i = 0; i<data.data.length; i++){
+            if(data.data[i].fcdemvs != 0 && data.data[i].fcrepvs !=0){
           democrates_unordered.push(data.data[i].fcdemvs);
           republicans_unordered.push(data.data[i].fcrepvs);
           var date = data.data[i].fcdate;
@@ -21,6 +22,9 @@
           var reserveDate = dateSplit.reverse();
           var joinDate = reserveDate.join('-');
           ForecastsDateWhole_unordered.push(joinDate);
+
+            }
+
         }
 
           function computeLastThirtyItems(items){
@@ -30,14 +34,14 @@
         }
 
         var democrates_ordered = democrates_unordered.reverse();
-        var demoChart = ['Democrats', ]
+        var demoChart = ['Clinton', ]
         var democratesWhole = demoChart.concat(democrates_ordered);
         var democratesLastThirtyData = computeLastThirtyItems(democrates_ordered);
         var democratesLastThirty = demoChart.concat(democratesLastThirtyData);
 
 
         var republicans_ordered = republicans_unordered.reverse();
-        var repChart = ['Republicans', ]
+        var repChart = ['Trump', ]
         var republicansWhole = repChart.concat(republicans_ordered);
         var republicansLastThirtyData = computeLastThirtyItems(republicans_ordered);
         var republicansLastThirty = repChart.concat(republicansLastThirtyData);
@@ -173,8 +177,8 @@ function generateChartOne(){
             republicansWhole
         ],
          colors: {
-            Democrates: '#2980b9',
-            Republicans: '#e74c3c'
+            Clinton: '#2980b9',
+            Trump: '#e74c3c'
         },
     },
      oninit: function () {
@@ -269,8 +273,8 @@ function generateChartTwo(){
             republicansLastThirty
         ],
          colors: {
-            Democrates: '#2980b9',
-            Republicans: '#e74c3c'
+            Clinton: '#2980b9',
+            Trump: '#e74c3c'
         },
     },
      oninit: function () {
@@ -355,8 +359,8 @@ function generateChartThree(){
             republicansWhole
         ],
         colors: {
-            Democrates: '#2980b9',
-            Republicans: '#e74c3c'
+            Clinton: '#2980b9',
+            Trump: '#e74c3c'
         },
     },
      oninit: function () {

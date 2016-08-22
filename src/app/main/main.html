@@ -1,6 +1,6 @@
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script src="http://d3js.org/queue.v1.min.js"></script>
 <div class="container-fluid">
-
-
 
 <div class="page-header">
 
@@ -29,7 +29,7 @@
    </a>
  </div>
  <div class="col-lg-2 col-md-2 col-xs-6 thumb">
-  <a class="thumbnail" href="#"  scroll-to=" "  easing="easeInQuint" duration="800">
+  <a class="thumbnail" href="#"  scroll-to="chart-2"  easing="easeInQuint" duration="800">
   <div class="desc">
             <p class="desc_content image_title">{{ 'chartTwoHeading' | translate }}</p>
         </div>
@@ -38,14 +38,14 @@
  </div>
 
  <div class="col-md-2 col-xs-6 thumb">
-  <a class="thumbnail" href="#" scroll-to="chart-2"  easing="easeInQuint" duration="800">
+  <a class="thumbnail" href="#" scroll-to="chart-3"  easing="easeInQuint" duration="800">
   <div class="desc">
-            <p class="desc_content image_title">{{ 'chartThreeHeading' | translate }}</p>
+            <p class="desc_content image_title">{{ 'chart2Heading' | translate }}</p>
         </div>
    <img class="img-responsive" src="assets/images/Image_PollyVoteinAction_new size.png" />
    </a>
  </div>
- <div class="col-lg-2 col-md-2 col-xs-6 thumb"  scroll-to="chart-4"  easing="easeInQuint" duration="800">
+ <div class="col-lg-2 col-md-2 col-xs-6 thumb"  scroll-to="chart-5"  easing="easeInQuint" duration="800">
   <a class="thumbnail" href="#">
    <div class="desc">
             <p class="desc_content image_title">{{ 'chartFourHeading' | translate }}</p>
@@ -54,7 +54,7 @@
    </a>
  </div>
  <div class="col-lg-2 col-md-2 col-xs-6 thumb">
-  <a class="thumbnail" href="#" scroll-to="chart-5"  easing="easeInQuint" duration="800">
+  <a class="thumbnail" href="#" scroll-to="chart-6"  easing="easeInQuint" duration="800">
    <div class="desc">
             <p class="desc_content image_title">{{ 'chartFiveHeading' | translate }}</p>
         </div>
@@ -114,7 +114,7 @@ socialshare-trigger="click">
 
         <div class="col-xs-3 textPanel" id= "textChart1">
         <p class="paragraph">{{lastCandidate}}</p>
-        <p class='footerDate'>{{ 'latestPrediction' | translate }} ({{ lastitemDate | date:'longDate'}}; {{ 'updatedDaily' | translate }})</p>
+        <p class='footerDate'>{{ 'latestPrediction' | translate }} ({{prefixDate| translate }}{{ latestDate | date}}; {{ 'updatedDaily' | translate }})</p>
         <div>
         <li style="list-style: none;">
         <p class='numbers' id='democrates'>
@@ -136,15 +136,15 @@ socialshare-trigger="click">
 
         <div class="col-xs-12" id= "textChart1Small">
         <p class="paragraph">{{lastCandidate}}</p>
-        <p>Latest prediction ( {{ lastitemDate | date:'mediumDate' }}; {{ 'updatedDaily' | translate }}</p>
+        <p>Latest prediction ( {{prefixDate| translate }}{{ lastitemDate | date:'mediumDate' }}; {{ 'updatedDaily' | translate }}</p>
         <div>
         <ul class="list-inline">
         <li style="list-style: none;">
-        <p class='numbersSmall' id='democrates'>{{ 'democrats' | translate }} <span class='values'>{{democrates| number}}%</span></p>
+        <p class='numbersSmall' id='democrates'>{{ 'democrats' | translate }} <span class='values'>{{democrats}}%</span></p>
         </li>
         <li style="list-style: none;">
         <p class='numbersSmall' id='republicans'>
-        {{ 'republicans' | translate }} <span class='values'>{{republicans| number}}%</span></p>
+        {{ 'republicans' | translate }} <span class='values'>{{republicans}}%</span></p>
         </li>
         </ul>
         </div>
@@ -180,8 +180,13 @@ socialshare-trigger="click">
                </p>
          </div>
 
+
+<div class="col-xs-12 chartRowOdd"  id= "chart-2">
+      <globe data="data" type="detaliedMap"></globe>
+      </div>
+
 <div class="col-xs-12 historyTable">
-<div class ='chartRowOdd col-xs-12' id= "chart-2">
+<div class ='chartRowOdd col-xs-12' id= "chart-3">
 <div class='shareButtons pull-right'>
 <a
 id='twitter'
@@ -217,8 +222,11 @@ socialshare-trigger="click">
             </div>
         </div></a>
 </div>
+
+
+
 <div class='chartHeader' id="shareableHistory" >
-<h2>{{ 'chart2Hading' | translate }}</h2>
+<h2>{{ 'chart2Heading' | translate }}</h2>
 <div class='col-xs-6 paragraph'>
  <p style='padding-bottom: 2%;'>
    {{ 'chart2Discription' | translate }}
@@ -292,7 +300,9 @@ socialshare-trigger="click">
 </div>
 </div>
     </div>
-    <div class="col-xs-12 chartRowEven"  style='border-bottom: 1px solid #ddd;' id= "chart-4">
+
+
+    <div class="col-xs-12 chartRowEven"  style='border-bottom: 1px solid #ddd;' id= "chart-5">
      <h2>{{ 'chartThreeHeading' | translate }}</h2>
      <div class='col-xs-6 paragraph'>
         <p>{{ 'chartThreeDiscription' | translate }}</p>
@@ -301,7 +311,7 @@ socialshare-trigger="click">
        <!-- Begin MailChimp Signup Form -->
 <link href="//cdn-images.mailchimp.com/embedcode/slim-10_7.css" rel="stylesheet" type="text/css">
 <style type="text/css">
-  #mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; }
+  #mc_embed_signup{ clear:left; font:14px Helvetica,Arial,sans-serif; }
   #mc_embed_signup .button {
   display: inline-block;
   margin: 0 5px;
@@ -309,13 +319,14 @@ socialshare-trigger="click">
   font-size: 1em;
   border: 0;
   background-color: #2c3e50;
-  color:#ecf0f1;
+  color: #fff;
+  font-weight: bold;
   cursor: pointer;
   outline: 0;
   box-shadow: #BDC3C7 2px 2px 0px;}
 
   #mc_embed_signup .button:hover {
-  background: #005580;
+  background: #0aa8f1;
 }
 #mc_embed_signup .button:active {
   box-shadow: #BDC3C7 0.5px 0.5px 0px;
@@ -349,9 +360,12 @@ padding: 0;
 
        </div>
     </div>
-    <div class="col-xs-12 chartRowOdd" id='chart-5' >
+    <div class="col-xs-12 chartRowOdd" id='chart-6' >
     <div class='col-xs-9 paragraphAbout'>
-    <img src="assets/images/pollyVote.png" style='padding-left: 34%; height: 150px;' >
+    <img src="assets/images/pollyVote.png" style=' display: block;
+    margin: auto;
+    text-align: center;
+    width: 150px;' >
     <h2 class='aboutSectionHeading'>{{ 'aboutSectionHeading' | translate }}</h2>
 
     <p class='aboutSectionDiscription'>{{ 'aboutSectionDiscription' | translate }} <a href='http://pollyvote.com/en/' target="_blank">
@@ -362,7 +376,9 @@ padding: 0;
     <p class="text-muted pull-right">Copyright: PollyVote & MIT-License</p>
 
 <ul>
-  <li style='padding-left:50%;'><a href="#" title="Scroll to top" onclick="$('html,body').animate({scrollTop:0},'slow');return false;"><i class="top glyphicon glyphicon-chevron-up"></i></a></li>
+  <li style='display: block;
+    margin: auto;
+    text-align: center; padding-left: 18%;'><a href="#" title="Scroll to top" onclick="$('html,body').animate({scrollTop:0},'slow');return false;"><i class="top glyphicon glyphicon-chevron-up"></i></a></li>
 </ul>
 
 </div>

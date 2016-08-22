@@ -6,7 +6,7 @@
     .config(config);
 
   /** @ngInject */
-  function config($logProvider, $translateProvider, tmhDynamicLocaleProvider) {
+  function config($logProvider, $translateProvider, tmhDynamicLocaleProvider, cfpLoadingBarProvider) {
     tmhDynamicLocaleProvider.localeLocationPattern('https://code.angularjs.org/1.2.20/i18n/angular-locale_{{locale}}.js');
     // Enable log
     $logProvider.debugEnabled(true);
@@ -24,11 +24,12 @@
     'embed': 'EMBED',
     'latestPrediction': 'Latest prediction',
     'updatedDaily': 'updated daily',
-    'democrats': 'Democrats:',
-    'republicans': 'Republicans:',
+    'prefixDate': ' ',
+    'democrats': 'Clinton:',
+    'republicans': 'Trump:',
     'checkBoxText30day': 'Last 30 days',
     'checkBoxTextWholeTimeline': 'Election timeline',
-    'chart2Hading': 'Past predictions',
+    'chart2Heading': 'Past predictions by PollyVote',
     'chart2Discription': "The PollyVote method predicted the candidate's final vote shares in the last three U.S. presidential elections with little error. The following table shows the predicted and actual results of the two-party popular vote.",
     "year": "Year",
     "winner": "winner",
@@ -60,11 +61,13 @@
     'chartFiveHeading': 'Was ist PollyVote? Wer steckt dahinter?',
     'greyTextForChart': 'Das Teilen und Einbetten der Charts ist  kostenfrei. Sowohl der Text als auch die Zahlen sind dynamisch, d.h. sie werden auch nach dem Einbetten aktualisiert. Berichte über einzelne Prognosen finden Sie im ',
     'chartSource': 'Quelle:',
+    'chart2Heading': 'Frühere Prognose von PollyVote',
     'embed': 'EINBETTEN',
     'latestPrediction': 'Aktuelle Prognose',
     'updatedDaily': 'wird täglich aktualisiert',
-    'democrats': 'Demokraten:',
-    'republicans': 'Republikaner:',
+    'prefixDate': 'der',
+    'democrats': 'Clinton:',
+    'republicans': 'Trump:',
     'checkBoxText30day': '30-Tage-Prognose',
     'checkBoxTextWholeTimeline': 'Wahlchronik',
     'chart2Hading': 'Frühere Prognosen',
@@ -93,6 +96,11 @@
 
   $translateProvider.preferredLanguage('en');
   $translateProvider.useSanitizeValueStrategy(null);
+
+  //config loading bar
+  cfpLoadingBarProvider.latencyThreshold = 100;
+  cfpLoadingBarProvider.parentSelector = '#loading-bar-container';
+  cfpLoadingBarProvider.spinnerTemplate = '<div><span class="fa fa-spinner"> Loading Pollyvote Map....</div>';
   }
 
 })();

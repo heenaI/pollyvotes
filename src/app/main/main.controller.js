@@ -12,6 +12,7 @@
     $translate.use(langKey);
   };
   tmhDynamicLocale.set('en');
+  moment.locale('en')
 
     $scope.photos = [   {id: 'chart-1',
                          name: "Predicting which party will win. Updated daily",
@@ -46,7 +47,10 @@
           var democrates_unordered = [];
           var republicans_unordered  = [];
           var ForecastsDateWhole_unordered  = [];
+          console.log(data.data[0].fcdate)
+          var firstDate = new Date('04.01.2016')
           for (var i = 0; i<data.data.length; i++){
+          if(data.data[i].fcdemvs != 0 && data.data[i].fcrepvs !=0){
           democrates_unordered.push(data.data[i].fcdemvs);
           republicans_unordered.push(data.data[i].fcrepvs);
           var date = data.data[i].fcdate;
@@ -54,6 +58,9 @@
           var reserveDate = dateSplit.reverse();
           var joinDate = reserveDate.join('-');
           ForecastsDateWhole_unordered.push(joinDate);
+
+            }
+
         }
 
           function computeLastThirtyItems(items){
@@ -63,13 +70,13 @@
         }
 
         var democrates_ordered = democrates_unordered.reverse();
-        var demoChart = ['Democrats', ]
+        var demoChart = ['Clinton', ]
         var democratesWhole = demoChart.concat(democrates_ordered);
         var democratesLastThirtyData = computeLastThirtyItems(democrates_ordered);
         var democratesLastThirty = demoChart.concat(democratesLastThirtyData);
 
         var republicans_ordered = republicans_unordered.reverse();
-        var repChart = ['Republicans', ]
+        var repChart = ['Trump', ]
         var republicansWhole = repChart.concat(republicans_ordered);
         var republicansLastThirtyData = computeLastThirtyItems(republicans_ordered);
         var republicansLastThirty = repChart.concat(republicansLastThirtyData);
@@ -83,6 +90,7 @@
 
 
         $scope.lastitemDate = _.last(ForecastsDateWhole);
+        $scope.latestDate = moment($scope.lastitemDate).format('MMM Do, YYYY')
         var dateLast = $scope.lastitemDate;
          var date = Date.parse(dateLast.replace(/-/g,"/"))
          var format = d3.time.format("%B %d");
@@ -144,9 +152,9 @@
 
         function computeHeading(){
            if(democreatesLast>republicansLast){
-            return 'Prediction:  Democrats will win'
+            return 'Prediction:  Clinton will win'
            } else {
-             return 'Prediction: Republicans will win'
+             return 'Prediction: Trump will win'
 
            }
 
@@ -174,8 +182,8 @@ function generateChartOne(){
             republicansWhole
         ],
          colors: {
-            Democrates: '#2980b9',
-            Republicans: '#e74c3c'
+            Clinton: '#2980b9',
+            Trump: '#e74c3c'
         },
     },
      oninit: function () {
@@ -243,8 +251,8 @@ function generateChartOne(){
     },
      tooltip: {
         format: {
-          title: function (d) { var format=  d3.time.format("%B %d");
-                                var date = format(d)
+          title: function (d) {
+                               var date = moment(d).format('MMM Do')
                                 return date},
             value: function (value, color) {
 
@@ -268,8 +276,8 @@ function generateChartTwo(){
             republicansLastThirty
         ],
          colors: {
-            Democrates: '#2980b9',
-            Republicans: '#e74c3c'
+            Clinton: '#2980b9',
+            Trump: '#e74c3c'
         },
     },
      oninit: function () {
@@ -355,8 +363,8 @@ function generateChartThree(){
             republicansWhole
         ],
         colors: {
-            Democrates: '#2980b9',
-            Republicans: '#e74c3c'
+            Clinton: '#2980b9',
+            Trump: '#e74c3c'
         },
     },
      oninit: function () {

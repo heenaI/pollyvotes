@@ -11,6 +11,7 @@
     $translate.use(langKey);
   };
   tmhDynamicLocale.set('de');
+  moment.locale('de');
 
 
     $scope.photos = [   {id: 'chart-1',
@@ -55,7 +56,7 @@
           var joinDate = reserveDate.join('-');
           ForecastsDateWhole_unordered.push(joinDate);
         }
-
+        moment.locale('de');
         var deLocale = d3.locale({
           decimal: ",",
           thousands: ".",
@@ -96,6 +97,8 @@
         var ForecastsDateLastThirtyData = computeLastThirtyItems(ForecastsDateWhole_ordered);
         var ForecastsDateLastThirty = dateChart.concat(ForecastsDateLastThirtyData);
         $scope.lastitemDate = _.last(ForecastsDateWhole);
+
+        $scope.latestDate = moment($scope.lastitemDate).format('Do MMMM YYYY')
 
         var dateLast = $scope.lastitemDate;
          var date = Date.parse(dateLast.replace(/-/g,"/"))
@@ -264,7 +267,7 @@ function generateChartOne(){
         format: {
           title: function (d) {
                            var format=  deLocale.timeFormat("%B %d");
-                                var date = format(d)
+                                var date = moment(d).format('Do MMMM')
                                 return date},
             value: function (value, color) {
 

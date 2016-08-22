@@ -16,6 +16,7 @@
       'picardy.fontawesome',
       '720kb.socialshare',
       'pascalprecht.translate',
-      'tmh.dynamicLocale']);
+      'tmh.dynamicLocale',
+      'angular-loading-bar']);
 
 })();

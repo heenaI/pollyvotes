@@ -28,6 +28,10 @@
       .state('table', {
         url: '/historyTable',
         templateUrl: 'app/historyTable/historyTable.html'
+      })
+      .state('map', {
+        url: '/usaMap',
+        templateUrl: 'app/usa/simplemap.html'
       });
 
 $urlRouterProvider.otherwise('/');

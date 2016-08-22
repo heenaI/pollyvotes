@@ -1,0 +1,91 @@
+<div class='shareButtons pull-right'>
+<a
+id='twitter'
+socialshare
+socialshare-provider="twitter"
+socialshare-text="@PollyVote forecast of the #2016election: #Clinton: {{sumOfDemocratsVote}}  #Trump: {{sumOfRepublicanVote}} electoral votes http://charts.pollyvote.com/usaMap"
+socialshare-hashtags=""
+socialshare-media="//charts.pollyvote.com/assets/images/usaSocial.png"
+socialshare-url="http://charts.pollyvote.com/usaMap"
+socialshare-trigger="click">
+<img class='shareButtonImage' src="assets/images/twitterLogo.png"></a>
+
+<a
+id='facebook'
+socialshare
+socialshare-provider="facebook"
+socialshare-type="feed"
+socialshare-media="http://charts.pollyvote.com/assets/images/usaSocial.png"
+socialshare-text="{{heading}}"
+socialshare-description="@PollyVote forecast of the #2016election: #Clinton: {{sumOfDemocratsVote}}  #Trump: {{sumOfRepublicanVote}} electoral votes http://charts.pollyvote.com/usaMap"
+socialshare-hashtags=" "
+socialshare-url="http://charts.pollyvote.com/usaMap"
+socialshare-caption="{{ 'updatedDaily' | translate }}"
+socialshare-trigger="click">
+<img class='shareButtonImage' src="assets/images/facebookLogo.png"></a>
+
+<a class="btn-embed" >{{ 'embed' | translate }}</a>
+<div class="Stage-popup Stage-popup-embed">
+            <div class="popup-body">
+                <a class="popup-close-btn">✕</a>
+                <h2 class='embedHeading'>{{ 'embed' | translate }}</h2>
+                <p>{{ 'embedText' | translate }}</p>
+                <textarea class="embed-code">
+<iframe width="100%" height="500px" src="//charts.pollyvote.com/usaMap" frameborder="0" allowfullscreen scrolling="no"></iframe>
+                </textarea>
+            </div>
+        </div></a>
+</div>
+
+<div class='chartHeader col-xs-3' style='padding:0; margin:0;'>
+
+<h2 class='leadText'>Predicted State Winners</h2>
+<p id = 'mapDisc' class='paragraph'>
+{{mapdisc}}
+</p>
+<br>
+<p class='mapDate'>Last update: {{dateFormated | date}} ({{lastUpadate}})</p>
+
+<div style="padding:50% 0 0 0;">
+
+
+  <p ><span style='font-weight:bold;'>Legend: </span> PollyVote builds its prediction on various component methods. The more components agree on a winning party, the higher is PollyVote's predictive certainty. The colors in the map reflect this predictive certainty toward one party or the other.</p>
+  <div id="legend" >
+</div>
+</div>
+</div>
+</div>
+
+
+
+<div class="col-xs-9" id="mapWrapper" style="padding-left:2%; padding-top: 2%;">
+<div class="globe" id='usa'>
+<img src="assets/images/clinton.png"   class='pull-left inline demo barImage' style="vertical-align:top">
+<span id='clintonText' class='inline barNum pull-left' ></span>
+
+<img src="assets/images/trump.png"   class='pull-right inline rep barImage' style="vertical-align:top">
+<span id='trumpText' class='inline barNum pull-right'></span>
+
+<svg id="bars" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 70"
+ preserveAspectRatio="xMidYMid meet" class='mainbars'></svg>
+    <svg id="mapUSA" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" preserveAspectRatio="xMidYMid meet" class='mapmain'></svg>
+</div>
+</div>
+ <div class='chartFooter col-xs-12 inline' style="padding:5% 0 0 0;">
+        <a href="http://pollyvote.com/en/about/data/" target="_blank" class="pull-right">
+        <span class='source'>{{ 'chartSource' | translate }}</span> PollyVote
+        <img class='footerLogo' src="assets/images/chartFooterLogo.png" width="15%">
+        </a>
+
+         <p style='padding-right:50%;'class='embeddingText'>
+         {{ 'greyTextForChart' | translate }}<a href="http://pollyvote.com/en/news/" target="_blank"> PollyVote Blog </a>
+               </p>
+               </div>
+
+<script>
+  $(".btn-embed").click(function(){
+    $(".Stage-popup").hide();
+     $(".Stage-popup-embed").show();
+    });
+    $('.Stage-popup .popup-close-btn').click(function() { $('.Stage-popup').hide(); });
+</script>
