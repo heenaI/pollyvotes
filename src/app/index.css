@@ -586,6 +586,10 @@ path {
   stroke: #e6e6e6;
   stroke-width: 1.5px;
 }
+.withTooltips path{
+  stroke: #e6e6e6;
+  stroke-width: 1.5px;
+}
 
 .mapTooltip {
   position: absolute;
@@ -617,6 +621,7 @@ path {
   margin: 0.5%;
   border:1px solid #CCC;
   max-width: 30%;
+  font-size: 1.2em;
 }
 .headerMap{
   background-color: #7b979e;
@@ -766,6 +771,7 @@ margin-right: 6%;
 }
 #bars > g > text{
   fill: #fff;
+  font-size: 1em;
 }
 
 @media only screen and (min-resolution: 117dpi) and (max-resolution: 119dpi), only screen and (min-resolution: 131dpi) and (max-resolution: 133dpi), only screen and (min-resolution: 145dpi) and (max-resolution: 154dpi), only screen and (min-resolution: 162dpi) and (max-resolution: 164dpi), only screen and (min-resolution: 169dpi) {
@@ -792,11 +798,9 @@ margin-right: 6%;
 
 
 @media (max-width: 1000px){
-
-  body{
+body{
   font-size: 1em;
 }
-
 .headerDiscription{
 font-size: 1em;
 }
@@ -879,23 +883,32 @@ width: 100%;
 
 }
 .barImage{
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
   border-radius: 5px;
 
 }
 .elecVote, .boldText{
   padding: 0;
   margin: 0.7%;
+  font-size: 1em;
+}
+
+#bars > g > text{
+  font-size: 1.5em;
+}
+#barsSimple > g > text{
+  font-size: 1.5em;
 }
 
 }
 
 @media (max-width: 399px){
 
-  body{
-  font-size: 0.99em;
+body{
+  font-size: 1em;
 }
+
 .headerDiscription{
 font-size: 1em;
 }
@@ -984,15 +997,23 @@ width: 100%;
 
 }
 .barImage{
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
   border-radius: 5px;
 
 }
 .elecVote, .boldText{
   padding: 0;
   margin: 0.7;
+  font-size: 1em;
 }
+#bars > g > text{
+  font-size: 1.5em;
+}
+#barsSimple > g > text{
+  font-size: 1.5em;
+}
+
 }
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
 /* IE10+ CSS styles go here */

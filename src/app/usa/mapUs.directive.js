@@ -89,7 +89,7 @@ var toType = function(obj) {
 
 function checkVariable(datavariable){
   if(toType(datavariable) == 'string'){
-    return parseInt(datavariable)
+    return parseInt(datavariable.replace(/[^0-9.]/g, ""))
   } else {
     return datavariable
   }
@@ -118,7 +118,7 @@ function cleanStrings(strings){
 }
 
 
-
+var uiqueData = [];
 
 function organizeData(stateNames, data, dataCollector, date){
 dataCollector.length = 0;
@@ -156,13 +156,12 @@ for(var i=0; i<data.data.length; i++){
 
 
 
-
     }
 
   }
 
-// console.log(JSON.stringify(datacleaned))
 
+// console.log(JSON.stringify(datacleaned))
 var datajoined = datacleaned.slice().map(function(el){
     for (var i = 0, l = stateNames.states.length; i < l; i++) {
         if (el.iso_2 === stateNames.states[i].iso2) {
@@ -173,8 +172,7 @@ var datajoined = datacleaned.slice().map(function(el){
     dataCollector.push(el);
 });
 
-// console.log(JSON.stringify(dataCollector));
-// console.log(dataCollector.length)
+console.log(JSON.stringify(dataCollector))
 
 };
 
@@ -182,6 +180,7 @@ var datajoined = datacleaned.slice().map(function(el){
 function collectElecVotes(orgData){
   repElectoralVote.length = 0;
   demElectoralVote.length = 0;
+  neutralVote.length = 0;
 
   for(var i=0; i<orgData.length; i++){
 
@@ -193,6 +192,10 @@ function collectElecVotes(orgData){
     demElectoralVote.push(orgData[i].electoral_vote)
   } else if(orgData[i].Republican_fre==orgData[i].Democrats_fre && orgData[i].twoPartyDemo<orgData[i].twoPartyRep){
     repElectoralVote.push(orgData[i].electoral_vote)
+  } else if(orgData[i].Republican_fre==orgData[i].Democrats_fre && orgData[i].twoPartyDemo==orgData[i].twoPartyRep){
+    neutralVote.push(orgData[i].electoral_vote)
+  } else if(orgData[i].Republican_fre==0 && orgData[i].Democrats_fre==0 && orgData[i].twoPartyDemo==0 && orgData[i].twoPartyRep==0){
+    neutralVote.push(orgData[i].electoral_vote)
   }
 }
 
@@ -231,7 +234,7 @@ function collectElecVotes(orgData){
 
 
 
-function createBars(sumRep, sumDem){
+function createBars(sumRep, sumDem, neutral){
 
     width = 600,
     height = 20;
@@ -240,13 +243,21 @@ function createBars(sumRep, sumDem){
             name: 'Clinton',
             value: sumDem
         }]
-    }, {
+    },
+     {
+     data: [{
+            name: 'Neutral',
+            value: neutral
+        }]
+    },
+     {
      data: [{
             name: 'Trump',
             value: sumRep
         }]
     }]
-    // console.log(JSON.stringify(dataset))
+
+    console.log(JSON.stringify(dataset))
     var series = dataset.map(function (d) {
         return d.name;
     })
@@ -307,9 +318,12 @@ function createBars(sumRep, sumDem){
         .append('g')
         .attr('class', 'bar')
         .style('fill', function (d, i) {
+          console.log(JSON.stringify(d))
         if(d[0].y=='Clinton'){
         return colors[4]
-        } else {
+        }else if(d[0].y=='Neutral'){
+          return colors[2]
+        } else if(d[0].y=='Trump'){
         return colors[0]
         }
 
@@ -434,19 +448,28 @@ function makeMap(stateNames, data, geodata){
                 else if(republicanWinFreq == 0 && democratsWinFreq == 0 && repVoteShare == 0 && demVoteShare == 0){
                   return colors[2]
                 }}}})
-    .on("mouseover",showTooltip)
+    .on("mouseover", showTooltip)
     .on("mousemove",moveTooltip)
     .on("mouseout",hideTooltip)
     .on("click",clicked);
 
     //Position of the tooltip relative to the cursor
-var tooltipOffset = {x: -3, y: -150};
+var tooltipOffset = {x: 3, y: -150};
 
 //Create a tooltip, hidden at the start
 
 
 function showTooltip(d) {
 
+function addStosingle(number){
+if(number==1){
+return number + ' ' + "predict's"
+} else if(number>1) {
+return number + ' '  + "predict"
+} else if(number==0){
+  return 'none' + ' '  + "predict"
+}
+}
 
 
 var tooltipsDisplay = mapTooltip.style("display","block");
@@ -465,7 +488,7 @@ if(className == 'simpleMap'){
                 return mapTooltip.html(
                   "<h3 class='headerMap'>"  + data[i].name + "</h3>"+
                   "<p class='elecVote'>"  + "Electoral votes: "+ "<span class='boldText'>" +data[i].electoral_vote+ "</span>" + "</p>"+
-                  "<p class='elecVote'>" + "Out of " + "<span class='boldText'>"+data[i].totalComponents+ "</span>" + " available component methods, "+ "<span class='boldText'>" + dataUs[i].Democrats_fre +"</span>" +" predict Clinton to win whereas "+ "<span class='boldText'>" + dataUs[i].Republican_fre +"</span>" +" predict Trump." +"</p>"+
+                  "<p class='elecVote'>" + "Out of " + "<span >"+ addStosingle(data[i].totalComponents)+ "</span>" + " available component methods, "+ "<span>" + addStosingle(dataUs[i].Democrats_fre) +"</span>" +" Clinton to win whereas "+ "<span>" + addStosingle(dataUs[i].Republican_fre) +"</span>" +" Trump." +"</p>"+
                   "<p class='elecVote boldText'>Popular vote forecast:</p>"+
                   "<p class='elecVote'>Clinton:" + " " + dem.toFixed(1) + "</p>"+
                   "<p class='elecVote'>Trump:" + " " + rep.toFixed(1) + "</p>"+
@@ -476,29 +499,29 @@ if(className == 'simpleMap'){
             return mapTooltip.html(
                "<h3 class='headerMap'>"  + data[i].name + "</h3>"+
                "<p class='elecVote'>"  + "Electoral votes: "+ "<span class='boldText'>" +data[i].electoral_vote+"</span>" + "</p>"+
-               "<p class='elecVote'>" + "Out of "+ "<span class='boldText'>" + data[i].totalComponents+"</span>" + " available component methods, "+ "<span class='boldText'>" + dataUs[i].Republican_fre+"</span>" + " predict Trump to win whereas "+ "<span class='boldText'>" + dataUs[i].Democrats_fre+"</span>" + " predict Clinton." + "</p>" +
+               "<p class='elecVote'>" + "Out of "+ "<span >" + addStosingle(data[i].totalComponents)+"</span>" + " available component methods, "+ "<span>" + addStosingle(dataUs[i].Republican_fre)+"</span>" + " Trump to win whereas "+ "<span>" + addStosingle(dataUs[i].Democrats_fre)+"</span>" + " Clinton." + "</p>" +
                "<p class='elecVote boldText'>Popular vote forecast:</p>"+
                "<p class='elecVote'>Clinton:" + " " + data[i].twoPartyDemo.toFixed(1) + "</p>"+
                "<p class='elecVote'>Trump:" + " " + data[i].twoPartyRep.toFixed(1) + "</p>"+
                "<p class='boldText pollyBot'>"+ "Click to learn more about the race in " + data[i].name + "." + "</p>"
               )
           }
-          else if(pathId == data[i].iso_2  && data[i].Democrats_fre == data[i].Republican_fre && repVoteShare>demVoteShare) {
+          else if(pathId == data[i].iso_2  && data[i].Democrats_fre == data[i].Republican_fre && data[i].twoPartyRep>data[i].twoPartyDemo) {
             return mapTooltip.html(
                "<h3 class='headerMap'>"  + data[i].name + "</h3>"+
                "<p class='elecVote'>"  + "Electoral votes: "+ "<span class='boldText'>" +data[i].electoral_vote+"</span>" + "</p>"+
-               "<p class='elecVote'>" + "Out of "+ "<span class='boldText'>" + data[i].totalComponents+"</span>" + " available component methods, "+ "<span class='boldText'>" + dataUs[i].Republican_fre+"</span>" + " predict Trump to win whereas "+ "<span class='boldText'>" + dataUs[i].Democrats_fre+"</span>" + " predict Clinton." + "</p>" +
+               "<p class='elecVote'>" + "Out of "+ "<span >" + addStosingle(data[i].totalComponents)+"</span>" + " available component methods, "+ "<span>" + addStosingle(dataUs[i].Republican_fre)+"</span>" + " Trump to win whereas "+ "<span>" + addStosingle(dataUs[i].Democrats_fre)+"</span>" + " Clinton." + "</p>" +
                "<p class='elecVote boldText'>Popular vote forecast:</p>"+
                "<p class='elecVote'>Clinton:" + " " + data[i].twoPartyDemo.toFixed(1) + "</p>"+
                "<p class='elecVote'>Trump:" + " " + data[i].twoPartyRep.toFixed(1) + "</p>"+
                "<p class='boldText pollyBot'>"+ "Click to learn more about the race in " + data[i].name + "." + "</p>"
               )
           }
-           else if(pathId == data[i].iso_2  && data[i].Democrats_fre == data[i].Republican_fre && repVoteShare<demVoteShare) {
+           else if(pathId == data[i].iso_2  && data[i].Democrats_fre == data[i].Republican_fre && data[i].twoPartyRep<data[i].twoPartyDemo) {
             return mapTooltip.html(
                "<h3 class='headerMap'>"  + data[i].name + "</h3>"+
                "<p class='elecVote'>"  + "Electoral votes: "+ "<span class='boldText'>" +data[i].electoral_vote+"</span>" + "</p>"+
-               "<p class='elecVote'>" + "Out of "+ "<span class='boldText'>" + data[i].totalComponents+"</span>" + " available component methods, "+ "<span class='boldText'>" + dataUs[i].Republican_fre+"</span>" + " predict Trump to win whereas "+ "<span class='boldText'>" + dataUs[i].Democrats_fre+"</span>" + " predict Clinton." + "</p>" +
+               "<p class='elecVote'>" + "Out of "+ "<span>" + addStosingle(data[i].totalComponents)+"</span>" + " available component methods, "+ "<span>" + addStosingle(dataUs[i].Republican_fre)+"</span>" + " Trump to win whereas "+ "<span>" + addStosingle(dataUs[i].Democrats_fre) +"</span>" + " Clinton." + "</p>" +
                "<p class='elecVote boldText'>Popular vote forecast:</p>"+
                "<p class='elecVote'>Clinton:" + " " + data[i].twoPartyDemo.toFixed(1) + "</p>"+
                "<p class='elecVote'>Trump:" + " " + data[i].twoPartyRep.toFixed(1) + "</p>"+
@@ -537,7 +560,7 @@ else if(className == 'mapmain'){
                 return mapTooltip.html(
                   "<h3 class='headerMap'>"  + data[i].name + "</h3>"+
                   "<p class='elecVote'>"  + "Electoral votes: "+ "<span class='boldText'>" +data[i].electoral_vote+ "</span>" + "</p>"+
-                  "<p class='elecVote'>" + "Out of " + "<span class='boldText'>"+data[i].totalComponents+ "</span>" + " available component methods, "+ "<span class='boldText'>" + dataUs[i].Democrats_fre +"</span>" +" predict Clinton to win whereas "+ "<span class='boldText'>" + dataUs[i].Republican_fre +"</span>" +" predict Trump." +"</p>"+
+                  "<p class='elecVote'>" + "Out of " + "<span >"+addStosingle(data[i].totalComponents)+ "</span>" + " available component methods, "+ "<span>" + addStosingle(dataUs[i].Democrats_fre) +"</span>" +" Clinton to win whereas "+ "<span>" + addStosingle(dataUs[i].Republican_fre) +"</span>" +" Trump." +"</p>"+
                   "<p class='boldText pollyBot'>"+ "Click to learn more about the race in " + data[i].name + "." + "</p>"
                   )
 
@@ -545,7 +568,7 @@ else if(className == 'mapmain'){
             return mapTooltip.html(
                "<h3 class='headerMap'>"  + data[i].name + "</h3>"+
                "<p class='elecVote'>"  + "Electoral votes: "+ "<span class='boldText'>" +data[i].electoral_vote+"</span>" + "</p>"+
-               "<p class='elecVote'>" + "Out of "+ "<span class='boldText'>" + data[i].totalComponents+"</span>" + " available component methods, "+ "<span class='boldText'>" + dataUs[i].Republican_fre+"</span>" + " predict Trump to win whereas "+ "<span class='boldText'>" + dataUs[i].Democrats_fre+"</span>" + " predict Clinton." + "</p>" +
+               "<p class='elecVote'>" + "Out of "+ "<span >" + addStosingle(data[i].totalComponents)+"</span>" + " available component methods, "+ "<span>" + addStosingle(dataUs[i].Republican_fre)+"</span>" + " Trump to win whereas "+ "<span>" + addStosingle(dataUs[i].Democrats_fre)+"</span>" + " Clinton." + "</p>" +
                "<p class='boldText pollyBot'>"+ "Click to learn more about the race in " + data[i].name + "." + "</p>"
               )
           }
@@ -553,7 +576,7 @@ else if(className == 'mapmain'){
             return mapTooltip.html(
                "<h3 class='headerMap'>"  + data[i].name + "</h3>"+
                "<p class='elecVote'>"  + "Electoral votes: "+ "<span class='boldText'>" +data[i].electoral_vote+"</span>" + "</p>"+
-               "<p class='elecVote'>" + "Out of "+ "<span class='boldText'>" + data[i].totalComponents+"</span>" + " available component methods, "+ "<span class='boldText'>" + dataUs[i].Republican_fre+"</span>" + " predict Trump to win whereas "+ "<span class='boldText'>" + dataUs[i].Democrats_fre+"</span>" + " predict Clinton." + "</p>" +
+               "<p class='elecVote'>" + "Out of "+ "<span>" + addStosingle(data[i].totalComponents)+"</span>" + " available component methods, "+ "<span>" + addStosingle(dataUs[i].Republican_fre)+"</span>" + " Trump to win whereas "+ "<span>" + addStosingle(dataUs[i].Democrats_fre)+"</span>" + " Clinton." + "</p>" +
                "<p class='boldText pollyBot'>"+ "Click to learn more about the race in " + data[i].name + "." + "</p>"
               )
           }
@@ -620,7 +643,6 @@ modelService.getData()
 
           // console.log(rawData)
           var lastDate = rawData.data[0].fcdate
-          console.log(lastDate )
           $scope.lastUpadate = moment(rawData.lastupdate, "X").fromNow();
            $scope.dateFormated = moment(lastDate, "DD.MM.YYYY").format('MMMM Do YYYY')
 
@@ -628,6 +650,7 @@ modelService.getData()
          .defer(d3.json, 'app/usa/us.json')
          .defer(d3.json, 'app/usa/stateNames.json')
          .await(makeMyMap);
+
 
 
 function makeMyMap(error, geodata, stateNames){
@@ -639,6 +662,8 @@ function makeMyMap(error, geodata, stateNames){
       function add(a, b) {
               return a + b;
       }
+
+      createBars($scope.sumOfRepublicanVote, $scope.sumOfDemocratsVote, $scope.sumofNeutralVotes)
 
 
         $scope.firstSentence = 'The party that wins most electoral votes, and not most popular votes, wins the presidential election. The econometric models foresee '
@@ -667,7 +692,7 @@ function makeMyMap(error, geodata, stateNames){
         }
         makeFeatures();
         makeMap(stateNames, dataUs, geodata);
-        createBars($scope.sumOfRepublicanVote, $scope.sumOfDemocratsVote)
+
 };
 
 })
@@ -677,6 +702,10 @@ function pollyvote_forecast(){
   d3.select("#features").remove();
   d3.selectAll("#points, .cli, .tru, .endLine").remove();
   d3.select('.maing').remove();
+  d3.select("#mapUSA")
+  .attr('class', 'withTooltips')
+
+
 mapService.getData()
          .success(function(data){
 
@@ -708,6 +737,7 @@ function makeMyMap(error, geodata, stateNames){
       function add(a, b) {
               return a + b;
       }
+       createBars($scope.sumOfRepublicanVote, $scope.sumOfDemocratsVote, $scope.sumofNeutralVotes);
 
         $scope.firstSentence = 'The party that wins most electoral votes, and not most popular votes, wins the presidential election. The latest prediction foresees '
         $scope.repubDiff = $scope.sumOfRepublicanVote - 270
@@ -737,7 +767,7 @@ function makeMyMap(error, geodata, stateNames){
         makeFeatures();
         makeMap(stateNames, dataUs, geodata);
         // console.log(dataUs)
-        createBars($scope.sumOfRepublicanVote, $scope.sumOfDemocratsVote);
+
 };
 
 })
@@ -817,7 +847,7 @@ function makeMyMap(error, geodata, stateNames){
 
         makeFeatures();
         makeMap(stateNames, dataUs, geodata);
-        createBars($scope.sumOfRepublicanVote, $scope.sumOfDemocratsVote)
+        createBars($scope.sumOfRepublicanVote, $scope.sumOfDemocratsVote, $scope.sumofNeutralVotes)
 };
 
 })
@@ -890,7 +920,7 @@ function makeMyMap(error, geodata, stateNames){
 
         makeFeatures();
         makeMap(stateNames, dataUs, geodata);
-        createBars($scope.sumOfRepublicanVote, $scope.sumOfDemocratsVote)
+        createBars($scope.sumOfRepublicanVote, $scope.sumOfDemocratsVote, $scope.sumofNeutralVotes)
 
 };
 
@@ -904,6 +934,7 @@ function markets(){
   d3.select('.maing').remove();
   predictionService.getData()
          .success(function(data){
+
 
           var rawData = data
           repElectoralVote = []
@@ -962,7 +993,7 @@ function makeMyMap(error, geodata, stateNames){
 
         makeFeatures();
         makeMap(stateNames, dataUs, geodata);
-        createBars($scope.sumOfRepublicanVote, $scope.sumOfDemocratsVote)
+        createBars($scope.sumOfRepublicanVote, $scope.sumOfDemocratsVote, $scope.sumofNeutralVotes)
 
 };
 
@@ -1034,7 +1065,7 @@ function makeMyMap(error, geodata, stateNames){
 
         makeFeatures();
         makeMap(stateNames, dataUs, geodata);
-        createBars($scope.sumOfRepublicanVote, $scope.sumOfDemocratsVote)
+        createBars($scope.sumOfRepublicanVote, $scope.sumOfDemocratsVote, $scope.sumofNeutralVotes)
 };
 
 })
