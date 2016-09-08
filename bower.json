@@ -12,7 +12,7 @@
     "angular-resource": "~1.4.2",
     "angular-ui-router": "~0.2.15",
     "bootstrap": "~3.3.5",
-    "angular-bootstrap": "~0.13.4",
+    "angular-bootstrap": "~0.14.2",
     "malarkey": "yuanqing/malarkey#~1.3.1",
     "angular-toastr": "~1.5.0",
     "moment": "^2.8.1",
@@ -22,14 +22,16 @@
     "c3": "~0.4.10",
     "underscore": "~1.8.3",
     "angular-socialshare": "angularjs-socialshare#~0.1.20",
-    "angular-ui-grid": "~3.1.1",
+    "angular-ui-grid": "^3.2.1",
     "font-awesome": "fontawesome#~4.5.0",
     "angular-translate": "^2.10.0",
     "angular-translate-storage-cookie": "^2.11.0",
     "angular-dynamic-locale": "^0.1.30",
     "d3-queue": "^2.0.3",
     "angular-spinner": "^0.8.1",
-    "angular-loading-bar": "^0.9.0"
+    "angular-loading-bar": "^0.9.0",
+    "highcharts": "^4.2.6",
+    "ng-highcharts": "*"
   },
   "devDependencies": {
     "angular-mocks": "~1.4.2"
@@ -49,6 +51,6 @@
   "resolutions": {
     "jquery": "~2.1.4",
     "angular": ">= 1.0.8",
-    "angular-socialshare": "~1.4.5"
+    "d3": "~3.5.0"
   }
 }

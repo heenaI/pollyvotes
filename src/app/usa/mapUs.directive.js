@@ -87,11 +87,19 @@ var toType = function(obj) {
   return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
 }
 
+Number.prototype.toFixedNumber = function(x, base){
+  var pow = Math.pow(base||10,x);
+  return +( Math.floor(this*pow) / pow );
+}
+
+
 function checkVariable(datavariable){
   if(toType(datavariable) == 'string'){
-    return parseInt(datavariable.replace(/[^0-9.]/g, ""))
+    var cleanedNumber = datavariable.replace(/[^0-9.]/g, "")
+    var stringCovertedtoNumber = parseFloat(cleanedNumber) 
+    return parseFloat(stringCovertedtoNumber.toFixed(1))
   } else {
-    return datavariable
+    return datavariable.toFixed(1)
   }
 }
 
@@ -490,8 +498,8 @@ if(className == 'simpleMap'){
                   "<p class='elecVote'>"  + "Electoral votes: "+ "<span class='boldText'>" +data[i].electoral_vote+ "</span>" + "</p>"+
                   "<p class='elecVote'>" + "Out of " + "<span >"+ addStosingle(data[i].totalComponents)+ "</span>" + " available component methods, "+ "<span>" + addStosingle(dataUs[i].Democrats_fre) +"</span>" +" Clinton to win whereas "+ "<span>" + addStosingle(dataUs[i].Republican_fre) +"</span>" +" Trump." +"</p>"+
                   "<p class='elecVote boldText'>Popular vote forecast:</p>"+
-                  "<p class='elecVote'>Clinton:" + " " + dem.toFixed(1) + "</p>"+
-                  "<p class='elecVote'>Trump:" + " " + rep.toFixed(1) + "</p>"+
+                  "<p class='elecVote'>Clinton:" + " " + dem + "</p>"+
+                  "<p class='elecVote'>Trump:" + " " + rep + "</p>"+
                   "<p class='boldText pollyBot'>"+ "Click to learn more about the race in " + data[i].name + "." + "</p>"
                   )
 
@@ -501,8 +509,8 @@ if(className == 'simpleMap'){
                "<p class='elecVote'>"  + "Electoral votes: "+ "<span class='boldText'>" +data[i].electoral_vote+"</span>" + "</p>"+
                "<p class='elecVote'>" + "Out of "+ "<span >" + addStosingle(data[i].totalComponents)+"</span>" + " available component methods, "+ "<span>" + addStosingle(dataUs[i].Republican_fre)+"</span>" + " Trump to win whereas "+ "<span>" + addStosingle(dataUs[i].Democrats_fre)+"</span>" + " Clinton." + "</p>" +
                "<p class='elecVote boldText'>Popular vote forecast:</p>"+
-               "<p class='elecVote'>Clinton:" + " " + data[i].twoPartyDemo.toFixed(1) + "</p>"+
-               "<p class='elecVote'>Trump:" + " " + data[i].twoPartyRep.toFixed(1) + "</p>"+
+               "<p class='elecVote'>Clinton:" + " " + dem + "</p>"+
+               "<p class='elecVote'>Trump:" + " " + rep + "</p>"+
                "<p class='boldText pollyBot'>"+ "Click to learn more about the race in " + data[i].name + "." + "</p>"
               )
           }
@@ -512,8 +520,8 @@ if(className == 'simpleMap'){
                "<p class='elecVote'>"  + "Electoral votes: "+ "<span class='boldText'>" +data[i].electoral_vote+"</span>" + "</p>"+
                "<p class='elecVote'>" + "Out of "+ "<span >" + addStosingle(data[i].totalComponents)+"</span>" + " available component methods, "+ "<span>" + addStosingle(dataUs[i].Republican_fre)+"</span>" + " Trump to win whereas "+ "<span>" + addStosingle(dataUs[i].Democrats_fre)+"</span>" + " Clinton." + "</p>" +
                "<p class='elecVote boldText'>Popular vote forecast:</p>"+
-               "<p class='elecVote'>Clinton:" + " " + data[i].twoPartyDemo.toFixed(1) + "</p>"+
-               "<p class='elecVote'>Trump:" + " " + data[i].twoPartyRep.toFixed(1) + "</p>"+
+               "<p class='elecVote'>Clinton:" + " " + dem + "</p>"+
+               "<p class='elecVote'>Trump:" + " " + rep + "</p>"+
                "<p class='boldText pollyBot'>"+ "Click to learn more about the race in " + data[i].name + "." + "</p>"
               )
           }
@@ -523,8 +531,8 @@ if(className == 'simpleMap'){
                "<p class='elecVote'>"  + "Electoral votes: "+ "<span class='boldText'>" +data[i].electoral_vote+"</span>" + "</p>"+
                "<p class='elecVote'>" + "Out of "+ "<span>" + addStosingle(data[i].totalComponents)+"</span>" + " available component methods, "+ "<span>" + addStosingle(dataUs[i].Republican_fre)+"</span>" + " Trump to win whereas "+ "<span>" + addStosingle(dataUs[i].Democrats_fre) +"</span>" + " Clinton." + "</p>" +
                "<p class='elecVote boldText'>Popular vote forecast:</p>"+
-               "<p class='elecVote'>Clinton:" + " " + data[i].twoPartyDemo.toFixed(1) + "</p>"+
-               "<p class='elecVote'>Trump:" + " " + data[i].twoPartyRep.toFixed(1) + "</p>"+
+               "<p class='elecVote'>Clinton:" + " " + dem + "</p>"+
+               "<p class='elecVote'>Trump:" + " " + rep + "</p>"+
                "<p class='boldText pollyBot'>"+ "Click to learn more about the race in " + data[i].name + "." + "</p>"
               )
           }

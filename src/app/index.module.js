@@ -3,20 +3,21 @@
 
   angular
     .module('pollyvotes', ['ngAnimate',
+      'ui.bootstrap',
       'ngCookies',
       'ngTouch',
       'ngSanitize',
       'ngMessages',
       'ngAria',
       'ngResource',
-      'ui.router',
-      'ui.bootstrap',
+      'ui.router', 
       'smoothScroll',
       'ngToast',
       'picardy.fontawesome',
       '720kb.socialshare',
       'pascalprecht.translate',
       'tmh.dynamicLocale',
-      'angular-loading-bar']);
+      'angular-loading-bar',
+      'highcharts-ng']);
 
 })();

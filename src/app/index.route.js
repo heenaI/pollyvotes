@@ -32,6 +32,11 @@
       .state('map', {
         url: '/usaMap',
         templateUrl: 'app/usa/simplemap.html'
+      })
+      .state('mainlinechrat', {
+        url: '/linechartwithalloptions',
+        templateUrl: 'app/lineChartAlloptions/lineChartalloptions.html',
+        controller: 'linechartalloptionsController'
       });
 
 $urlRouterProvider.otherwise('/');
