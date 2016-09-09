@@ -51,10 +51,8 @@
 	<tbody class='lineChartTableBody'>
 		<tr class='lineCharttableRow'  id="Row1" class="accordion-toggle" data-toggle="collapse" data-parent="#lineChartTable" data-target=".subheading1">
 			<td>
-			<!-- <button ng-click="expandedIndex = !expandedIndex" expand>
-            <span ng-bind="expandedIndex ? '-' : '+'"></span>
-                    </button> -->
-				<a href="">
+			<input type="checkbox" ng-model="indexModel" ng-change="indexOnclick()" class='checkbox'>
+				<a href="" ng-click="expandedIndex = !expandedIndex" expand>
 				Index Models</a>
 				</td>
 				<td class="linecharttablevalues">23 </td>
@@ -119,10 +117,8 @@
 
 		<tr  class='lineCharttableRow' close-others="oneAtATime">
 		<td>
-		<button ng-click="expandedExpert = !expandedExpert" expand>
-            <span ng-bind="expandedExpert ? '-' : '+'"></span>
-                    </button>
-		<a href="">Expert judgment</a>
+		<input type="checkbox" ng-model="expert" ng-change=" " class='checkbox'>
+		<a href="" ng-click="expandedExpert = !expandedExpert" expand>Expert judgment</a>
 		
 		</td>
 		<td class="linecharttablevalues">22 </td>
@@ -149,10 +145,8 @@
 
 		<tr  class='lineCharttableRow' close-others="oneAtATime">
 		<td>
-		<button ng-click="expandedCitizen = !expandedCitizen" expand>
-            <span ng-bind="expandedCitizen ? '-' : '+'"></span>
-                    </button>
-		<a href="">Citizen forecasts</a>
+		<input type="checkbox" ng-model="citizen" ng-change=" " class='checkbox'>
+		<a href="" ng-click="expandedCitizen = !expandedCitizen" expand>Citizen forecasts</a>
 		</td>
 		<td class="linecharttablevalues">22 </td>
 		<td class="linecharttablevalues">22 </td>
@@ -202,10 +196,8 @@
 
 			<tr  class='lineCharttableRow'>
 		<td>
-		<button ng-click="expandedmarkets = !expandedmarkets" expand>
-            <span ng-bind="expandedmarkets ? '-' : '+'"></span>
-                    </button>
-		<a href="">Prediction markets</a>
+		<input type="checkbox" ng-model="markets" ng-change=" " class='checkbox'>
+		<a href="" ng-click="expandedmarkets = !expandedmarkets" expand>Prediction markets</a>
 		</td>
 		<td class="linecharttablevalues">22 </td>
 		<td class="linecharttablevalues">22 </td>
@@ -231,10 +223,8 @@
 
 			<tr  class='lineCharttableRow'>
 		<td>
-		<button ng-click="expandedaggregators = !expandedaggregators" expand>
-            <span ng-bind="expandedaggregators ? '-' : '+'"></span>
-                    </button>
-		<a href="">Poll aggregators</a>
+		<input type="checkbox" ng-model="aggregators" ng-change=" " class='checkbox'>
+		<a href="" ng-click="expandedaggregators = !expandedaggregators" expand>Poll aggregators</a>
 		</td>
 		<td class="linecharttablevalues">22 </td>
 		<td class="linecharttablevalues">22 </td>
@@ -362,10 +352,8 @@
 
 			<tr  class='lineCharttableRow'>
 		<td>
-		<button ng-click="expandedmodels = !expandedmodels" expand>
-            <span ng-bind="expandedmodels ? '-' : '+'"></span>
-                    </button>
-		<a href="">Econometric models</a>
+		<input type="checkbox" ng-model="models" ng-change=" " class='checkbox'>
+		<a href="" ng-click="expandedmodels = !expandedmodels" expand>Econometric models</a>
 		</td>
 		<td class="linecharttablevalues">22 </td>
 		<td class="linecharttablevalues">22 </td>
