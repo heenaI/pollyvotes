@@ -117,7 +117,7 @@
 
 		<tr  class='lineCharttableRow' close-others="oneAtATime">
 		<td>
-		<input type="checkbox" ng-model="expert" ng-change=" " class='checkbox'>
+		<input type="checkbox" ng-model="expert" ng-change="expertOnclick()" class='checkbox'>
 		<a href="" ng-click="expandedExpert = !expandedExpert" expand>Expert judgment</a>
 		
 		</td>
@@ -352,7 +352,7 @@
 
 			<tr  class='lineCharttableRow'>
 		<td>
-		<input type="checkbox" ng-model="models" ng-change=" " class='checkbox'>
+		<input type="checkbox" ng-model="models" ng-change="econoOnclick()" class='checkbox'>
 		<a href="" ng-click="expandedmodels = !expandedmodels" expand>Econometric models</a>
 		</td>
 		<td class="linecharttablevalues">22 </td>

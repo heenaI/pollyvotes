@@ -3,11 +3,11 @@
 
   angular
       .module('pollyvotes')
-      .service('expert', expert);
+      .service('econometricModels', econometricModels);
 
   /** @ngInject */
-  function expert($http) {
-      var url = 'https://pollyvote.com/wp-content/plugins/pollyvote/data/index.php?time=current&type=experts_combined&displaydays=350&callback=JSON_CALLBACK';
+  function econometricModels($http) {
+      var url = 'https://pollyvote.com/wp-content/plugins/pollyvote/data/index.php?time=current&type=econ_models_combined&displaydays=350&callback=JSON_CALLBACK';
       var dataService = {};
       dataService.getData = function(){
         return $http.jsonp(url, { cache: true});
