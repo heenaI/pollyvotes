@@ -94,12 +94,13 @@ Number.prototype.toFixedNumber = function(x, base){
 
 
 function checkVariable(datavariable){
-  if(toType(datavariable) == 'string'){
+  if(toType(datavariable)!='number'){
     var cleanedNumber = datavariable.replace(/[^0-9.]/g, "")
     var stringCovertedtoNumber = parseFloat(cleanedNumber) 
     return parseFloat(stringCovertedtoNumber.toFixed(1))
   } else {
-    return datavariable.toFixed(1)
+
+    return parseFloat(datavariable.toFixed(1))
   }
 }
 
@@ -138,11 +139,11 @@ for(var i=0; i<data.data.length; i++){
     if(data.data[i].fcdate == date){
 
         var stateid = data.data[i].state
-        var republicanWinFreq = checkForNull(data.data[i].fcrepwinfreq)
-        var democratsWinFreq = checkForNull(data.data[i].fcdemwinfreq)
-        var winner = cleanStrings(data.data[i].fcwinner)
-        var twoPartyDemo = checkForNull(data.data[i].fcdemvs)
-        var twoPartyRep = checkForNull(data.data[i].fcrepvs)
+        var republicanWinFreq = data.data[i].fcrepwinfreq
+        var democratsWinFreq = data.data[i].fcdemwinfreq
+        var winner = data.data[i].fcwinner
+        var twoPartyDemo = data.data[i].fcdemvs
+        var twoPartyRep = data.data[i].fcrepvs
         var date = data.data[i].fcdate
         var lastupdate = data.data[i]._lastupdate
 
@@ -150,12 +151,12 @@ for(var i=0; i<data.data.length; i++){
         datacleaned.push(
         {
           'iso_2': stateid,
-          'Republican_fre': republicanWinFreq,
-          'Democrats_fre': democratsWinFreq,
-          'twoPartyDemo': twoPartyDemo,
-          'twoPartyRep': twoPartyRep,
-          'winner': winner,
-          'totalComponents': republicanWinFreq+democratsWinFreq,
+          'Republican_fre': checkForNull(republicanWinFreq),
+          'Democrats_fre': checkForNull(democratsWinFreq),
+          'twoPartyDemo': checkForNull(twoPartyDemo),
+          'twoPartyRep': checkForNull(twoPartyRep),
+          'winner': cleanStrings(winner),
+          'totalComponents': checkForNull(republicanWinFreq)+checkForNull(democratsWinFreq),
           'date': date,
           'lastupdate': lastupdate
 

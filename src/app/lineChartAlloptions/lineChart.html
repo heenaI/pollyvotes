@@ -15,18 +15,50 @@
 
 <!-- chart -->
 
-<div class='col-xs-12 chartHeader' >
-	<h1 class=''>PollyVote and its components</h1>
-	<p>Last Updated: </p>
+<div class='col-xs-12 chartbody' style='padding-left:2.5%; padding-bottom: 2%;'>
+	<h2 class='chartHeadline' style='font-weight: bold; text-transform: uppercase; font-family: Montserrat, sans-serif;font-size:16px;'>POLLYVOTE POPULAR VOTE FORECAST (TWO-PARTY)
+
+</h2>
+	<p>Last Updated: {{lastdate}} ({{lastupDated}})</p>
 </div>
 
 
 <!-- Chart -->
-<div class='col-xs-9' ng-if="chartConfig">
+<div class='col-xs-9'>
 	<!-- chart checkboxes -->
+	<div class='pull-left' id='linechartAlloptionsCheckbox1'>
+        <label class='label--checkbox ' id='checkbox1'>
+        <input type="checkbox" ng-model="timeline" ng-change="completeTimeLine('timeline')" class='checkbox'>
+        <span class='checkboxLabelText'>
+          Election timeline
+        </span>
+        </label>
+        <label class='label--checkbox' id='checkbox4'>
+        <input type="checkbox" ng-model="thirtyDay" ng-change="lastThiry('thirtyday')" class='checkbox'>
+        <span class='checkboxLabelText'>
+          Last 30 days
+        </span>
+        </label>
+     </div>
+     <div class='pull-right' id='linechartAlloptionsCheckbox2'>
+        <label class='label--checkbox' id='checkbox2'>
+        <input type="checkbox" ng-model="clintonValues" ng-change="addOnlyClinton('clintonValues')" class='checkbox'>
+        <span class='checkboxLabelText' style="color:#2980b9;">
+          Clinton: {{pollyvoteClintonForcast}}%
+        </span>
+        </label>
+        <label class='label--checkbox' id='checkbox3'>
+        <input type="checkbox" ng-model="trumpValues" ng-change="addOnlyTrump('trumpValues')" class='checkbox'>
+        <span class='checkboxLabelText' style="color:#e74c3c;">
+          Trump: {{pollyvoteTrumpForcast}}%
+        </span>
+        </label>
+      </div>
+
 
 	<!-- svg -->
 	 <highchart id="chart1" config="chartConfig"></highchart>
+
 
 
 </div>
@@ -35,10 +67,10 @@
 
 <!--  <div id="grid1" ui-grid="{ data: myData }" class="grid"></div> -->
 <table class='col-xs-3 linechartTable' id='lineChartTable' close-others="oneAtATime">
-	<thead>
+	<thead class='lineCharttableHeader'>
 		<tr class='lineCharttableRow'>
 			<td>
-				<a href="">Pollyvote</a> 
+				Method 
 			</td>
 			<td>
 				Clinton
@@ -49,14 +81,25 @@
 		</tr>
 	</thead>
 	<tbody class='lineChartTableBody'>
+	<tr class='lineCharttableRow'  id="Row1" class="accordion-toggle" data-toggle="collapse" data-parent="#lineChartTable" data-target=".subheading1">
+			<td>
+			<!-- <input type="checkbox" ng-model="pollyVote" ng-change="addpollyVote()" class='checkbox' ng-disabled='pollyVote'> -->
+				
+				PollyVote
+				</td>
+				<td class="linecharttablevalues">{{pollyvoteClintonForcast}}</td>
+				<td class="linecharttablevalues">{{pollyvoteTrumpForcast}}</td>
+				</tr>
+
+
 		<tr class='lineCharttableRow'  id="Row1" class="accordion-toggle" data-toggle="collapse" data-parent="#lineChartTable" data-target=".subheading1">
 			<td>
 			<input type="checkbox" ng-model="indexModel" ng-change="indexOnclick()" class='checkbox'>
 				<a href="" ng-click="expandedIndex = !expandedIndex" expand>
 				Index Models</a>
 				</td>
-				<td class="linecharttablevalues">23 </td>
-				<td class="linecharttablevalues">23 </td>
+				<td class="linecharttablevalues">{{indexClintonForcast}}</td>
+				<td class="linecharttablevalues">{{indexTrumpForcast}}</td>
 				</tr>
 				<tr class="linecharttablesubheading subheading1" ng-if="expandedIndex">
 					<td class="linechartcomponentHeading">
@@ -121,8 +164,8 @@
 		<a href="" ng-click="expandedExpert = !expandedExpert" expand>Expert judgment</a>
 		
 		</td>
-		<td class="linecharttablevalues">22 </td>
-		<td class="linecharttablevalues">22 </td>
+		<td class="linecharttablevalues">{{expertClintonForcast}}</td>
+		<td class="linecharttablevalues">{{expertTrumpForcast}}</td>
 		<tr  class="linecharttablesubheading" ng-if="expandedExpert">
 					<td class="linechartcomponentHeading">
 						PollyVote.com Expert Panel
@@ -145,11 +188,11 @@
 
 		<tr  class='lineCharttableRow' close-others="oneAtATime">
 		<td>
-		<input type="checkbox" ng-model="citizen" ng-change=" " class='checkbox'>
+		<input type="checkbox" ng-model="citizen" ng-change="citizenOnclick()" class='checkbox'>
 		<a href="" ng-click="expandedCitizen = !expandedCitizen" expand>Citizen forecasts</a>
 		</td>
-		<td class="linecharttablevalues">22 </td>
-		<td class="linecharttablevalues">22 </td>
+		<td class="linecharttablevalues">{{citizenClintonForcast}}</td>
+		<td class="linecharttablevalues">{{citizentrumpForcast}}</td>
 		<tr  class="linecharttablesubheading" ng-if="expandedCitizen">
 					<td class="linechartcomponentHeading">
 						Quinnipiac University
@@ -196,11 +239,11 @@
 
 			<tr  class='lineCharttableRow'>
 		<td>
-		<input type="checkbox" ng-model="markets" ng-change=" " class='checkbox'>
+		<input type="checkbox" ng-model="markets" ng-change="pmOnclick()" class='checkbox'>
 		<a href="" ng-click="expandedmarkets = !expandedmarkets" expand>Prediction markets</a>
 		</td>
-		<td class="linecharttablevalues">22 </td>
-		<td class="linecharttablevalues">22 </td>
+		<td class="linecharttablevalues">{{predictionMarketClintonForcast}}</td>
+		<td class="linecharttablevalues">{{predictionMarketTrumpForcast}}</td>
 		<tr  class="linecharttablesubheading" ng-if="expandedmarkets">
 					<td class="linechartcomponentHeading">
 						IEM (vote-share)
@@ -223,11 +266,11 @@
 
 			<tr  class='lineCharttableRow'>
 		<td>
-		<input type="checkbox" ng-model="aggregators" ng-change=" " class='checkbox'>
+		<input type="checkbox" ng-model="aggregators" ng-change="intenpollsOnclick()" class='checkbox'>
 		<a href="" ng-click="expandedaggregators = !expandedaggregators" expand>Poll aggregators</a>
 		</td>
-		<td class="linecharttablevalues">22 </td>
-		<td class="linecharttablevalues">22 </td>
+		<td class="linecharttablevalues">{{pollaggrClintonForcast}}</td>
+		<td class="linecharttablevalues">{{pollaggrTrumpForcast}}</td>
 		<tr  class="linecharttablesubheading" ng-if="expandedaggregators">
 					<td class="linechartcomponentHeading">
 						TPM Poll Tracker
@@ -355,8 +398,8 @@
 		<input type="checkbox" ng-model="models" ng-change="econoOnclick()" class='checkbox'>
 		<a href="" ng-click="expandedmodels = !expandedmodels" expand>Econometric models</a>
 		</td>
-		<td class="linecharttablevalues">22 </td>
-		<td class="linecharttablevalues">22 </td>
+		<td class="linecharttablevalues">{{econometricClintonForcast}}</td>
+		<td class="linecharttablevalues">{{econometricTrumpForcast}}</td>
 		<tr  class="linecharttablesubheading" ng-if="expandedmodels">
 					<td class="linechartcomponentHeading">
 						Vox.com

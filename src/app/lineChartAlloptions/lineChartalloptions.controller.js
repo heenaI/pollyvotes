@@ -7,13 +7,11 @@
 
 	/** @ngInject */
 	function linechartalloptionsController($scope, $timeout, lineChart, $translate, tmhDynamicLocale, $filter) {
+		$scope.init = function() {
+			
 
-		
-		$scope.firstDate = new Date('04.01.2016')
-
-
-
-  console.log($scope.clintonForcast)
+		}
+		$scope.init();
 
 
 

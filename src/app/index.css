@@ -36,6 +36,12 @@ padding: 0px;
   -webkit-transition-duration: 0.4s; /* Safari */
   transition-duration: 0.4s;
 }
+#highcharts-2 > div > span > h5 > #clinton{
+  color: #2980b9;
+}
+#trump{
+  color: #e74c3c;
+}
 #deButton:active, #enButton:active{
   background: #2c3e50;
   color: #fff;
@@ -254,6 +260,20 @@ font-size: 1em;
    font-size: 0.8em;
    font-family: roboto;
 }
+#linechartAlloptionsCheckbox2{
+  padding-right: 7%;
+}
+#linechartAlloptionsCheckbox1{
+  padding-left: 5%;
+}
+.lineCharttableHeader{
+  font-weight: bold;
+
+}
+#highcharts-2 > svg > path:nth-child(4){
+  z-index: 1000;
+}
+
 
 .c3 svg{
   width: 100%;
