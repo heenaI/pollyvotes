@@ -415,46 +415,49 @@ function makeMap(stateNames, data, geodata){
                 var repVoteShare = data[i].twoPartyRep
                 var demVoteShare = data[i].twoPartyDemo
 
-                if(republicanWinShare>democratsWinShare && republicanWinShare<=100 && republicanWinShare>75){
+                if(republicanWinShare>democratsWinShare && republicanWinShare>80){
                   return colors[0]
                 }
-                else if (republicanWinShare>democratsWinShare &&  republicanWinShare<=75 && republicanWinShare>=50){
+                else if (republicanWinShare>democratsWinShare &&  republicanWinShare<=80 && republicanWinShare>=50){
                   return colors[1]
                 }
-                else if (republicanWinShare == democratsWinShare  && repVoteShare>demVoteShare && repVoteShare<=100 && repVoteShare>75){
+                else if (republicanWinShare == democratsWinShare  && repVoteShare>demVoteShare && republicanWinShare>80){
                  return colors[0]
                 }
-                else if (republicanWinShare == democratsWinShare  && repVoteShare>demVoteShare && repVoteShare<=75 && repVoteShare>=50){
+                else if (republicanWinShare == democratsWinShare  && repVoteShare>demVoteShare && repVoteShare<=80 && repVoteShare>=50){
                  return colors[1]
                 }
-                else if (republicanWinShare == 0 && democratsWinShare == 0  && repVoteShare>demVoteShare && repVoteShare<=100 && repVoteShare>75){
+                else if (republicanWinShare == 0 && democratsWinShare == 0  && repVoteShare>demVoteShare && republicanWinShare>80){
                  return colors[0]
                 }
-                else if (republicanWinShare == 0 && democratsWinShare == 0  && repVoteShare>demVoteShare && repVoteShare<=75 && repVoteShare>=50){
+                else if (republicanWinShare == 0 && democratsWinShare == 0  && repVoteShare>demVoteShare && repVoteShare<=80 && repVoteShare>=50){
                  return colors[1]
                 }
 
-                else if (republicanWinShare == democratsWinShare  && demVoteShare>repVoteShare && demVoteShare<=100 && demVoteShare>75){
+                else if (republicanWinShare == democratsWinShare  && demVoteShare>repVoteShare && demVoteShare>80){
                  return colors[4]
                 }
-                else if (republicanWinShare == democratsWinShare  && demVoteShare>repVoteShare && demVoteShare<=75 && demVoteShare>=50){
+                else if (republicanWinShare == democratsWinShare  && demVoteShare>repVoteShare && demVoteShare<=80 && demVoteShare>=50){
                  return colors[3]
                 }
-                else if(republicanWinFreq == 0 && democratsWinFreq == 0 && demVoteShare>repVoteShare && demVoteShare<=100 && demVoteShare>75){
+                else if(republicanWinFreq == 0 && democratsWinFreq == 0 && demVoteShare>repVoteShare && demVoteShare>80){
                   return colors[3]
                 }
 
-                else if(republicanWinFreq == 0 && democratsWinFreq == 0 && demVoteShare>repVoteShare && demVoteShare<=75 && demVoteShare>=50){
+                else if(republicanWinFreq == 0 && democratsWinFreq == 0 && demVoteShare>repVoteShare && demVoteShare<=80 && demVoteShare>=50){
                   return colors[3]
                 }
 
-                else if (democratsWinShare>republicanWinShare &&  democratsWinShare<=100 && democratsWinShare>75) {
+                else if (democratsWinShare>republicanWinShare &&  democratsWinShare>80) {
                   return colors[4]
                 }
-                else if (democratsWinShare>republicanWinShare && democratsWinShare<=75 && democratsWinShare>=50) {
+                else if (democratsWinShare>republicanWinShare && democratsWinShare<=80 && democratsWinShare>=50) {
                   return colors[3]
                 }
                 else if(republicanWinFreq == 0 && democratsWinFreq == 0 && repVoteShare == 0 && demVoteShare == 0){
+                  return colors[2]
+                }
+                else if(republicanWinFreq === democratsWinFreq){
                   return colors[2]
                 }}}})
     .on("mouseover", showTooltip)
