@@ -7,7 +7,7 @@
                 <h2 class='embedHeading'>EMBED</h2>
                 <p>Embed the following link to show chart in your webpage. Embedding and sharing is free for everyone. The content is dynamic, i.e. numbers and text change in accordance with the data.</p>
                 <textarea class="embed-code">
-<iframe width="100 " height="450px" src="//charts.pollyvote.com/lineChart" frameborder="0" allowfullscreen></iframe>
+<iframe width="100 " height="450px" src="//charts.pollyvote.com/linechartwithalloptions" frameborder="0" allowfullscreen></iframe>
                 </textarea>
                 </a>
             </div>
@@ -94,7 +94,7 @@
 
 		<tr class='lineCharttableRow'  id="Row1" class="accordion-toggle" data-toggle="collapse" data-parent="#lineChartTable" data-target=".subheading1">
 			<td>
-			<span ng-click="expandedIndex = !expandedIndex" expand>+</span>
+<!-- 			<span ng-click="expandedIndex = !expandedIndex" expand>+</span> -->
 			<input type="checkbox" ng-model="indexModel" ng-change="indexOnclick()" class='checkbox'>
 				<a rel="noopener" target="_blank" href="//pollyvote.com/en/components/index-models/" >
 				Index Models</a>
@@ -165,10 +165,126 @@
 					</td>
 				</tr>
 		</tr>
+		
+
+				<tr  class='lineCharttableRow'>
+		<td>
+	<!-- 	<span ng-click="expandedaggregators = !expandedaggregators" expand>+</span> -->
+		<input type="checkbox" ng-model="aggregators" ng-change="intenpollsOnclick()" class='checkbox'>
+		<a rel= "noopner" target="_blank" href="//pollyvote.com/en/components/polls/" >Poll aggregators</a>
+		</td>
+		<td class="linecharttablevalues">{{pollaggrClintonForcast}}</td>
+		<td class="linecharttablevalues">{{pollaggrTrumpForcast}}</td>
+		<tr  class="linecharttablesubheading" ng-show="expandedaggregators">
+					<td class="linechartcomponentHeading">
+					<input type="checkbox" ng-model="tpmPolls" ng-change="tpmOnclick()" class='checkbox'>
+						<a rel= "noopner" target="_blank" href="//pollyvote.com/en/components/polls/tpm/" >TPM Poll Tracker</a>
+					</td>
+					<td class="linecharttablevalues">
+					{{clintonTPMForcast}} 
+					</td>
+					<td class="linecharttablevalues">
+					{{TrumpTPMForcast}}
+					</td>
+				</tr>
+				</tr>
+
+				<tr  class="linecharttablesubheading" ng-show="expandedaggregators">
+					<td class="linechartcomponentHeading">
+					<input type="checkbox" ng-model="huffingstonPolls" ng-change="huffingstonPollsOnclick()" class='checkbox'>
+						<a rel= "noopner" target="_blank" href="//pollyvote.com/en/components/polls/huffpost-pollster/" >HuffPost Pollster</a>
+					</td>
+					<td class="linecharttablevalues">
+					{{clintonhuffingstonForcast}} 
+					</td>
+					<td class="linecharttablevalues">
+					{{TrumphussingstonForcast}}
+					</td>
+				</tr>
+				</tr>
+
+				<tr  class="linecharttablesubheading" ng-show="expandedaggregators">
+					<td class="linechartcomponentHeading">
+					<input type="checkbox" ng-model="electionProjection" ng-change="electionProjectionOnclick()" class='checkbox'>
+						<a rel= "noopner" target="_blank" href="//pollyvote.com/en/components/polls/election-projection/" >
+						Election Projection
+						</a>
+					</td>
+					<td class="linecharttablevalues">
+					{{clintonelectionProjectionForecast}} 
+					</td>
+					<td class="linecharttablevalues">
+					{{trumpelectionProjectionForecast}}
+					</td>
+				</tr>
+				
+				<td>
+					
+				</td>
+				</tr>
+
+				<tr  class="linecharttablesubheading" ng-show="expandedaggregators">
+					<td class="linechartcomponentHeading">
+					<input type="checkbox" ng-model="pluspolls" ng-change="pluspollsOnclick()" class='checkbox'>
+						<a rel= "noopner" target="_blank" href="//pollyvote.com/en/components/polls/538-polls-plus/" >
+						538 (polls-only)
+						</a>
+					</td>
+					<td class="linecharttablevalues">
+					{{clinton538Forcast}} 
+					</td>
+					<td class="linecharttablevalues">
+					{{Trump538Forcast}} 
+					</td>
+				</tr>
+
+				<tr  class="linecharttablesubheading" ng-show="expandedaggregators">
+					<td class="linechartcomponentHeading">
+					<input type="checkbox" ng-model="twoSeventytoWin" ng-change="twoSeventytoWinOnclick()" class='checkbox'>
+						<a rel= "noopner" target="_blank" href="//pollyvote.com/en/components/polls/270-to-win/" >
+						270 to win
+					</td>
+					<td class="linecharttablevalues">
+					{{clintonTwoSeventyForcast}} 
+					</td>
+					<td class="linecharttablevalues">
+					{{trumpTwoSeventyForcast}} 
+					</td>
+				</tr>
+
+				<tr  class="linecharttablesubheading" ng-show="expandedaggregators">
+					<td class="linechartcomponentHeading">
+					<input type="checkbox" ng-model="Real" ng-change="RealOnclick()" class='checkbox'>
+						<a rel= "noopner" target="_blank" href="//pollyvote.com/en/components/polls/RealClearPolitics/" >
+						RealClearPolitics
+						</a>
+					</td>
+					<td class="linecharttablevalues">
+					{{clintonRealClearPoliticsForcast}} 
+					</td>
+					<td class="linecharttablevalues">
+					{{TrumpRealClearPoliticsForcast}} 
+					</td>
+				</tr>
+
+				<tr  class="linecharttablesubheading" ng-show="expandedaggregators">
+					<td class="linechartcomponentHeading">
+					<input type="checkbox" ng-model="pec" ng-change="pecOnclick()" class='checkbox'>
+						<a rel= "noopner" target="_blank" href="//pollyvote.com/en/components/polls/pec/" >
+						PEC
+						</a>
+					</td>
+					<td class="linecharttablevalues">
+					{{pecclintonForecast}} 
+					</td>
+					<td class="linecharttablevalues">
+					{{pecTrumpForecast}} 
+					</td>
+				</tr>
 
 		<tr  class='lineCharttableRow' close-others="oneAtATime">
 		<td>
-		<span ng-click="expandedExpert = !expandedExpert" expand>+</span>
+		<!-- <span ng-click="expandedExpert = !expandedExpert" expand>+</span> -->
 		<input type="checkbox" ng-model="expert" ng-change="expertOnclick()" class='checkbox'>
 		<a  rel="noopener" target="_blank" href="//pollyvote.com/en/components/expert-judgment/">
 		Expert judgment</a>
@@ -198,7 +314,7 @@
 
 		<tr  class='lineCharttableRow' close-others="oneAtATime">
 		<td>
-		<span ng-click="expandedCitizen = !expandedCitizen" expand>+</span>
+	<!-- 	<span ng-click="expandedCitizen = !expandedCitizen" expand>+</span> -->
 		<input type="checkbox" ng-model="citizen" ng-change="citizenOnclick()" class='checkbox'>
 		<a rel="noopener" target="_blank" href="//pollyvote.com/en/components/citizen-forecasts/" >Citizen forecasts</a>
 		</td>
@@ -250,7 +366,7 @@
 
 			<tr  class='lineCharttableRow'>
 		<td>
-		<span ng-click="expandedmarkets = !expandedmarkets" expand>+</span>
+	<!-- 	<span ng-click="expandedmarkets = !expandedmarkets" expand>+</span> -->
 		<input type="checkbox" ng-model="markets" ng-change="pmOnclick()" class='checkbox'>
 		<a rel="noopner" target="_blank" href="//pollyvote.com/en/components/prediction-markets/">Prediction markets</a>
 		</td>
@@ -276,139 +392,13 @@
 		</tr>
 
 
-			<tr  class='lineCharttableRow'>
-		<td>
-		<span ng-click="expandedaggregators = !expandedaggregators" expand>+</span>
-		<input type="checkbox" ng-model="aggregators" ng-change="intenpollsOnclick()" class='checkbox'>
-		<a rel= "noopner" target="_blank" href="//pollyvote.com/en/components/polls/" >Poll aggregators</a>
-		</td>
-		<td class="linecharttablevalues">{{pollaggrClintonForcast}}</td>
-		<td class="linecharttablevalues">{{pollaggrTrumpForcast}}</td>
-		<tr  class="linecharttablesubheading" ng-if="expandedaggregators">
-					<td class="linechartcomponentHeading">
-						TPM Poll Tracker
-					</td>
-					<td class="linecharttablevalues">
-					56 
-					</td>
-					<td class="linecharttablevalues">
-					68 
-					</td>
-				</tr>
-				
-				<td>
-					
-				</td>
-				</tr>
-
-				<tr  class="linecharttablesubheading" ng-if="expandedaggregators">
-					<td class="linechartcomponentHeading">
-						NYT
-					</td>
-					<td class="linecharttablevalues">
-					56 
-					</td>
-					<td class="linecharttablevalues">
-					68 
-					</td>
-				</tr>
-				
-				<td>
-					
-				</td>
-				</tr>
-
-				<tr  class="linecharttablesubheading" ng-if="expandedaggregators">
-					<td class="linechartcomponentHeading">
-						HuffPost Pollster
-					</td>
-					<td class="linecharttablevalues">
-					56 
-					</td>
-					<td class="linecharttablevalues">
-					68 
-					</td>
-				</tr>
-				
-				<td>
-					
-				</td>
-				</tr>
-
-				<tr  class="linecharttablesubheading" ng-if="expandedaggregators">
-					<td class="linechartcomponentHeading">
-						Election Projection
-					</td>
-					<td class="linecharttablevalues">
-					56 
-					</td>
-					<td class="linecharttablevalues">
-					68 
-					</td>
-				</tr>
-				
-				<td>
-					
-				</td>
-				</tr>
-
-				<tr  class="linecharttablesubheading" ng-if="expandedaggregators">
-					<td class="linechartcomponentHeading">
-						538 (polls-only)
-					</td>
-					<td class="linecharttablevalues">
-					56 
-					</td>
-					<td class="linecharttablevalues">
-					68 
-					</td>
-				</tr>
-
-				<tr  class="linecharttablesubheading" ng-if="expandedaggregators">
-					<td class="linechartcomponentHeading">
-						270 to win
-					</td>
-					<td class="linecharttablevalues">
-					56 
-					</td>
-					<td class="linecharttablevalues">
-					68 
-					</td>
-				</tr>
-
-				<tr  class="linecharttablesubheading" ng-if="expandedaggregators">
-					<td class="linechartcomponentHeading">
-						RealClearPolitics
-					</td>
-					<td class="linecharttablevalues">
-					56 
-					</td>
-					<td class="linecharttablevalues">
-					68 
-					</td>
-				</tr>
-
-				<tr  class="linecharttablesubheading" ng-if="expandedaggregators">
-					<td class="linechartcomponentHeading">
-						PEC
-					</td>
-					<td class="linecharttablevalues">
-					56 
-					</td>
-					<td class="linecharttablevalues">
-					68 
-					</td>
-				</tr>
-				</tr>
-			
-			
-		</tr>
+	
 
 
 
 			<tr  class='lineCharttableRow'>
 		<td>
-		<span ng-click="expandedmodels = !expandedmodels" expand>+</span>
+		<!-- <span ng-click="expandedmodels = !expandedmodels" expand>+</span> -->
 		<input type="checkbox" ng-model="models" ng-change="econoOnclick()" class='checkbox'>
 		<a rel='noopner' target="_blank" href="//pollyvote.com/en/components/econometric-models/">Econometric models</a>
 		</td>
@@ -615,11 +605,9 @@
 id='twitter'
 socialshare
 socialshare-provider="twitter"
-socialshare-text="@PollyVote forecast of the #2016election:
-Democrats:   {{democrates}} 
-Republicans: {{repulicans}} "
-socialshare-hashtags=" "
-socialshare-url="http://charts.pollyvote.com/lineChart">
+socialshare-text="Do you want to be a prediction data detective? Take a look at @PollyVote and its components. #ddj #2016election https://goo.gl/VTz1N0"
+socialshare-hashtags="#ddj #2016election"
+socialshare-url="//charts.pollyvote.com/linechartwithalloptions">
 <img class='shareButtonImage' src="assets/images/twitterLogo.png">
 </a>
 
@@ -632,7 +620,7 @@ socialshare-media="http://gfx.pollyvote.com/assets/images/facebookShareImage.png
 socialshare-text="PollyVote Prediction Chart"
 socialshare-description="As of {{dateWithyear}}, @PollyVote predicts the Democrats to garner {{democrates}}  of the two-party popular vote and and Republicans to garner {{repulicans}}  of the two-party popular vote."
 socialshare-hashtags="PollyVote, US-Elections"
-socialshare-url="http://charts.pollyvote.com/lineChart"
+socialshare-url="//charts.pollyvote.com/linechartwithalloptions"
 socialshare-caption="Updated daily">
 <img class='shareButtonImage' src="assets/images/facebookLogo.png">
 </a>
