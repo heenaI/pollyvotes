@@ -475,7 +475,7 @@ function showTooltip(d) {
 
 function addStosingle(number){
 if(number==1){
-return number + ' ' + "predict's"
+return number + ' ' + "predicts"
 } else if(number>1) {
 return number + ' '  + "predict"
 } else if(number==0){
@@ -500,7 +500,7 @@ if(className == 'simpleMap'){
                 return mapTooltip.html(
                   "<h3 class='headerMap'>"  + data[i].name + "</h3>"+
                   "<p class='elecVote'>"  + "Electoral votes: "+ "<span class='boldText'>" +data[i].electoral_vote+ "</span>" + "</p>"+
-                  "<p class='elecVote'>" + "Out of " + "<span >"+ addStosingle(data[i].totalComponents)+ "</span>" + " available component methods, "+ "<span>" + addStosingle(dataUs[i].Democrats_fre) +"</span>" +" Clinton to win whereas "+ "<span>" + addStosingle(dataUs[i].Republican_fre) +"</span>" +" Trump." +"</p>"+
+                  "<p class='elecVote'>" + "Out of " + "<span >"+ data[i].totalComponents + "</span>" + " available component methods, "+ "<span>" + addStosingle(dataUs[i].Democrats_fre) +"</span>" +" Clinton to win whereas "+ "<span>" + addStosingle(dataUs[i].Republican_fre) +"</span>" +" Trump." +"</p>"+
                   "<p class='elecVote boldText'>Popular vote forecast:</p>"+
                   "<p class='elecVote'>Clinton:" + " " + dem + "</p>"+
                   "<p class='elecVote'>Trump:" + " " + rep + "</p>"+
@@ -511,7 +511,7 @@ if(className == 'simpleMap'){
             return mapTooltip.html(
                "<h3 class='headerMap'>"  + data[i].name + "</h3>"+
                "<p class='elecVote'>"  + "Electoral votes: "+ "<span class='boldText'>" +data[i].electoral_vote+"</span>" + "</p>"+
-               "<p class='elecVote'>" + "Out of "+ "<span >" + addStosingle(data[i].totalComponents)+"</span>" + " available component methods, "+ "<span>" + addStosingle(dataUs[i].Republican_fre)+"</span>" + " Trump to win whereas "+ "<span>" + addStosingle(dataUs[i].Democrats_fre)+"</span>" + " Clinton." + "</p>" +
+               "<p class='elecVote'>" + "Out of "+ "<span >" + data[i].totalComponents+"</span>" + " available component methods, "+ "<span>" + addStosingle(dataUs[i].Republican_fre)+"</span>" + " Trump to win whereas "+ "<span>" + addStosingle(dataUs[i].Democrats_fre)+"</span>" + " Clinton." + "</p>" +
                "<p class='elecVote boldText'>Popular vote forecast:</p>"+
                "<p class='elecVote'>Clinton:" + " " + dem + "</p>"+
                "<p class='elecVote'>Trump:" + " " + rep + "</p>"+
@@ -522,7 +522,7 @@ if(className == 'simpleMap'){
             return mapTooltip.html(
                "<h3 class='headerMap'>"  + data[i].name + "</h3>"+
                "<p class='elecVote'>"  + "Electoral votes: "+ "<span class='boldText'>" +data[i].electoral_vote+"</span>" + "</p>"+
-               "<p class='elecVote'>" + "Out of "+ "<span >" + addStosingle(data[i].totalComponents)+"</span>" + " available component methods, "+ "<span>" + addStosingle(dataUs[i].Republican_fre)+"</span>" + " Trump to win whereas "+ "<span>" + addStosingle(dataUs[i].Democrats_fre)+"</span>" + " Clinton." + "</p>" +
+               "<p class='elecVote'>" + "Out of "+ "<span >" + data[i].totalComponents+"</span>" + " available component methods, "+ "<span>" + addStosingle(dataUs[i].Republican_fre)+"</span>" + " Trump to win whereas "+ "<span>" + addStosingle(dataUs[i].Democrats_fre)+"</span>" + " Clinton." + "</p>" +
                "<p class='elecVote boldText'>Popular vote forecast:</p>"+
                "<p class='elecVote'>Clinton:" + " " + dem + "</p>"+
                "<p class='elecVote'>Trump:" + " " + rep + "</p>"+
@@ -533,7 +533,7 @@ if(className == 'simpleMap'){
             return mapTooltip.html(
                "<h3 class='headerMap'>"  + data[i].name + "</h3>"+
                "<p class='elecVote'>"  + "Electoral votes: "+ "<span class='boldText'>" +data[i].electoral_vote+"</span>" + "</p>"+
-               "<p class='elecVote'>" + "Out of "+ "<span>" + addStosingle(data[i].totalComponents)+"</span>" + " available component methods, "+ "<span>" + addStosingle(dataUs[i].Republican_fre)+"</span>" + " Trump to win whereas "+ "<span>" + addStosingle(dataUs[i].Democrats_fre) +"</span>" + " Clinton." + "</p>" +
+               "<p class='elecVote'>" + "Out of "+ "<span>" + data[i].totalComponents+"</span>" + " available component methods, "+ "<span>" + addStosingle(dataUs[i].Republican_fre)+"</span>" + " Trump to win whereas "+ "<span>" + addStosingle(dataUs[i].Democrats_fre) +"</span>" + " Clinton." + "</p>" +
                "<p class='elecVote boldText'>Popular vote forecast:</p>"+
                "<p class='elecVote'>Clinton:" + " " + dem + "</p>"+
                "<p class='elecVote'>Trump:" + " " + rep + "</p>"+
@@ -572,7 +572,7 @@ else if(className == 'mapmain'){
                 return mapTooltip.html(
                   "<h3 class='headerMap'>"  + data[i].name + "</h3>"+
                   "<p class='elecVote'>"  + "Electoral votes: "+ "<span class='boldText'>" +data[i].electoral_vote+ "</span>" + "</p>"+
-                  "<p class='elecVote'>" + "Out of " + "<span >"+addStosingle(data[i].totalComponents)+ "</span>" + " available component methods, "+ "<span>" + addStosingle(dataUs[i].Democrats_fre) +"</span>" +" Clinton to win whereas "+ "<span>" + addStosingle(dataUs[i].Republican_fre) +"</span>" +" Trump." +"</p>"+
+                  "<p class='elecVote'>" + "Out of " + "<span >"+data[i].totalComponents+ "</span>" + " available component methods, "+ "<span>" + addStosingle(dataUs[i].Democrats_fre) +"</span>" +" Clinton to win whereas "+ "<span>" + addStosingle(dataUs[i].Republican_fre) +"</span>" +" Trump." +"</p>"+
                   "<p class='boldText pollyBot'>"+ "Click to learn more about the race in " + data[i].name + "." + "</p>"
                   )
 
@@ -580,7 +580,7 @@ else if(className == 'mapmain'){
             return mapTooltip.html(
                "<h3 class='headerMap'>"  + data[i].name + "</h3>"+
                "<p class='elecVote'>"  + "Electoral votes: "+ "<span class='boldText'>" +data[i].electoral_vote+"</span>" + "</p>"+
-               "<p class='elecVote'>" + "Out of "+ "<span >" + addStosingle(data[i].totalComponents)+"</span>" + " available component methods, "+ "<span>" + addStosingle(dataUs[i].Republican_fre)+"</span>" + " Trump to win whereas "+ "<span>" + addStosingle(dataUs[i].Democrats_fre)+"</span>" + " Clinton." + "</p>" +
+               "<p class='elecVote'>" + "Out of "+ "<span >" + data[i].totalComponents+"</span>" + " available component methods, "+ "<span>" + addStosingle(dataUs[i].Republican_fre)+"</span>" + " Trump to win whereas "+ "<span>" + addStosingle(dataUs[i].Democrats_fre)+"</span>" + " Clinton." + "</p>" +
                "<p class='boldText pollyBot'>"+ "Click to learn more about the race in " + data[i].name + "." + "</p>"
               )
           }
@@ -588,7 +588,7 @@ else if(className == 'mapmain'){
             return mapTooltip.html(
                "<h3 class='headerMap'>"  + data[i].name + "</h3>"+
                "<p class='elecVote'>"  + "Electoral votes: "+ "<span class='boldText'>" +data[i].electoral_vote+"</span>" + "</p>"+
-               "<p class='elecVote'>" + "Out of "+ "<span>" + addStosingle(data[i].totalComponents)+"</span>" + " available component methods, "+ "<span>" + addStosingle(dataUs[i].Republican_fre)+"</span>" + " Trump to win whereas "+ "<span>" + addStosingle(dataUs[i].Democrats_fre)+"</span>" + " Clinton." + "</p>" +
+               "<p class='elecVote'>" + "Out of "+ "<span>" + data[i].totalComponents+"</span>" + " available component methods, "+ "<span>" + addStosingle(dataUs[i].Republican_fre)+"</span>" + " Trump to win whereas "+ "<span>" + addStosingle(dataUs[i].Democrats_fre)+"</span>" + " Clinton." + "</p>" +
                "<p class='boldText pollyBot'>"+ "Click to learn more about the race in " + data[i].name + "." + "</p>"
               )
           }

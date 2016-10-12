@@ -201,9 +201,9 @@ function generateChartOne(){
   },
   regions: [
 
-        {axis: 'x', start: "2016-02-01", end: "2016-06-14", class: 'regionX', label: 'Primaries', horizotal: true},
-        {axis: 'x', start: "2016-07-18", end: "2016-07-28", class: 'regionX', label: 'Conventions', horizotal: true},
-        {axis: 'x', start: "2016-09-26", end: "2016-10-19", class: 'regionX', label: 'Debates', horizotal: true}
+        {axis: 'x', start: "2016-02-01", end: "2016-06-14", class: 'regionX', label: 'Primaries', horizotal: true, 'padding': 30},
+        {axis: 'x', start: "2016-07-18", end: "2016-07-28", class: 'regionX', label: 'Conventions', horizotal: true, 'padding': 30},
+        {axis: 'x', start: "2016-09-26", end: "2016-10-19", class: 'regionX', label: 'Debates', horizotal: true, 'padding': 30}
 
     ],
     point: {

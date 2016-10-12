@@ -6,10 +6,19 @@
     .directive('line', line);
 
   /** @ngInject */
-  function line(lineChart, lineChartIndexModel, econometricModels, expert, citizen, prediction, pollagg, indexModelsubcategory, pollssubcomponent) {
+  function line(lineChart, lineChartIndexModel, econometricModels, expert, citizen, prediction, pollagg, indexModelsubcategory, pollssubcomponent, expertsubcategory) {
     return {
       restrict: 'E',
-      templateUrl: "app/lineChartAlloptions/lineChart.html",
+      templateUrl: function(tElement, tAttrs) {
+        if (tAttrs) {
+          if (tAttrs.type === 'mainchart') {
+            return 'app/lineChartAlloptions/lineChart.html';
+          }
+          if (tAttrs.type === 'testingChart') {
+            return 'app/lineChartAlloptions/testing.html';
+          }
+        }
+      },
       link: link
     };
 
@@ -96,170 +105,8 @@
 
       };
 
-      var removeByAttr = function(arr, attr, value) {
-        var i = arr.length;
-        while (i--) {
-          if (arr[i] && arr[i].hasOwnProperty(attr) && (arguments.length > 2 && arr[i][attr] === value)) {
-
-            arr.splice(i, 1);
-
-          }
-        }
-        return arr;
-      };
-
-      //highcharts charts
-
-      function createChart() {
 
 
-      };
-
-      function showOnlyClintonValues() {
-        $scope.trumpValues = false
-          for (var i = 0; i < $scope.chartConfig.series.length; i++) {
-
-            if ($scope.chartConfig.series[i].identifier == 'tt' && $scope.chartConfig.series[i].visible == true) {
-              $scope.chartConfig.series[i].visible = false
-              $scope.chartConfig.series[0].visible = true
-
-            } 
-            // else if($scope.chartConfig.series[0]){
-            //   $scope.chartConfig.series[i].visible = true
-            // } 
-          }
-
-      }
-
-      function showOnlyTrumpValues() {
-        $scope.clintonValues = false
-          for (var i = 0; i < $scope.chartConfig.series.length; i++) {
-
-            if ($scope.chartConfig.series[i].identifier == 'cc' && $scope.chartConfig.series[i].visible == true) {
-              $scope.chartConfig.series[i].visible = false
-              $scope.chartConfig.series[1].visible = true
-
-            } 
-          }
-
-      }
-
-      function allOnclickFunctions(){
-         $scope.indexOnclick()
-          $scope.econoOnclick()
-          $scope.expertOnclick()
-          $scope.keysOnclick()
-          $scope.issuesOnclick()
-          $scope.bioIndexOnclick()
-          $scope.bigIssueOnclick()
-          $scope.issueIndexOnclick()
-          $scope.citizenOnclick()
-          $scope.pmOnclick()
-          $scope.intenpollsOnclick()
-          $scope.tpmOnclick()
-          $scope.huffingstonPollsOnclick()
-          $scope.electionProjectionOnclick()
-          $scope.pluspollsOnclick()
-          $scope.twoSeventytoWinOnclick()
-          $scope.RealOnclick()
-          $scope.pecOnclick()
-
-      }
-
-
-
-      $scope.addOnlyTrump = function(key) {
-
-
-        if ($scope.trumpValues == true) {
-          showOnlyTrumpValues()
-          allOnclickFunctions()
-          
-
-
-        } else {
-           for (var i = 0; i < $scope.chartConfig.series.length; i++) {
-              $scope.chartConfig.series[i].visible = true
-          }
-         
-          allOnclickFunctions()
-
-
-
-
-        }
-
-
-
-      };
-
-
-
-      $scope.addOnlyClinton = function(key) {
-        if ($scope.clintonValues == true) {
-          showOnlyClintonValues()
-          allOnclickFunctions()
-
-
-        } else {
-          for (var i = 0; i < $scope.chartConfig.series.length; i++) {
-              $scope.chartConfig.series[i].visible = true
-          }
-          allOnclickFunctions()
-
-
-        }
-
-
-
-      };
-
-
-
-      $scope.completeTimeLine = function(key) {
-
-        if ($scope.timeline == true) {
-          $scope.thirtyDay = false
-          $scope.chartConfig.xAxis.min = new Date('2016/01/04').getTime()
-          $scope.chartConfig.xAxis.max = $scope.pollyvoteData[0].date
-
-
-
-        } else if ($scope.timeline == false && $scope.thirtyDay == false) {
-          $scope.chartConfig.xAxis.max = new Date('2016/11/08').getTime()
-          $scope.chartConfig.xAxis.min = new Date('2016/01/04').getTime()
-
-
-
-        }
-
-      }
-
-
-
-      $scope.lastThiry = function(key) {
-        if ($scope.thirtyDay == true) {
-          $scope.timeline = false
-            // $scope.savedState = JSON.parse(JSON.stringify($scope.chartConfig));
-          var pastDay = moment().subtract(30, 'days')
-          var today = moment()
-
-          $scope.chartConfig.xAxis.max = Date.parse(today)
-          $scope.chartConfig.xAxis.min = Date.parse(pastDay._d)
-          console.log(JSON.stringify($scope.pollyvoteData))
-
-
-
-        } else if ($scope.thirtyDay == false && $scope.timeline == false) {
-          $scope.chartConfig.xAxis.max = new Date('2016/11/08').getTime()
-          $scope.chartConfig.xAxis.min = new Date('2016/01/04').getTime()
-
-
-        }
-
-
-
-      };
       var subcomponentDataClean = function(rawData, subcomponent, holder) {
 
         var createJson = {};
@@ -278,17 +125,6 @@
       var getTrumpForcast = function(cleanedData) {
         return cleanedData[0].trump
 
-      }
-
-      function clintionTrumpValue() {
-        if ($scope.trumpValues == true) {
-          showOnlyTrumpValues();
-
-
-        } else if ($scope.clintonValues == true) {
-          showOnlyClintonValues();
-
-        }
       }
 
 
@@ -450,838 +286,1179 @@
                                           getNeededValues($scope.issueIndexClintonValues, $scope.issueIndextrumpValues, $scope.issueIndexCleanedData)
 
 
-
-                                          // console.log(pollyvotedata)
-                                          // console.log(indexModelData)
-                                          // console.log(ModelsEconometricData)
-                                          // console.log(expertModelsData)
-
-
-
-                                          $scope.pollyvoteData = cleanupData(pollyvotedata)
-                                            // console.log($scope.pollyvoteData)
-                                          $scope.lastdate = moment(pollyvotedata.lastupdate_iso8601).format('MMM Do YYYY')
-                                          $scope.lastupDated = moment.utc(pollyvotedata.lastupdate_iso8601).fromNow()
-
-                                          // console.log($scope.lastdate)
-                                          $scope.pollyvoteClintonForcast = $scope.pollyvoteData[0].clinton
-                                          $scope.pollyvoteTrumpForcast = $scope.pollyvoteData[0].trump
-                                          $scope.indexModelData = cleanupData(indexModelData)
-                                          $scope.indexClintonForcast = $scope.indexModelData[0].clinton
-                                          $scope.indexTrumpForcast = $scope.indexModelData[0].trump
-                                          $scope.econometricData = cleanupData(ModelsEconometricData)
-                                          $scope.econometricClintonForcast = $scope.econometricData[0].clinton
-                                          $scope.econometricTrumpForcast = $scope.econometricData[0].trump
-                                          $scope.expertData = cleanupData(expertModelsData)
-                                          $scope.expertClintonForcast = $scope.expertData[0].clinton
-                                          $scope.expertTrumpForcast = $scope.expertData[0].trump
-
-                                          $scope.clintonValues = [];
-                                          $scope.trumpValues = [];
-                                          $scope.indexClinton = [];
-                                          $scope.indexTrump = [];
-                                          $scope.econoClinton = [];
-                                          $scope.econoTrump = [];
-                                          $scope.ModelsExpertClinton = [];
-                                          $scope.ModelsExpertTrump = [];
-                                          getNeededValues($scope.clintonValues, $scope.trumpValues, $scope.pollyvoteData)
-                                          getNeededValues($scope.indexClinton, $scope.indexTrump, $scope.indexModelData)
-                                          getNeededValues($scope.econoClinton, $scope.econoTrump, $scope.econometricData)
-                                          getNeededValues($scope.ModelsExpertClinton, $scope.ModelsExpertTrump, $scope.expertData)
-
-
-
-                                          $scope.indexOnclick = function() {
-                                            if ($scope.indexModel == true) {
-                                              console.log('initiated')
-
-                                              $scope.chartConfig.series[2].visible = true
-                                              $scope.chartConfig.series[3].visible = true
-                                              clintionTrumpValue()
-
-
-                                            } else {
-                                              $scope.chartConfig.series[2].visible = false
-                                              $scope.chartConfig.series[3].visible = false
-                                            }
-
-
-                                          }
-
-
-
-                                          $scope.econoOnclick = function() {
-                                            if ($scope.models == true) {
-                                              console.log('initiated')
-                                              $scope.chartConfig.series[4].visible = true
-                                              $scope.chartConfig.series[5].visible = true
-                                              clintionTrumpValue()
-
-                                            } else {
-                                              $scope.chartConfig.series[4].visible = false
-                                              $scope.chartConfig.series[5].visible = false
-                                            }
-
-
-                                          }
-
-
-
-                                          $scope.expertOnclick = function() {
-                                            if ($scope.expert == true) {
-                                              $scope.chartConfig.series[6].visible = true
-                                              $scope.chartConfig.series[7].visible = true
-                                              clintionTrumpValue()
-
-
-                                            } else {
-                                              $scope.chartConfig.series[6].visible = false
-                                              $scope.chartConfig.series[7].visible = false
-                                            }
-
-
-                                          }
-
-                                          $scope.keysOnclick = function() {
-                                            if ($scope.keysWhiteHouse == true) {
-                                              console.log('initiated')
-                                              $scope.chartConfig.series[8].visible = true
-                                              $scope.chartConfig.series[9].visible = true
-                                              clintionTrumpValue()
-
-                                            } else {
-                                              $scope.chartConfig.series[8].visible = false
-                                              $scope.chartConfig.series[9].visible = false
-                                            }
-
-
-                                          }
-
-                                          $scope.issuesOnclick = function() {
-                                            if ($scope.issuesAndLeaders == true) {
-                                              console.log('initiated')
-                                              $scope.chartConfig.series[10].visible = true
-                                              $scope.chartConfig.series[11].visible = true
-                                              clintionTrumpValue()
-                                            } else {
-                                              $scope.chartConfig.series[10].visible = false
-                                              $scope.chartConfig.series[11].visible = false
-
-                                            }
-
-
-                                          }
-
-                                          $scope.bioIndexOnclick = function() {
-                                            if ($scope.bioIndex == true) {
-                                              console.log('initiated')
-                                              $scope.chartConfig.series[12].visible = true
-                                              $scope.chartConfig.series[13].visible = true
-                                              clintionTrumpValue()
-                                            } else {
-                                              $scope.chartConfig.series[12].visible = false
-                                              $scope.chartConfig.series[13].visible = false
-
-
-                                            }
-
-
-                                          }
-
-                                          $scope.bigIssueOnclick = function() {
-                                            if ($scope.bigIssue == true) {
-                                              console.log('initiated')
-                                              $scope.chartConfig.series[14].visible = true
-                                              $scope.chartConfig.series[15].visible = true
-                                              clintionTrumpValue()
-                                            } else {
-                                              $scope.chartConfig.series[14].visible = false
-                                              $scope.chartConfig.series[15].visible = false
-
-                                            }
-
-
-                                          }
-
-                                          $scope.issueIndexOnclick = function() {
-                                            if ($scope.issueIndex == true) {
-                                              console.log('initiated')
-                                              $scope.chartConfig.series[16].visible = true
-                                              $scope.chartConfig.series[17].visible = true
-                                              clintionTrumpValue()
-                                            } else {
-                                              $scope.chartConfig.series[16].visible = false
-                                              $scope.chartConfig.series[17].visible = false
-
-
-                                            }
-
-
-                                          }
-
-
-                                          $scope.citizenOnclick = function() {
-                                            if ($scope.citizen == true) {
-                                              console.log('initiated')
-                                              $scope.chartConfig.series[18].visible = true
-                                              $scope.chartConfig.series[19].visible = true
-                                              clintionTrumpValue()
-
-                                            } else {
-                                              $scope.chartConfig.series[18].visible = false
-                                              $scope.chartConfig.series[19].visible = false
-                                            }
-
-
-                                          }
-                                          $scope.pmOnclick = function() {
-                                            if ($scope.markets == true) {
-                                              console.log('initiated')
-                                              $scope.chartConfig.series[20].visible = true
-                                              $scope.chartConfig.series[21].visible = true
-                                              clintionTrumpValue()
-
-                                            } else {
-                                              $scope.chartConfig.series[20].visible = false
-                                              $scope.chartConfig.series[21].visible = false
-
-                                            }
-
-
-                                          }
-
-                                          $scope.intenpollsOnclick = function() {
-                                            if ($scope.aggregators == true) {
-                                              console.log('initiated')
-                                              $scope.chartConfig.series[22].visible = true
-                                              $scope.chartConfig.series[23].visible = true
-                                              clintionTrumpValue()
-
-
-                                            } else {
-                                              $scope.chartConfig.series[22].visible = false
-                                              $scope.chartConfig.series[23].visible = false
-
-                                            }
-
-
-                                          }
-
-
-                                          $scope.tpmOnclick = function() {
-                                            if ($scope.tpmPolls == true) {
-                                              console.log('initiated')
-                                              $scope.chartConfig.series[24].visible = true
-                                              $scope.chartConfig.series[25].visible = true
-                                              clintionTrumpValue()
-
-
-                                            } else {
-                                              $scope.chartConfig.series[24].visible = false
-                                              $scope.chartConfig.series[25].visible = false
-
-                                            }
-
-
-                                          }
-
-                                          $scope.huffingstonPollsOnclick = function() {
-                                            if ($scope.huffingstonPolls == true) {
-                                              console.log('initiated')
-                                              $scope.chartConfig.series[26].visible = true
-                                              $scope.chartConfig.series[27].visible = true
-                                              clintionTrumpValue()
-
-
-                                            } else {
-                                              $scope.chartConfig.series[26].visible = false
-                                              $scope.chartConfig.series[27].visible = false
-
-                                            }
-
-
-                                          }
-
-
-                                          $scope.electionProjectionOnclick = function() {
-                                            if ($scope.electionProjection == true) {
-                                              console.log('initiated')
-                                              $scope.chartConfig.series[28].visible = true
-                                              $scope.chartConfig.series[29].visible = true
-                                              clintionTrumpValue()
-
-
-                                            } else {
-                                              $scope.chartConfig.series[28].visible = false
-                                              $scope.chartConfig.series[29].visible = false
-
-                                            }
-
-
-                                          }
-
-
-                                          $scope.pluspollsOnclick = function() {
-                                            if ($scope.pluspolls == true) {
-                                              console.log('initiated')
-                                              $scope.chartConfig.series[30].visible = true
-                                              $scope.chartConfig.series[31].visible = true
-                                              clintionTrumpValue()
-
-
-                                            } else {
-                                              $scope.chartConfig.series[30].visible = false
-                                              $scope.chartConfig.series[31].visible = false
-
-                                            }
-
-
-                                          }
-
-
-                                          $scope.twoSeventytoWinOnclick = function() {
-                                            if ($scope.twoSeventytoWin == true) {
-                                              console.log('initiated')
-                                              $scope.chartConfig.series[32].visible = true
-                                              $scope.chartConfig.series[33].visible = true
-                                              clintionTrumpValue()
-
-
-                                            } else {
-                                              $scope.chartConfig.series[32].visible = false
-                                              $scope.chartConfig.series[33].visible = false
-
-                                            }
-
-
-                                          };
-
-
-                                          $scope.RealOnclick = function() {
-                                            if ($scope.Real == true) {
-                                              console.log('initiated')
-                                              $scope.chartConfig.series[34].visible = true
-                                              $scope.chartConfig.series[35].visible = true
-                                              clintionTrumpValue()
-
-
-                                            } else {
-                                              $scope.chartConfig.series[34].visible = false
-                                              $scope.chartConfig.series[35].visible = false
-
-                                            }
-
-
-                                          };
-
-                                          $scope.pecOnclick = function() {
-                                            if ($scope.pec == true) {
-                                              console.log('initiated')
-                                              $scope.chartConfig.series[36].visible = true
-                                              $scope.chartConfig.series[37].visible = true
-                                              clintionTrumpValue()
-
-
-                                            } else {
-                                              $scope.chartConfig.series[36].visible = false
-                                              $scope.chartConfig.series[37].visible = false
-
-                                            }
-
-
-                                          };
-
-                                          $scope.chartConfig = {
-                                            options: {
-                                              plotOptions: {
-                                                spline: {
-                                                  lineWidth: 3
-                                                },
-                                                series: {
-                                                  marker: {
+                                          expertsubcategory.getData()
+                                            .success(function(data) {
+                                              $scope.pollyVoteExperts = {}
+                                              separteData(data, 'PollyVote.com Expert Panel', $scope.pollyVoteExperts)
+                                              $scope.expertPollyvoteData = cleanupData($scope.pollyVoteExperts)
+                                              $scope.expertPollyvoteClintonForecast = $scope.expertPollyvoteData[0].clinton
+                                              $scope.expertPollyvoteTrumoForecast = $scope.expertPollyvoteData[0].trump
+
+                                              $scope.exPollyvoteTrumpValues = [];
+                                              $scope.exPollyvoteClintonValues = [];
+
+                                              getNeededValues($scope.exPollyvoteClintonValues, $scope.exPollyvoteTrumpValues, $scope.expertPollyvoteData)
+
+
+
+                                              $scope.pollyvoteData = cleanupData(pollyvotedata)
+                                                // console.log($scope.pollyvoteData)
+                                              $scope.lastdate = moment(pollyvotedata.lastupdate_iso8601).format('MMM Do YYYY')
+                                              $scope.lastupDated = moment.utc(pollyvotedata.lastupdate_iso8601).fromNow()
+
+                                              // console.log($scope.lastdate)
+                                              $scope.pollyvoteClintonForcast = $scope.pollyvoteData[0].clinton
+                                              $scope.pollyvoteTrumpForcast = $scope.pollyvoteData[0].trump
+                                              $scope.indexModelData = cleanupData(indexModelData)
+                                              $scope.indexClintonForcast = $scope.indexModelData[0].clinton
+                                              $scope.indexTrumpForcast = $scope.indexModelData[0].trump
+                                              $scope.econometricData = cleanupData(ModelsEconometricData)
+                                              $scope.econometricClintonForcast = $scope.econometricData[0].clinton
+                                              $scope.econometricTrumpForcast = $scope.econometricData[0].trump
+                                              $scope.expertData = cleanupData(expertModelsData)
+                                              $scope.expertClintonForcast = $scope.expertData[0].clinton
+                                              $scope.expertTrumpForcast = $scope.expertData[0].trump
+
+                                              $scope.clintonValues = [];
+                                              $scope.trumpValues = [];
+                                              $scope.indexClinton = [];
+                                              $scope.indexTrump = [];
+                                              $scope.econoClinton = [];
+                                              $scope.econoTrump = [];
+                                              $scope.ModelsExpertClinton = [];
+                                              $scope.ModelsExpertTrump = [];
+                                              getNeededValues($scope.clintonValues, $scope.trumpValues, $scope.pollyvoteData)
+                                              getNeededValues($scope.indexClinton, $scope.indexTrump, $scope.indexModelData)
+                                              getNeededValues($scope.econoClinton, $scope.econoTrump, $scope.econometricData)
+                                              getNeededValues($scope.ModelsExpertClinton, $scope.ModelsExpertTrump, $scope.expertData)
+
+
+
+                                              $(function() {
+
+
+
+                                                $('#container').highcharts({
+
+                                                  legend: {
+                                                    enabled: false
+                                                  },
+                                                  tooltip: {
+                                                   
+                                                    crosshairs: {
+                                                      width: 2,
+                                                      color: 'gray',
+                                                      dashStyle: 'shortdot'
+                                                    },
+                                                    formatter: function() {
+                                                      var s = '<b>' + moment(this.x).format('MMM Do') + '</b>';
+
+
+                                                      function createColor(series) {
+                                                        if (series.options.identifier == 'cc') {
+                                                          return '#2980b9'
+                                                        } else if (series.options.identifier == 'tt') {
+                                                          return '#e74c3c'
+                                                        }
+
+                                                      }
+
+                                                      $.each(this.points, function() {
+
+                                                        s += '<br/>' +
+                                                          '<tr><td class = "tooltipvalue" style="color: ' + createColor(this.series) + '">' +
+                                                          this.series.name + ': ' +
+
+                                                          this.y.toFixed(1) +
+                                                          '</td></tr>';
+                                                      });
+
+                                                      return s;
+                                                    },
+                                                    shared: true
+
+
+                                                  },
+                                                  xAxis: {
+                                                    gridLineWidth: 0,
+                                                    type: 'datetime',
+
+                                                    tickPositions: [1454329239000, 1465906839000, 1468844439000, 1469708439000, 1474892439000, 1476879639000, 1478607639000],
+                                                    labels: {
+                                                      style: {
+
+                                                        fontSize: '0.75em'
+                                                      },
+                                                      formatter: function() {
+                                                        return Highcharts.dateFormat('%b %e', this.value);
+                                                      }
+                                                    },
+                                                    min: new Date('2016/01/04').getTime(),
+                                                    max: new Date('2016/11/08').getTime(),
+                                                    title: {
+                                                      text: 'Election Timeline',
+                                                      align: 'high',
+                                                      offset: 0,
+                                                      rotation: 0,
+                                                      y: -14
+
+                                                    },
+                                                    plotBands: [{
+                                                      from: new Date('2016/02/01').getTime(),
+                                                      to: new Date('2016/06/14').getTime(),
+                                                      color: 'rgb(243, 243, 243)',
+                                                      zindex: 0,
+                                                      label: {
+                                                        text: 'Primaries',
+                                                        style: {
+                                                          color: '#606060'
+                                                        }
+                                                      }
+                                                    }, { // Light air
+
+                                                      from: new Date('2016/07/18').getTime(),
+                                                      to: new Date('2016/07/28').getTime(),
+                                                      color: 'rgb(243, 243, 243)',
+                                                      zindex: 0,
+                                                      label: {
+                                                        text: 'Conventions',
+                                                        style: {
+                                                          color: '#606060'
+                                                        }
+                                                      }
+                                                    }, { // Light air
+
+                                                      from: new Date('2016/09/26').getTime(),
+                                                      to: new Date('2016/10/19').getTime(),
+                                                      color: 'rgb(243, 243, 243)',
+                                                      zindex: 0,
+                                                      label: {
+                                                        text: 'Debates',
+                                                        style: {
+                                                          color: '#606060'
+                                                        }
+                                                      }
+                                                    }],
+
+                                                  },
+                                                  yAxis: {
+                                                    gridLineWidth: 0,
+                                                    allowDecimals: false,
+                                                    labels: {
+                                                      enabled: true,
+                                                      formatter: function() {
+                                                        return this.value + "%";
+                                                      },
+                                                    },
+                                                    lineWidth: 1,
+                                                    //  lineColor:'black'
+                                                    title: {
+                                                      text: 'Two-party vote',
+                                                      align: 'middle'
+
+                                                    },
+                                                    plotLines: [{
+                                                      color: 'silver',
+                                                      width: 0.7,
+                                                      value: 50,
+                                                      zIndex: 4
+                                                    }]
+
+                                                  },
+
+
+                                                  series: [{
+                                                      type: 'spline',
+                                                      name: 'PollyVote Combined forecasts Clinton',
+                                                      identifier: 'cc',
+                                                      method: 'PollyVote Combined forecasts',
+                                                      color: colors[3],
+                                                      data: $scope.clintonValues,
+                                                      lineWidth: 3,
+                                                      marker: {
+                                                        enabled: false
+                                                      }
+                                                    },
+
+                                                    {
+                                                      type: 'spline',
+                                                      name: 'PollyVote Combined forecasts Trump',
+                                                      identifier: 'tt',
+                                                      method: 'PollyVote Combined forecasts',
+                                                      color: colors[0],
+                                                      data: $scope.trumpValues,
+                                                      lineWidth: 3,
+                                                      marker: {
+                                                        enabled: false
+                                                      }
+                                                    }, {
+                                                      type: 'spline',
+                                                      name: 'Index Models Clinton ',
+                                                      identifier: 'cc',
+                                                      method: 'Index models',
+                                                      color: colors[2],
+                                                      data: $scope.indexClinton,
+                                                      lineWidth: 2,
+                                                      marker: {
+                                                        enabled: false
+                                                      }
+                                                    },
+
+                                                    {
+                                                      type: 'spline',
+                                                      name: 'Index Models Trump',
+                                                      identifier: 'tt',
+                                                      method: 'Index models',
+                                                      color: colors[1],
+                                                      data: $scope.indexTrump,
+                                                      lineWidth: 2,
+                                                      marker: {
+                                                        enabled: false
+                                                      }
+                                                    }, {
+                                                      type: 'spline',
+                                                      name: 'Econometric Models Clinton',
+                                                      identifier: 'cc',
+                                                      color: colors[2],
+                                                      data: $scope.econoClinton,
+                                                      lineWidth: 2,
+                                                      marker: {
+                                                        enabled: false
+                                                      }
+                                                    },
+
+                                                    {
+                                                      type: 'spline',
+                                                      name: 'Econometric Models Trump',
+                                                      identifier: 'tt',
+                                                      color: colors[1],
+                                                      data: $scope.econoTrump,
+                                                      lineWidth: 2,
+                                                      marker: {
+                                                        enabled: false
+                                                      }
+                                                    }, {
+                                                      type: 'spline',
+                                                      name: 'Expert Judgment Clinton ',
+                                                      identifier: 'cc',
+                                                      color: colors[2],
+                                                      data: $scope.ModelsExpertClinton,
+                                                      lineWidth: 2,
+                                                      marker: {
+                                                        enabled: false
+                                                      }
+
+                                                    },
+
+                                                    {
+                                                      type: 'spline',
+                                                      name: 'Expert Judgment Trump',
+                                                      identifier: 'tt',
+                                                      color: colors[1],
+                                                      data: $scope.ModelsExpertTrump,
+                                                      lineWidth: 2,
+                                                      marker: {
+                                                        enabled: false
+                                                      }
+                                                    }, {
+                                                      type: 'spline',
+                                                      name: 'Keys to White House Prediction for Clinton',
+                                                      identifier: 'cc',
+                                                      color: colors[2],
+                                                      data: $scope.keystowhiteHouseClintonValues,
+                                                      lineWidth: 2,
+                                                      marker: {
+                                                        enabled: false
+                                                      }
+                                                    },
+
+                                                    {
+                                                      type: 'spline',
+                                                      name: 'Keys to White House Prediction for Trump',
+                                                      identifier: 'tt',
+                                                      color: colors[1],
+                                                      data: $scope.keystowhiteHouseTrumpValues,
+                                                      lineWidth: 2,
+                                                      marker: {
+                                                        enabled: false
+                                                      }
+                                                    }, {
+                                                      type: 'spline',
+                                                      name: 'Issues and Leaders Prediction for Clinton',
+                                                      identifier: 'cc',
+                                                      color: colors[2],
+                                                      data: $scope.issuesandleadersClintonValues,
+                                                      lineWidth: 2,
+                                                      marker: {
+                                                        enabled: false
+                                                      }
+                                                    },
+
+                                                    {
+                                                      type: 'spline',
+                                                      name: 'Issues and Leaders Prediction for Trump',
+                                                      identifier: 'tt',
+                                                      color: colors[1],
+                                                      data: $scope.issuesandleadersTrumpValues,
+                                                      lineWidth: 2,
+                                                      marker: {
+                                                        enabled: false
+                                                      }
+                                                    }, {
+                                                      type: 'spline',
+                                                      name: 'Bio-index Prediction for Clinton',
+                                                      identifier: 'cc',
+                                                      color: colors[2],
+                                                      data: $scope.bioindexClintonValues,
+                                                      lineWidth: 2,
+                                                      marker: {
+                                                        enabled: false
+                                                      }
+                                                    },
+
+                                                    {
+                                                      type: 'spline',
+                                                      name: 'Bio-index Prediction for Trump',
+                                                      identifier: 'tt',
+                                                      color: colors[1],
+                                                      data: $scope.bioindexTrumpValues,
+                                                      lineWidth: 2,
+                                                      marker: {
+                                                        enabled: false
+                                                      }
+                                                    }, {
+                                                      type: 'spline',
+                                                      name: 'Big-Issues Prediction for Clinton',
+                                                      identifier: 'cc',
+                                                      color: colors[2],
+                                                      data: $scope.bigIssueClintonValues,
+                                                      lineWidth: 2,
+                                                      marker: {
+                                                        enabled: false
+                                                      }
+                                                    },
+
+                                                    {
+                                                      type: 'spline',
+                                                      name: 'Big-Issues Prediction for Trump',
+                                                      identifier: 'tt',
+                                                      color: colors[1],
+                                                      data: $scope.bigIssueTrumpValues,
+                                                      lineWidth: 2,
+                                                      marker: {
+                                                        enabled: false
+                                                      }
+                                                    }, {
+                                                      type: 'spline',
+                                                      name: 'Issue-index Prediction for Clinton',
+                                                      identifier: 'cc',
+                                                      color: colors[2],
+                                                      data: $scope.issueIndexClintonValues,
+                                                      lineWidth: 2,
+                                                      marker: {
+                                                        enabled: false
+                                                      }
+                                                    },
+
+                                                    {
+                                                      type: 'spline',
+                                                      name: 'Issue-index Prediction for Trump',
+                                                      identifier: 'tt',
+                                                      color: colors[1],
+                                                      data: $scope.issueIndextrumpValues,
+                                                      lineWidth: 2,
+                                                      marker: {
+                                                        enabled: false
+                                                      }
+                                                    }, {
+                                                      type: 'spline',
+                                                      name: 'Citizen Forecast for Clinton',
+                                                      identifier: 'cc',
+                                                      color: colors[2],
+                                                      data: $scope.citizenClintonValues,
+                                                      lineWidth: 2,
+                                                      marker: {
+                                                        enabled: false
+                                                      }
+
+                                                    },
+
+                                                    {
+                                                      type: 'spline',
+                                                      name: 'Citizen Forecast for Trump',
+                                                      identifier: 'tt',
+                                                      color: colors[1],
+                                                      data: $scope.citizenTrumpValues,
+                                                      lineWidth: 2,
+                                                      marker: {
+                                                        enabled: false
+                                                      }
+
+                                                    }, {
+                                                      type: 'spline',
+                                                      name: 'Prediction Markets Clinton',
+                                                      identifier: 'cc',
+                                                      color: colors[2],
+                                                      data: $scope.predictionClintonValues,
+                                                      lineWidth: 2,
+                                                      marker: {
+                                                        enabled: false
+                                                      }
+                                                    },
+
+                                                    {
+                                                      type: 'spline',
+                                                      name: 'Prediction Markets Trump',
+                                                      identifier: 'tt',
+                                                      color: colors[1],
+                                                      data: $scope.predictionTrumpValues,
+                                                      lineWidth: 2,
+                                                      marker: {
+                                                        enabled: false
+                                                      }
+                                                    }, {
+                                                      type: 'spline',
+                                                      name: 'Intention polls Clinton',
+                                                      identifier: 'cc',
+                                                      color: colors[2],
+                                                      data: $scope.pollsClintonValues,
+                                                      lineWidth: 2,
+                                                      marker: {
+                                                        enabled: false
+                                                      }
+                                                    },
+
+                                                    {
+                                                      type: 'spline',
+                                                      name: 'Intention polls Trump',
+                                                      identifier: 'tt',
+                                                      color: colors[1],
+                                                      data: $scope.pollsTrumpValues,
+                                                      lineWidth: 2,
+                                                      marker: {
+                                                        enabled: false
+                                                      }
+                                                    }, {
+                                                      type: 'spline',
+                                                      name: 'TPM Poll tracker prediction for Clinton',
+                                                      identifier: 'cc',
+                                                      color: colors[2],
+                                                      data: $scope.TPMClintonData,
+                                                      lineWidth: 2,
+                                                      marker: {
+                                                        enabled: false
+                                                      }
+                                                    }, {
+                                                      type: 'spline',
+                                                      name: 'TPM Poll tracker prediction for Trump',
+                                                      identifier: 'tt',
+                                                      color: colors[1],
+                                                      data: $scope.TPMTrumpData,
+                                                      lineWidth: 2,
+                                                      marker: {
+                                                        enabled: false
+                                                      }
+                                                    }, {
+                                                      type: 'spline',
+                                                      name: 'HuffPost pollster prediction for Clinton',
+                                                      identifier: 'cc',
+                                                      color: colors[2],
+                                                      data: $scope.huffingstonClintonData,
+                                                      lineWidth: 2,
+                                                      marker: {
+                                                        enabled: false
+                                                      }
+                                                    }, {
+                                                      type: 'spline',
+                                                      name: 'HuffPost pollster prediction for Trump',
+                                                      identifier: 'tt',
+                                                      color: colors[1],
+                                                      data: $scope.huffingstonTrumpData,
+                                                      lineWidth: 2,
+                                                      marker: {
+                                                        enabled: false
+                                                      }
+                                                    }, {
+                                                      type: 'spline',
+                                                      name: 'Election projection prediction for Clinton',
+                                                      identifier: 'cc',
+                                                      color: colors[2],
+                                                      data: $scope.ClintionelectionProjection,
+                                                      lineWidth: 2,
+                                                      marker: {
+                                                        enabled: false
+                                                      }
+                                                    }, {
+                                                      type: 'spline',
+                                                      name: 'Election projection prediction for Trump',
+                                                      identifier: 'tt',
+                                                      color: colors[1],
+                                                      data: $scope.TrumpelectionProjection,
+                                                      lineWidth: 2,
+                                                      marker: {
+                                                        enabled: false
+                                                      }
+                                                    }, {
+                                                      type: 'spline',
+                                                      name: '538 (polls-plus) prediction for Clinton',
+                                                      identifier: 'cc',
+                                                      color: colors[2],
+                                                      data: $scope.Clinton538ForecastValues,
+                                                      lineWidth: 2,
+                                                      marker: {
+                                                        enabled: false
+                                                      }
+                                                    }, {
+                                                      type: 'spline',
+                                                      name: '538 (polls-plus) prediction for Trump',
+                                                      identifier: 'tt',
+                                                      color: colors[1],
+                                                      data: $scope.Trump538ForecastValues,
+                                                      lineWidth: 2,
+                                                      marker: {
+                                                        enabled: false
+                                                      }
+                                                    }, {
+                                                      type: 'spline',
+                                                      name: '270 to win prediction for Clinton',
+                                                      identifier: 'cc',
+                                                      color: colors[2],
+                                                      data: $scope.twoSeventyClintonValues,
+                                                      lineWidth: 2,
+                                                      marker: {
+                                                        enabled: false
+                                                      }
+                                                    }, {
+                                                      type: 'spline',
+                                                      name: '270 to win prediction for Trump',
+                                                      identifier: 'tt',
+                                                      color: colors[1],
+                                                      data: $scope.twoSeventyTrumpValues,
+                                                      lineWidth: 2,
+                                                      marker: {
+                                                        enabled: false
+                                                      }
+                                                    }, {
+                                                      type: 'spline',
+                                                      name: 'RealClearPolitics prediction for Clinton',
+                                                      identifier: 'cc',
+                                                      color: colors[2],
+                                                      data: $scope.RealClearPoliticsClintonValues,
+                                                      lineWidth: 2,
+                                                      marker: {
+                                                        enabled: false
+                                                      }
+                                                    }, {
+                                                      type: 'spline',
+                                                      name: 'RealClearPolitics prediction for Trump',
+                                                      identifier: 'tt',
+                                                      color: colors[1],
+                                                      data: $scope.RealClearPoliticstrumpValues,
+                                                      lineWidth: 2,
+                                                      marker: {
+                                                        enabled: false
+                                                      }
+                                                    }, {
+                                                      type: 'spline',
+                                                      name: 'PEC prediction for Clinton',
+                                                      identifier: 'cc',
+                                                      color: colors[2],
+                                                      data: $scope.pecClintonValues,
+                                                      lineWidth: 2,
+                                                      marker: {
+                                                        enabled: false
+                                                      }
+                                                    }, {
+                                                      type: 'spline',
+                                                      name: 'PEC prediction for Trump',
+                                                      identifier: 'tt',
+                                                      color: colors[1],
+                                                      data: $scope.pecTrumpValues,
+                                                      lineWidth: 2,
+                                                      marker: {
+                                                        enabled: false
+                                                      }
+                                                    }, {
+                                                      type: 'line',
+                                                      lineWidth: 0,
+                                                      name: 'PollyVote.com Expert Panel Clinton',
+                                                      identifier: 'cc',
+                                                      color: colors[2],
+                                                      data: $scope.exPollyvoteClintonValues,
+                                                      marker: {
+                                                        enabled: true,
+                                                        symbol: 'circle',
+                                                        radius: 2
+                                                      
+                                                      }
+
+                                                    }, {
+                                                      type: 'line',
+                                                      lineWidth: 0,
+                                                      name: 'PollyVote.com Expert Panel Trump',
+                                                      identifier: 'tt',
+                                                      color: colors[1],
+                                                      data: $scope.exPollyvoteTrumpValues,
+                                                      marker: {
+                                                        enabled: true,
+                                                        symbol: 'circle',
+                                                        radius: 2
+                                                        
+                                                      }
+
+                                                    }
+                                                  ],
+
+                                                  title: {
+                                                    text: ' '
+                                                  },
+
+                                                  loading: true,
+                                                  credits: {
                                                     enabled: false
                                                   }
+
+                                                });
+                                              });
+
+                                     
+
+
+
+                                              var chart = $('#container').highcharts()
+
+                                              for (var i = 2; i < chart.series.length; i++) {
+                                                var series = chart.series[i];
+                                                if (series.visible) {
+                                                  series.hide();
                                                 }
-                                              },
-                                              exporting: {
-                                                enabled: false
 
-                                              },
-                                              legend: {
-                                                enabled: false
-                                              },
-                                              tooltip: {
-                                                animation: true,
-                                                crosshairs: {
-                                                  width: 2,
-                                                  color: 'gray',
-                                                  dashStyle: 'shortdot'
-                                                },
-                                                shared: true,
-                                                enabled: true,
-                                                useHTML: true,
-                                                formatter: function() {
+                                              };
+
+                                              $scope.indexOnclick = function() {
+                                                if ($scope.indexModel == true) {
+                                                  console.log('initiated')
+
+                                                  chart.series[2].show()
+                                                  chart.series[3].show()
+                                                  clintionTrumpValue()
 
 
-                                                  var s = '<h5><b>' + moment(this.x, 'x').format('MMM Do') + '</b><h5>'
-
-                                                  $.each(this.points, function() {
-                                                    var id = this.series.options.identifier
-
-                                                    var color = function() {
-
-                                                      if (id == 'cc') {
-                                                        return "#2980b9"
-
-                                                      } else if (id == 'tt') {
-                                                        return "#e74c3c"
-                                                      }
-                                                    }
-
-                                                    s += '<p  style="color:' + color() + '">' + this.series.name + ': ' +
-                                                      '<span style="font-weight:bold;">' + this.y.toFixed(1) + '</span>' + '</p>';
+                                                } else {
+                                                  chart.series[2].hide()
+                                                  chart.series[3].hide()
+                                                }
 
 
-                                                  });
+                                              }
 
 
 
-                                                  return s;
+                                              $scope.econoOnclick = function() {
+                                                if ($scope.models == true) {
+                                                  console.log('initiated')
+                                                  chart.series[4].show()
+                                                  chart.series[5].show()
+                                                  clintionTrumpValue()
+
+
+                                                } else {
+                                                  chart.series[4].hide()
+                                                  chart.series[5].hide()
+                                                }
+
+
+                                              }
+
+
+
+                                              $scope.expertOnclick = function() {
+                                                if ($scope.expert == true) {
+                                                  console.log('initiated')
+                                                  chart.series[6].show()
+                                                  chart.series[7].show()
+                                                  clintionTrumpValue()
+
+
+
+                                                } else {
+                                                  chart.series[6].hide()
+                                                  chart.series[7].hide()
+                                                }
+
+
+                                              }
+
+                                              $scope.keysOnclick = function() {
+                                                if ($scope.keysWhiteHouse == true) {
+                                                  console.log('initiated')
+                                                  chart.series[8].show()
+                                                  chart.series[9].show()
+                                                  clintionTrumpValue()
+
+                                                } else {
+                                                  chart.series[8].hide()
+                                                  chart.series[9].hide()
+                                                }
+
+
+                                              }
+
+                                              $scope.issuesOnclick = function() {
+                                                if ($scope.issuesAndLeaders == true) {
+                                                  console.log('initiated')
+                                                  chart.series[10].show()
+                                                  chart.series[11].show()
+                                                  clintionTrumpValue()
+
+                                                } else {
+                                                  chart.series[10].hide()
+                                                  chart.series[11].hide()
+
+                                                }
+
+
+                                              }
+
+                                              $scope.bioIndexOnclick = function() {
+                                                if ($scope.bioIndex == true) {
+                                                  console.log('initiated')
+                                                  chart.series[12].show()
+                                                  chart.series[13].show()
+                                                  clintionTrumpValue()
+
+                                                } else {
+                                                  chart.series[12].hide()
+                                                  chart.series[13].hide()
+
+
+                                                }
+
+
+                                              }
+
+                                              $scope.bigIssueOnclick = function() {
+                                                if ($scope.bigIssue == true) {
+                                                  console.log('initiated')
+                                                  chart.series[14].show()
+                                                  chart.series[15].show()
+                                                  clintionTrumpValue()
+
+                                                } else {
+                                                  chart.series[14].hide()
+                                                  chart.series[15].hide()
+
+                                                }
+
+
+                                              }
+
+                                              $scope.issueIndexOnclick = function() {
+                                                if ($scope.issueIndex == true) {
+                                                  console.log('initiated')
+                                                  chart.series[16].show()
+                                                  chart.series[17].show()
+                                                  clintionTrumpValue()
+
+                                                } else {
+                                                  chart.series[16].hide()
+                                                  chart.series[17].hide()
+
+
+                                                }
+
+
+                                              }
+
+
+                                              $scope.citizenOnclick = function() {
+                                                if ($scope.citizen == true) {
+                                                  console.log('initiated')
+                                                  chart.series[18].show()
+                                                  chart.series[19].show()
+                                                  clintionTrumpValue()
+
+
+                                                } else {
+                                                  chart.series[18].hide()
+                                                  chart.series[19].hide()
+                                                }
+
+
+                                              }
+                                              $scope.pmOnclick = function() {
+                                                if ($scope.markets == true) {
+                                                  console.log('initiated')
+                                                  chart.series[20].show()
+                                                  chart.series[21].show()
+                                                  clintionTrumpValue()
+
+
+                                                } else {
+                                                  chart.series[20].hide()
+                                                  chart.series[21].hide()
+
+                                                }
+
+
+                                              }
+
+                                              $scope.intenpollsOnclick = function() {
+                                                if ($scope.aggregators == true) {
+                                                  console.log('initiated')
+                                                  chart.series[22].show()
+                                                  chart.series[23].show()
+                                                  clintionTrumpValue()
+
+
+                                                } else {
+                                                  chart.series[22].hide()
+                                                  chart.series[23].hide()
+
+                                                }
+
+
+                                              }
+
+
+                                              $scope.tpmOnclick = function() {
+                                                if ($scope.tpmPolls == true) {
+                                                  console.log('initiated')
+                                                  chart.series[24].show()
+                                                  chart.series[25].show()
+                                                  clintionTrumpValue()
+
+
+
+                                                } else {
+                                                  chart.series[24].hide()
+                                                  chart.series[25].hide()
+
+                                                }
+
+
+                                              }
+
+                                              $scope.huffingstonPollsOnclick = function() {
+                                                if ($scope.huffingstonPolls == true) {
+                                                  console.log('initiated')
+                                                  chart.series[26].show()
+                                                  chart.series[27].show()
+                                                  clintionTrumpValue()
+
+
+                                                } else {
+                                                  chart.series[26].hide()
+                                                  chart.series[27].hide()
+
+                                                }
+
+
+                                              }
+
+
+                                              $scope.electionProjectionOnclick = function() {
+                                                if ($scope.electionProjection == true) {
+                                                  console.log('initiated')
+                                                  chart.series[28].show()
+                                                  chart.series[29].show()
+                                                  clintionTrumpValue()
+
+
+
+                                                } else {
+                                                  chart.series[28].hide()
+                                                  chart.series[29].hide()
+
+                                                }
+
+
+                                              }
+
+
+                                              $scope.pluspollsOnclick = function() {
+                                                if ($scope.pluspolls == true) {
+                                                  console.log('initiated')
+                                                  chart.series[30].show()
+                                                  chart.series[31].show()
+                                                  clintionTrumpValue()
+
+
+
+                                                } else {
+                                                  chart.series[30].hide()
+                                                  chart.series[31].hide()
+
+                                                }
+
+
+                                              }
+
+
+                                              $scope.twoSeventytoWinOnclick = function() {
+                                                if ($scope.twoSeventytoWin == true) {
+                                                  console.log('initiated')
+                                                  chart.series[32].show()
+                                                  chart.series[33].show()
+                                                  clintionTrumpValue()
+
+
+                                                } else {
+                                                  chart.series[32].hide()
+                                                  chart.series[33].hide()
+
+                                                }
+
+
+                                              };
+
+
+                                              $scope.RealOnclick = function() {
+                                                if ($scope.Real == true) {
+                                                  console.log('initiated')
+                                                  chart.series[34].show()
+                                                  chart.series[35].show()
+                                                  clintionTrumpValue()
+
+
+                                                } else {
+                                                  chart.series[34].hide()
+                                                  chart.series[35].hide()
+
+                                                }
+
+
+                                              };
+
+                                              $scope.pecOnclick = function() {
+                                                if ($scope.pec == true) {
+                                                  console.log('initiated')
+                                                  chart.series[36].show()
+                                                  chart.series[37].show()
+                                                  clintionTrumpValue()
+
+
+                                                } else {
+                                                  chart.series[36].hide()
+                                                  chart.series[37].hide()
+
+                                                }
+
+
+                                              };
+
+                                              $scope.esubcom = function() {
+                                                if ($scope.subcomponent == true) {
+                                                  console.log('initiated')
+                                                  chart.series[38].show()
+                                                  chart.series[39].show()
+                                                  clintionTrumpValue()
+
+                                                } else {
+                                                  console.log('n')
+                                                  chart.series[38].hide()
+                                                  chart.series[39].hide()
+
+                                                }
+
+
+                                              };
+
+
+                                              function allOnclickFunctions() {
+                                                if ($scope.indexModel == true) {
+                                                  $scope.indexOnclick()
+
+                                                }
+                                                if ($scope.models == true) {
+                                                  $scope.econoOnclick()
+                                                }
+                                                if ($scope.expert == true) {
+                                                  $scope.expertOnclick()
+                                                }
+                                                if ($scope.keysWhiteHouse == true) {
+                                                  $scope.keysOnclick()
+                                                }
+                                                if ($scope.issuesAndLeaders == true) {
+                                                  $scope.issuesOnclick()
+                                                }
+                                                if ($scope.bioIndex == true) {
+                                                  $scope.bioIndexOnclick()
+                                                }
+                                                if ($scope.bigIssue == true) {
+                                                  $scope.bigIssueOnclick()
+                                                }
+                                                if ($scope.issueIndex == true) {
+                                                  $scope.issueIndexOnclick()
+                                                }
+                                                if ($scope.citizen == true) {
+                                                  $scope.citizenOnclick()
+                                                }
+                                                if ($scope.markets == true) {
+                                                  $scope.pmOnclick()
+                                                }
+                                                if ($scope.aggregators == true) {
+                                                  $scope.intenpollsOnclick()
+                                                }
+                                                if ($scope.tpmPolls == true) {
+                                                  $scope.tpmOnclick()
+                                                }
+                                                if ($scope.huffingstonPolls == true) {
+                                                  $scope.huffingstonPollsOnclick()
+                                                }
+                                                if ($scope.electionProjection == true) {
+                                                  $scope.electionProjectionOnclick()
+                                                }
+                                                if ($scope.pluspolls == true) {
+                                                  $scope.pluspollsOnclick()
+                                                }
+                                                if ($scope.twoSeventytoWin == true) {
+                                                  $scope.twoSeventytoWinOnclick()
+                                                }
+                                                if ($scope.Real == true) {
+                                                  $scope.RealOnclick()
+                                                }
+                                                if ($scope.pec == true) {
+                                                  $scope.pecOnclick()
+                                                }
+                                                if ($scope.ex == true) {
+                                                  $scope.esubcomOnclick()
+                                                }
+
+
+
+                                              }
+
+
+
+                                              function showOnlyClintonValues() {
+
+                                                for (var i = 0; i < chart.series.length; i++) {
+
+                                                  if (chart.series[i].options.identifier == 'tt' && chart.series[i].visible == true) {
+                                                    chart.series[i].hide()
+
+                                                  }
+
+                                                }
+
+
+                                              };
+
+                                              function showOnlyTrumpValues() {
+
+                                                for (var i = 0; i < chart.series.length; i++) {
+
+                                                  if (chart.series[i].options.identifier == 'cc' && chart.series[i].visible == true) {
+                                                    chart.series[i].hide()
+                                                  }
+
+                                                }
+
+
+                                              }
+
+
+
+                                              $scope.addOnlyTrump = function(key) {
+
+
+                                                if ($scope.trumpValues == true) {
+                                                  $scope.clintonValues = false
+                                                  chart.series[1].show()
+                                                  allOnclickFunctions()
+                                                  showOnlyTrumpValues();
+                                                } else {
+                                                  chart.series[0].show()
+                                                  allOnclickFunctions();
+
+                                                };
+                                              }
+
+
+
+                                              $scope.addOnlyClinton = function(key) {
+                                                if ($scope.clintonValues == true) {
+                                                  $scope.trumpValues = false
+                                                  chart.series[0].show()
+                                                  allOnclickFunctions()
+                                                  showOnlyClintonValues()
+
+                                                } else {
+                                                  chart.series[1].show()
+                                                  allOnclickFunctions()
+
+
+                                                }
+
+
+
+                                              };
+
+                                              function clintionTrumpValue() {
+                                                if ($scope.trumpValues == true) {
+                                                  showOnlyTrumpValues()
+
+                                                } else if ($scope.clintonValues == true) {
+                                                  showOnlyClintonValues();
+
+                                                }
+                                              }
+
+
+                                              $scope.completeTimeLine = function(key) {
+
+                                                if ($scope.timeline == true) {
+                                                  $scope.thirtyDay = false
+                                                  chart.xAxis[0].update({
+                                                    max: $scope.pollyvoteData[0].date,
+                                                    min: new Date('2016/01/04').getTime()
+                                                  })
+
+
+
+                                                } else {
+                                                  chart.xAxis[0].update({
+                                                    max: new Date('2016/11/08').getTime(),
+                                                    min: new Date('2016/01/04').getTime()
+                                                  })
+
+
 
                                                 }
 
                                               }
-                                            },
-                                            xAxis: {
-                                              gridLineWidth: 0,
-                                              type: 'datetime',
-                                              tickInterval: 480 * 3600 * 1000,
-                                              min: new Date('2016/01/04').getTime(),
-                                              max: new Date('2016/11/08').getTime(),
-                                              title: {
-                                                text: 'Election Timeline',
-                                                align: 'high',
-                                                offset: 0,
-                                                rotation: 0,
-                                                y: -14
 
-                                              },
-                                              plotBands: [{
-                                                from: new Date('2016/02/01').getTime(),
-                                                to: new Date('2016/06/14').getTime(),
-                                                color: 'rgb(243, 243, 243)',
-                                                zindex: 0,
-                                                label: {
-                                                  text: 'Primaries',
-                                                  style: {
-                                                    color: '#606060'
-                                                  }
+
+
+                                              $scope.lastThiry = function(key) {
+                                                if ($scope.thirtyDay == true) {
+                                                  $scope.timeline = false
+                                                  var pastDay = moment().subtract(30, 'days')
+                                                  var today = moment()
+                                                  console.log(chart.xAxis)
+
+
+                                                  chart.xAxis[0].update({
+                                                    max: Date.parse(today._d),
+                                                    min: Date.parse(pastDay._d)
+                                                  })
+
+                                                } else {
+                                                  chart.xAxis[0].update({
+                                                    max: new Date('2016/11/08').getTime(),
+                                                    min: new Date('2016/01/04').getTime()
+                                                  })
+
                                                 }
-                                              }, { // Light air
-
-                                                from: new Date('2016/07/18').getTime(),
-                                                to: new Date('2016/07/28').getTime(),
-                                                color: 'rgb(243, 243, 243)',
-                                                zindex: 0,
-                                                label: {
-                                                  text: 'Conventions',
-                                                  style: {
-                                                    color: '#606060'
-                                                  }
-                                                }
-                                              }, { // Light air
-
-                                                from: new Date('2016/09/26').getTime(),
-                                                to: new Date('2016/10/19').getTime(),
-                                                color: 'rgb(243, 243, 243)',
-                                                zindex: 0,
-                                                label: {
-                                                  text: 'Debates',
-                                                  style: {
-                                                    color: '#606060'
-                                                  }
-                                                }
-                                              }],
-
-                                            },
-                                            yAxis: {
-                                              gridLineWidth: 0,
-                                              allowDecimals: false,
-                                              labels: {
-                                                enabled: true,
-                                                formatter: function() {
-                                                  return this.value + "%";
-                                                },
-                                              },
-                                              lineWidth: 1,
-                                              //  lineColor:'black'
-                                              title: {
-                                                text: 'Two-party vote',
-                                                align: 'middle'
-
-                                              },
-                                              plotLines: [{
-                                                color: 'silver',
-                                                width: 0.7,
-                                                value: 50,
-                                                zIndex: 4
-                                              }]
-
-                                            },
 
 
-                                            series: [{
-                                                type: 'spline',
-                                                name: 'PollyVote Combined forecasts Clinton',
-                                                identifier: 'cc',
-                                                method: 'PollyVote Combined forecasts',
-                                                color: colors[3],
-                                                data: $scope.clintonValues,
-                                                lineWidth: 3,
-                                                visible: true
-                                              },
 
-                                              {
-                                                type: 'spline',
-                                                name: 'PollyVote Combined forecasts Trump',
-                                                identifier: 'tt',
-                                                method: 'PollyVote Combined forecasts',
-                                                color: colors[0],
-                                                data: $scope.trumpValues,
-                                                lineWidth: 3,
-                                                visible: true
-                                              }, {
-                                                type: 'spline',
-                                                name: 'Index Models Clinton ',
-                                                identifier: 'cc',
-                                                method: 'Index models',
-                                                color: colors[2],
-                                                data: $scope.indexClinton,
-                                                lineWidth: 2,
-                                                visible: false
-                                              },
+                                              };
 
-                                              {
-                                                type: 'spline',
-                                                name: 'Index Models Trump',
-                                                identifier: 'tt',
-                                                method: 'Index models',
-                                                color: colors[1],
-                                                data: $scope.indexTrump,
-                                                lineWidth: 2,
-                                                visible: false
-                                              }, {
-                                                type: 'spline',
-                                                name: 'Econometric Models Clinton',
-                                                identifier: 'cc',
-                                                color: colors[2],
-                                                data: $scope.econoClinton,
-                                                lineWidth: 2,
-                                                visible: false
-                                              },
-
-                                              {
-                                                type: 'spline',
-                                                name: 'Econometric Models Trump',
-                                                identifier: 'tt',
-                                                color: colors[1],
-                                                data: $scope.econoTrump,
-                                                lineWidth: 2,
-                                                visible: false
-                                              }, {
-                                                type: 'spline',
-                                                name: 'Expert Judgment Clinton ',
-                                                identifier: 'cc',
-                                                color: colors[2],
-                                                data: $scope.ModelsExpertClinton,
-                                                lineWidth: 2,
-                                                visible: false
-
-                                              },
-
-                                              {
-                                                type: 'spline',
-                                                name: 'Expert Judgment Trump',
-                                                identifier: 'tt',
-                                                color: colors[1],
-                                                data: $scope.ModelsExpertTrump,
-                                                lineWidth: 2,
-                                                visible: false
-                                              }, {
-                                                type: 'spline',
-                                                name: 'Keys to White House Prediction for Clinton',
-                                                identifier: 'cc',
-                                                color: colors[2],
-                                                data: $scope.keystowhiteHouseClintonValues,
-                                                lineWidth: 2,
-                                                visible: false
-                                              },
-
-                                              {
-                                                type: 'spline',
-                                                name: 'Keys to White House Prediction for Trump',
-                                                identifier: 'tt',
-                                                color: colors[1],
-                                                data: $scope.keystowhiteHouseTrumpValues,
-                                                lineWidth: 2,
-                                                visible: false
-                                              }, {
-                                                type: 'spline',
-                                                name: 'Issues and Leaders Prediction for Clinton',
-                                                identifier: 'cc',
-                                                color: colors[2],
-                                                data: $scope.issuesandleadersClintonValues,
-                                                lineWidth: 2,
-                                                visible: false
-                                              },
-
-                                              {
-                                                type: 'spline',
-                                                name: 'Issues and Leaders Prediction for Trump',
-                                                identifier: 'tt',
-                                                color: colors[1],
-                                                data: $scope.issuesandleadersTrumpValues,
-                                                lineWidth: 2,
-                                                visible: false
-                                              }, {
-                                                type: 'spline',
-                                                name: 'Bio-index Prediction for Clinton',
-                                                identifier: 'cc',
-                                                color: colors[2],
-                                                data: $scope.bioindexClintonValues,
-                                                lineWidth: 2,
-                                                visible: false
-                                              },
-
-                                              {
-                                                type: 'spline',
-                                                name: 'Bio-index Prediction for Trump',
-                                                identifier: 'tt',
-                                                color: colors[1],
-                                                data: $scope.bioindexTrumpValues,
-                                                lineWidth: 2,
-                                                visible: false
-                                              }, {
-                                                type: 'spline',
-                                                name: 'Big-Issues Prediction for Clinton',
-                                                identifier: 'cc',
-                                                color: colors[2],
-                                                data: $scope.bigIssueClintonValues,
-                                                lineWidth: 2,
-                                                visible: false
-                                              },
-
-                                              {
-                                                type: 'spline',
-                                                name: 'Big-Issues Prediction for Trump',
-                                                identifier: 'tt',
-                                                color: colors[1],
-                                                data: $scope.bigIssueTrumpValues,
-                                                lineWidth: 2,
-                                                visible: false
-                                              }, {
-                                                type: 'spline',
-                                                name: 'Issue-index Prediction for Clinton',
-                                                identifier: 'cc',
-                                                color: colors[2],
-                                                data: $scope.issueIndexClintonValues,
-                                                lineWidth: 2,
-                                                visible: false
-                                              },
-
-                                              {
-                                                type: 'spline',
-                                                name: 'Issue-index Prediction for Trump',
-                                                identifier: 'tt',
-                                                color: colors[1],
-                                                data: $scope.issueIndextrumpValues,
-                                                lineWidth: 2,
-                                                visible: false
-                                              }, {
-                                                type: 'spline',
-                                                name: 'Citizen Forecast for Clinton',
-                                                identifier: 'cc',
-                                                color: colors[2],
-                                                data: $scope.citizenClintonValues,
-                                                lineWidth: 2,
-                                                visible: false
-
-                                              },
-
-                                              {
-                                                type: 'spline',
-                                                name: 'Citizen Forecast for Trump',
-                                                identifier: 'tt',
-                                                color: colors[1],
-                                                data: $scope.citizenTrumpValues,
-                                                lineWidth: 2,
-                                                visible: false
-
-                                              }, {
-                                                type: 'spline',
-                                                name: 'Prediction Markets Clinton',
-                                                identifier: 'cc',
-                                                color: colors[2],
-                                                data: $scope.predictionClintonValues,
-                                                lineWidth: 2,
-                                                visible: false
-                                              },
-
-                                              {
-                                                type: 'spline',
-                                                name: 'Prediction Markets Trump',
-                                                identifier: 'tt',
-                                                color: colors[1],
-                                                data: $scope.predictionTrumpValues,
-                                                lineWidth: 2,
-                                                visible: false
-                                              }, {
-                                                type: 'spline',
-                                                name: 'Intention polls Clinton',
-                                                identifier: 'cc',
-                                                color: colors[2],
-                                                data: $scope.pollsClintonValues,
-                                                lineWidth: 2,
-                                                visible: false
-                                              },
-
-                                              {
-                                                type: 'spline',
-                                                name: 'Intention polls Trump',
-                                                identifier: 'tt',
-                                                color: colors[1],
-                                                data: $scope.pollsTrumpValues,
-                                                lineWidth: 2,
-                                                visible: false
-                                              }, {
-                                                type: 'spline',
-                                                name: 'TPM Poll tracker prediction for Clinton',
-                                                identifier: 'cc',
-                                                color: colors[2],
-                                                data: $scope.TPMClintonData,
-                                                lineWidth: 2,
-                                                visible: false
-                                              }, {
-                                                type: 'spline',
-                                                name: 'TPM Poll tracker prediction for Trump',
-                                                identifier: 'tt',
-                                                color: colors[1],
-                                                data: $scope.TPMTrumpData,
-                                                lineWidth: 2,
-                                                visible: false
-                                              }, {
-                                                type: 'spline',
-                                                name: 'HuffPost pollster prediction for Clinton',
-                                                identifier: 'cc',
-                                                color: colors[2],
-                                                data: $scope.huffingstonClintonData,
-                                                lineWidth: 2,
-                                                visible: false
-                                              }, {
-                                                type: 'spline',
-                                                name: 'HuffPost pollster prediction for Trump',
-                                                identifier: 'tt',
-                                                color: colors[1],
-                                                data: $scope.huffingstonTrumpData,
-                                                lineWidth: 2,
-                                                visible: false
-                                              }, {
-                                                type: 'spline',
-                                                name: 'Election projection prediction for Clinton',
-                                                identifier: 'cc',
-                                                color: colors[2],
-                                                data: $scope.ClintionelectionProjection,
-                                                lineWidth: 2,
-                                                visible: false
-                                              }, {
-                                                type: 'spline',
-                                                name: 'Election projection prediction for Trump',
-                                                identifier: 'tt',
-                                                color: colors[1],
-                                                data: $scope.TrumpelectionProjection,
-                                                lineWidth: 2,
-                                                visible: false
-                                              }, {
-                                                type: 'spline',
-                                                name: '538 (polls-plus) prediction for Clinton',
-                                                identifier: 'cc',
-                                                color: colors[2],
-                                                data: $scope.Clinton538ForecastValues,
-                                                lineWidth: 2,
-                                                visible: false
-                                              }, {
-                                                type: 'spline',
-                                                name: '538 (polls-plus) prediction for Trump',
-                                                identifier: 'tt',
-                                                color: colors[1],
-                                                data: $scope.Trump538ForecastValues,
-                                                lineWidth: 2,
-                                                visible: false
-                                              }, {
-                                                type: 'spline',
-                                                name: '270 to win prediction for Clinton',
-                                                identifier: 'cc',
-                                                color: colors[2],
-                                                data: $scope.twoSeventyClintonValues,
-                                                lineWidth: 2,
-                                                visible: false
-                                              }, {
-                                                type: 'spline',
-                                                name: '270 to win prediction for Trump',
-                                                identifier: 'tt',
-                                                color: colors[1],
-                                                data: $scope.twoSeventyTrumpValues,
-                                                lineWidth: 2,
-                                                visible: false
-                                              }, {
-                                                type: 'spline',
-                                                name: 'RealClearPolitics prediction for Clinton',
-                                                identifier: 'cc',
-                                                color: colors[2],
-                                                data: $scope.RealClearPoliticsClintonValues,
-                                                lineWidth: 2,
-                                                visible: false
-                                              }, {
-                                                type: 'spline',
-                                                name: 'RealClearPolitics prediction for Trump',
-                                                identifier: 'tt',
-                                                color: colors[1],
-                                                data: $scope.RealClearPoliticstrumpValues,
-                                                lineWidth: 2,
-                                                visible: false
-                                              }, {
-                                                type: 'spline',
-                                                name: 'PEC prediction for Clinton',
-                                                identifier: 'cc',
-                                                color: colors[2],
-                                                data: $scope.pecClintonValues,
-                                                lineWidth: 2,
-                                                visible: false
-                                              }, {
-                                                type: 'spline',
-                                                name: 'PEC prediction for Trump',
-                                                identifier: 'tt',
-                                                color: colors[1],
-                                                data: $scope.pecTrumpValues,
-                                                lineWidth: 2,
-                                                visible: false
-                                              }
-                                            ],
-
-                                            title: {
-                                              text: ' '
-                                            },
-
-                                            loading: false,
-                                            credits: {
-                                              enabled: false
-                                            }
-                                          };
-
-
+                                            });
 
                                         });
-
                                     });
                                 });
                             });
@@ -1290,8 +1467,6 @@
                 });
             });
         });
-
-
 
     }
   }

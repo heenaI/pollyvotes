@@ -17,7 +17,6 @@
       '720kb.socialshare',
       'pascalprecht.translate',
       'tmh.dynamicLocale',
-      'angular-loading-bar',
-      'highcharts-ng']);
+      'angular-loading-bar']);
 
 })();

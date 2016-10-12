@@ -57,8 +57,10 @@
 
 
 	<!-- svg -->
-	 <highchart id="chart1" config="chartConfig"></highchart>
-
+	<div id='box' class='col-xs-12'>
+		<div id="container" config="chartConfig"></div>
+	</div>
+	 
 
 
 </div>
@@ -94,7 +96,7 @@
 
 		<tr class='lineCharttableRow'  id="Row1" class="accordion-toggle" data-toggle="collapse" data-parent="#lineChartTable" data-target=".subheading1">
 			<td>
-<!-- 			<span ng-click="expandedIndex = !expandedIndex" expand>+</span> -->
+			<!-- <span ng-click="expandedIndex = !expandedIndex" expand>+</span> -->
 			<input type="checkbox" ng-model="indexModel" ng-change="indexOnclick()" class='checkbox'>
 				<a rel="noopener" target="_blank" href="//pollyvote.com/en/components/index-models/" >
 				Index Models</a>
@@ -169,7 +171,7 @@
 
 				<tr  class='lineCharttableRow'>
 		<td>
-	<!-- 	<span ng-click="expandedaggregators = !expandedaggregators" expand>+</span> -->
+		<!-- <span ng-click="expandedaggregators = !expandedaggregators" expand>+</span> -->
 		<input type="checkbox" ng-model="aggregators" ng-change="intenpollsOnclick()" class='checkbox'>
 		<a rel= "noopner" target="_blank" href="//pollyvote.com/en/components/polls/" >Poll aggregators</a>
 		</td>
@@ -284,7 +286,7 @@
 
 		<tr  class='lineCharttableRow' close-others="oneAtATime">
 		<td>
-		<!-- <span ng-click="expandedExpert = !expandedExpert" expand>+</span> -->
+	<!-- 	<span ng-click="expandedExpert = !expandedExpert" expand>+</span> -->
 		<input type="checkbox" ng-model="expert" ng-change="expertOnclick()" class='checkbox'>
 		<a  rel="noopener" target="_blank" href="//pollyvote.com/en/components/expert-judgment/">
 		Expert judgment</a>

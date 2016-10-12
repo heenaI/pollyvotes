@@ -37,6 +37,11 @@
         url: '/linechartwithalloptions',
         templateUrl: 'app/lineChartAlloptions/lineChartalloptions.html',
         controller: 'linechartalloptionsController'
+      })
+      .state('testinglinechrat', {
+        url: '/testlinechartwithalloptions',
+        templateUrl: 'app/lineChartAlloptions/testinglinechart.html',
+        controller: 'linechartalloptionsController'
       });
 
 $urlRouterProvider.otherwise('/');
