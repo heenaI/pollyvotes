@@ -319,43 +319,49 @@
 		<td>
 		<span ng-click="expandedCitizen = !expandedCitizen" expand>+</span>
 		<input type="checkbox" ng-model="citizen" ng-change="citizenOnclick()" class='checkbox'>
-		<a rel="noopener" target="_blank" href="//pollyvote.com/en/components/citizen-forecasts/" >Citizen forecasts</a>
+		<a rel="noopener" target="_blank" href="//pollyvote.com/en/components/citizen-forecasts/" >
+		Citizen forecasts</a>
 		</td>
 		<td class="linecharttablevalues">{{citizenClintonForcast}}</td>
 		<td class="linecharttablevalues">{{citizentrumpForcast}}</td>
-		<tr  class="linecharttablesubheading" ng-if="expandedCitizen">
+		<tr  class="linecharttablesubheading" ng-show="expandedCitizen">
 					<td class="linechartcomponentHeading">
+					<input type="checkbox" ng-model="Quinnipiac" ng-change="QuinnipiacOnclick()" class='checkbox'>
+					
 						Quinnipiac University
+	
 					</td>
 					<td class="linecharttablevalues">
-					56 
+					{{QuinnipiacDataClintonForecast}}
 					</td>
 					<td class="linecharttablevalues">
-					68 
+					{{QuinnipiacDataTrumoForecast}}
 					</td>
 				</tr>
 
-				<tr  class="linecharttablesubheading" ng-if="expandedCitizen">
+				<tr  class="linecharttablesubheading" ng-show="expandedCitizen">
 					<td class="linechartcomponentHeading">
+					<input type="checkbox" ng-model="economist" ng-change="economistOnclick()" class='checkbox'>
 						Economist / YouGov
 					</td>
 					<td class="linecharttablevalues">
-					56 
+					{{economistClintonForecast}}
 					</td>
 					<td class="linecharttablevalues">
-					68 
+					{{economistTrumoForecast}} 
 					</td>
 				</tr>
 
-				<tr  class="linecharttablesubheading" ng-if="expandedCitizen">
+				<tr  class="linecharttablesubheading" ng-show="expandedCitizen">
 					<td class="linechartcomponentHeading">
+					<input type="checkbox" ng-model="usaToday" ng-change="usaTodayOnclick()" class='checkbox'>
 						Suffolk University/USA Today
 					</td>
 					<td class="linecharttablevalues">
-					56 
+					 {{usatodayClintonForecast}}
 					</td>
 					<td class="linecharttablevalues">
-					68 
+					 {{usaTodayTrumoForecast}}
 					</td>
 				</tr>
 				

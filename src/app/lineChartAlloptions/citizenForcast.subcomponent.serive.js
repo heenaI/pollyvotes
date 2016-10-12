@@ -3,11 +3,11 @@
 
   angular
       .module('pollyvotes')
-      .service('pollagg', pollagg);
+      .service('subcomponentCitizen', subcomponentCitizen);
 
   /** @ngInject */
-  function pollagg($http) {
-      var url = 'https://pollyvote.com/wp-content/plugins/pollyvote/data/index.php?time=current&type=polls_combined&displaydays=350&callback=JSON_CALLBACK';
+  function subcomponentCitizen($http) {
+      var url = 'https://pollyvote.com/wp-content/plugins/pollyvote/data/index.php?time=current&type=expectations&displaydays=350&callback=JSON_CALLBACK';
       var dataService = {};
       dataService.getData = function(){
         return $http.jsonp(url, { cache: true});
