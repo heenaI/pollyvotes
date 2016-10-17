@@ -81,12 +81,9 @@ p{
   font-size: 1em;
 
 }
-.linechartcomponentHeading{
-  padding-left: 5%;
-}
+
 .linecharttablevalues{
-  text-align: center;
-  padding-left: 2.5%;
+  text-align: left;
 }
 
 .myGrid {
@@ -412,13 +409,12 @@ color: #3498db;
   font-weight: bolder;
   border-right: 1px solid #ddd;
 }
-td, th{
+#chart-3 > table > tbody > tr> td, th{
   text-align: center;
   border-top: none!important;
-  padding: 2 0!important;
 
 }
-tr{
+#chart-3 > table > tbody >tr{
   border: none!important;
   text-align: center;
 
@@ -839,6 +835,13 @@ td.linechartcomponentHeading > a{
 }
 .tooltipvalue{
   font-size: 2em;
+}
+#lineChartTable > tr{
+  text-align: left;
+  
+}
+.table > tbody > tr > td{
+  border-top: none;
 }
 
 
