@@ -5,5 +5,5 @@ Angular based application for election prediction system developed by [pollyvote
 
 
 The actual charts can be viewed here 
-[Main Page](charts.pollyvote.com)
-[Prediction Chart with all subcomponents](charts.pollyvote.com/linechartwithalloptions)
+* PollyVote charts page [Main Page](charts.pollyvote.com)
+* Prediction Chart with all [subcomponents](charts.pollyvote.com/linechartwithalloptions)
