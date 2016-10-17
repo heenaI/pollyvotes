@@ -11,3 +11,4 @@ node_modules/
 .yo-rc.json
 karma.conf.js
 protractor.conf.js
+.eslintrc
