@@ -1,2 +1,13 @@
 dist/
-!bower_components/**/dist/
+.tmp/
+bower_components/
+e2e/
+gulp/
+node_modules/
+.bowerrc
+.editorconfig
+.jscsrc
+.jshintrc
+.yo-rc.json
+karma.conf.js
+protractor.conf.js
