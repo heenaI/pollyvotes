@@ -100,7 +100,7 @@
   //config loading bar
   cfpLoadingBarProvider.latencyThreshold = 100;
   cfpLoadingBarProvider.parentSelector = '#loading-bar-container';
-  cfpLoadingBarProvider.spinnerTemplate = '<div><span class="fa fa-spinner"> Loading Pollyvote Map....</div>';
+  cfpLoadingBarProvider.spinnerTemplate = '<div><span class="fa fa-spinner"> Loading PollyVote....</div>';
   }
 
 })();

@@ -65,27 +65,29 @@ p{
 }
 
 .lineChartTableBody{
-  text-align: left;
   font-size: 1em;
 }
 
 .lineCharttableRow td{
   font-size: 1em;
-  text-align: left;
 }
 .lineCharttableRow td a{
   color: #000;
 }
 .linecharttablesubheading td{
-  text-align: left;
   font-size: 1em;
 
 }
-
-.linecharttablevalues{
-  text-align: left;
+.linecharttablemainheading{
+  text-align: left; 
 }
 
+.linecharttablevalues{
+  text-align: center;
+}
+#lineChartTable tbody{
+  font-family: Merriweather, Georgia, serif!important;
+}
 .myGrid {
     width: 500px;
     height: 250px;

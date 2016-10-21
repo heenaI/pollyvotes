@@ -1,6 +1,5 @@
-
 <!-- modal for embeding -->
-<div class='pollyGraph'>
+<div class='pollyGraph' style='font-family: Merriweather, Georgia, serif;'>
  <div class="Stage-popup Stage-popup-embed" id='myModal' style='width: 50 ; height: 90 ; padding-left:2.5 ; z-index: 1000;'>
             <div class="popup-body">
                 <a class="popup-close-btn">✕</a>
@@ -62,12 +61,12 @@
 <table st-table="tableData" st-safe-src="tableData" class='table table-striped table-hover table-condensed' id='lineChartTable'>
 	<thead class='lineCharttableHeader'>
 		<tr class='lineCharttableRow'>
-			<th>Method</th>
+			<th class="linecharttablemainheading">Method</th>
 			<th class="linecharttablevalues">Clinton</th>
 			<th class="linecharttablevalues">Trump</th>
 		</tr>
 	</thead>
-	<tr class='lineCharttableRow' style='font-weight: bold;'>
+	<tr class='lineCharttableRow' style='font-weight: bold; font-size: 0.5em;'>
 			<td>
 			<span style='color:#fff; opacity: .4;'>+</span>
 			<input type="checkbox" ng-model="pollyVote" ng-change="addpollyVote()" class='checkbox'>

@@ -1320,10 +1320,10 @@
 
                                                           function showValues(nameLocation) {
                                                             let name = nameLocation
-                                                            let clinton = name + ' ' + 'Clinton'
+                                                            let clinton = name + ' ' + 'Clinton' 
                                                             let trump = name + ' ' + 'Trump'
-                                                            let indexClinton = chart.series.findIndex(x => x.name == clinton)
-                                                            let indexTrump = chart.series.findIndex(x => x.name == trump)
+                                                            let indexClinton = chart.series.findIndex(function(x) { return x.name == clinton})
+                                                            let indexTrump = chart.series.findIndex(function(x) { return  x.name == trump})
                                                             seriesShow(indexClinton, indexTrump)
                                                             clintionTrumpValue()
 
@@ -1333,8 +1333,8 @@
                                                             let name = nameLocation
                                                             let clinton = name + ' ' + 'Clinton'
                                                             let trump = name + ' ' + 'Trump'
-                                                            let indexClinton = chart.series.findIndex(x => x.name == clinton)
-                                                            let indexTrump = chart.series.findIndex(x => x.name == trump)
+                                                            let indexClinton = chart.series.findIndex(function(x) { return  x.name == clinton})
+                                                            let indexTrump = chart.series.findIndex(function(x) { return  x.name == trump})
                                                             seriesHide(indexClinton, indexTrump)
                                                             clintionTrumpValue()
 
