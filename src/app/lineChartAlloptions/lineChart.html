@@ -15,10 +15,10 @@
 <!-- chart -->
 
 <div class='col-xs-12 chartbody' style='padding-left:2.5%; padding-bottom: 2%;'>
-	<h2 class='chartHeadline' style='font-weight: bold; text-transform: uppercase; font-family: Montserrat, sans-serif;font-size:16px; margin-bottom: 0;'>POLLYGRAPH: POPULAR VOTE FORECAST (TWO-PARTY)
+	<h2 class='chartHeadline' style='font-weight: bold; text-transform: uppercase; font-family: Montserrat, sans-serif;font-size:16px; margin-bottom: 0;'>POPULAR VOTE FORECAST (TWO-PARTY)
 
 </h2>
-<p>PollyGraph is interactive. Use checkboxes to discover a new level of prediction comparison. Last updated: {{lastdate}} ({{lastupDated}})</p>
+<p>This chart is interactive. Use the checkboxes in the table to compare forecasts. Last updated: {{lastdate}} ({{lastupDated}})</p>
 </div>
 
 
@@ -80,8 +80,8 @@
 	<tbody class='lineChartTableBody' ng-repeat="data in tableData| orderBy:'-clintonValuemain'">
 		<tr class='lineCharttableRow'>
 		<td>
-		<span ng-show="data.expand" ng-click='data.expand = false' style='color:#fff; opacity: .4;'>-</span>
-        <span ng-show="!data.expand" ng-click='data.expand = true' style='color:#fff; opacity: .4;'>+</span>
+		<span ng-show="data.expand" ng-click='data.expand = false'>-</span>
+        <span ng-show="!data.expand" ng-click='data.expand = true'>+</span>
 		<input type="checkbox"  ng-model="data.model" ng-change="onChnage()" class='checkbox'>
 		<a rel="noopener" target="_blank" href={{data.url}} >
 		{{data.name}}
@@ -89,10 +89,11 @@
 		</td>
 		<td  class="linecharttablevalues">{{data.clintonValuemain}}</td>
 		<td class="linecharttablevalues">{{data.trumpValue}}</td>
-<tr class="linecharttablesubheading">
+<tr class="lineCharttableRow">
 <tr ng-show="data.expand" ng-repeat="subs in data.subvalues| orderBy:'-clintonValuesub'">
 <td class="linechartcomponentHeading">
-<input type="checkbox" ng-model="subs.model" ng-change="onChnage()" class='checkbox'>
+<span style='color:#fff; opacity: .4;'>--</span>
+<input type="checkbox" ng-model="subs.model" ng-change="onChnage()" class='checkbox subcomponent'>
 <a rel="noopener" target="_blank" href={{subs.url}} >
 {{subs.name}}
 </a>

@@ -47,7 +47,6 @@
           var democrates_unordered = [];
           var republicans_unordered  = [];
           var ForecastsDateWhole_unordered  = [];
-          console.log(data.data[0].fcdate)
           var firstDate = new Date('04.01.2016')
           for (var i = 0; i<data.data.length; i++){
           if(data.data[i].fcdemvs != 0 && data.data[i].fcrepvs !=0){

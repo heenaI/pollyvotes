@@ -181,7 +181,7 @@ var datajoined = datacleaned.slice().map(function(el){
     dataCollector.push(el);
 });
 
-console.log(JSON.stringify(dataCollector))
+// console.log(JSON.stringify(dataCollector))
 
 };
 
@@ -266,7 +266,7 @@ function createBars(sumRep, sumDem, neutral){
         }]
     }]
 
-    console.log(JSON.stringify(dataset))
+    // console.log(JSON.stringify(dataset))
     var series = dataset.map(function (d) {
         return d.name;
     })
@@ -327,7 +327,7 @@ function createBars(sumRep, sumDem, neutral){
         .append('g')
         .attr('class', 'bar')
         .style('fill', function (d, i) {
-          console.log(JSON.stringify(d))
+          // console.log(JSON.stringify(d))
         if(d[0].y=='Clinton'){
         return colors[4]
         }else if(d[0].y=='Neutral'){

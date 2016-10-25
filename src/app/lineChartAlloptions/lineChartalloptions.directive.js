@@ -633,6 +633,16 @@
                                       getNeededValues($scope.huffingstonClintonData, $scope.huffingstonTrumpData, $scope.huffingston)
                                       pushSeries('HuffPost Pollster Clinton', false, $scope.huffingstonClintonData, 'cc')
                                       pushSeries('HuffPost Pollster Trump', false, $scope.huffingstonTrumpData, 'tt')
+
+                                      //YouGov
+                                      $scope.youGov = subcomponentDataClean(data, 'YouGov', $scope.youGov)
+                                      $scope.clintonyouGovForcast = getClintonForcast($scope.youGov)
+                                      $scope.TrumpyouGovForcast = getTrumpForcast($scope.youGov)
+                                      $scope.youGovClintonData = [];
+                                      $scope.youGovTrumpData = [];
+                                      getNeededValues($scope.youGovClintonData, $scope.youGovTrumpData, $scope.youGov)
+                                      pushSeries('YouGov Clinton', false, $scope.huffingstonClintonData, 'cc')
+                                      pushSeries('YouGov Trump', false, $scope.huffingstonTrumpData, 'tt')
                                     
 
                                       //Election Projection
@@ -1071,6 +1081,18 @@
                                                           pushSeries('Holbrook Clinton', false, holbrookClintonValues, 'cc')
                                                           pushSeries('Holbrook Trump', false, holbrookTrumpValues, 'tt')
 
+                                                          //Bread & Peace
+                                                          var breadPeace = {}
+                                                          separteData(data, 'Bread & Peace', breadPeace)
+                                                          var breadPeaceCleanData = cleanupData(breadPeace)
+                                                          $scope.breadPeaceClintonForecast = breadPeaceCleanData[0].clinton
+                                                          $scope.breadPeaceTrumpForecast = breadPeaceCleanData[0].trump
+                                                          var breadPeaceClintonValues = [];
+                                                          var breadPeaceTrumpValues = [];
+                                                          getNeededValues(breadPeaceClintonValues, breadPeaceTrumpValues, breadPeaceCleanData)
+                                                          pushSeries('Bread & Peace Clinton', false, breadPeaceClintonValues, 'cc')
+                                                          pushSeries('Bread & Peace Trump', false, breadPeaceTrumpValues, 'tt')
+
                                                           
 
 
@@ -1139,19 +1161,19 @@
                                                             model: 'aggregators',
                                                             subvalues: [{
                                                               name: 'TPM Poll Tracker',
-                                                              url: '//pollyvote.com/en/components/index-models/keys-to-the-white-house/',
-                                                              clintonValuesub: $scope.keystowhiteHouseClintonForcast,
-                                                              trumpValue: $scope.keystowhiteHousetrumpForcast,
+                                                              url: '//pollyvote.com/en/2016/06/27/tpm-poll-tracker-poll-clinton-with-5-point-lead/',
+                                                              clintonValuesub: $scope.clintonTPMForcast ,
+                                                              trumpValue: $scope.TrumpTPMForcast,
                                                               model: 'tpmPolls'
                                                             }, {
                                                               name: 'HuffPost Pollster',
-                                                              url: '//pollyvote.com/en/components/index-models/issues-and-leaders/',
-                                                              clintonValuesub: $scope.IssuesandLeadersClintonForcast,
-                                                              trumpValue: $scope.issuesandLeadersTrumpForecast,
+                                                              url: '//pollyvote.com/en/components/polls/huffpost-pollster/',
+                                                              clintonValuesub: $scope.clintonhuffingstonForcast,
+                                                              trumpValue: $scope.TrumphussingstonForcast,
                                                               model: 'huffingstonPolls'
                                                             }, {
                                                               name: 'Election Projection',
-                                                              url: '//pollyvote.com/en/components/polls/',
+                                                              url: '//pollyvote.com/en/components/polls/election-projection/',
                                                               clintonValuesub: $scope.clintonelectionProjectionForecast,
                                                               trumpValue: $scope.trumpelectionProjectionForecast,
                                                               model: 'electionProjection'
@@ -1178,10 +1200,16 @@
 
                                                             }, {
                                                               name: 'PEC',
-                                                              url: '//pollyvote.com/en/components/polls/pec/',
+                                                              url: '//pollyvote.com/en/components/polls/',
                                                               clintonValuesub: $scope.pecclintonForecast,
                                                               trumpValue: $scope.pecTrumpForecast,
                                                               model: 'pec'
+                                                            },{
+                                                              name: 'YouGov',
+                                                              url: '//pollyvote.com/en/yougov',
+                                                              clintonValuesub: $scope.clintonyouGovForcast,
+                                                              trumpValue: $scope.TrumpyouGovForcast,
+                                                              model: 'yougov'
                                                             }]
 
                                                           }, {
@@ -1206,7 +1234,7 @@
                                                             model: 'expert',
                                                             subvalues: [{
                                                               name: 'IEM (vote-share)',
-                                                              url: '#',
+                                                              url: '//pollyvote.com/en/components/prediction-markets/',
                                                               clintonValuesub: $scope.iemClintonForecast,
                                                               trumpValue: $scope.iemTrumpForecast,
                                                               model: 'iem'
@@ -1313,28 +1341,34 @@
                                                               clintonValuesub: $scope.holbrookClintonForecast,
                                                               trumpValue: $scope.holbrookTrumpForecast,
                                                               model: 'holbrook'
+                                                            }, {
+                                                              name: 'Bread & Peace',
+                                                              url: '//douglas-hibbs.com/',
+                                                              clintonValuesub: $scope.breadPeaceClintonForecast,
+                                                              trumpValue: $scope.breadPeaceTrumpForecast,
+                                                              model: 'breadPeace'
                                                             }]
                                                           }];
 
 
 
                                                           function showValues(nameLocation) {
-                                                            let name = nameLocation
-                                                            let clinton = name + ' ' + 'Clinton' 
-                                                            let trump = name + ' ' + 'Trump'
-                                                            let indexClinton = chart.series.findIndex(function(x) { return x.name == clinton})
-                                                            let indexTrump = chart.series.findIndex(function(x) { return  x.name == trump})
+                                                           
+                                                            var clinton = nameLocation + ' ' + 'Clinton' 
+                                                            var trump = nameLocation + ' ' + 'Trump'
+                                                            var indexClinton = chart.series.findIndex(function(x) { return x.name == clinton})
+                                                            var indexTrump = chart.series.findIndex(function(x) { return  x.name == trump})
                                                             seriesShow(indexClinton, indexTrump)
                                                             clintionTrumpValue()
 
                                                           }
 
                                                           function hideValues(nameLocation) {
-                                                            let name = nameLocation
-                                                            let clinton = name + ' ' + 'Clinton'
-                                                            let trump = name + ' ' + 'Trump'
-                                                            let indexClinton = chart.series.findIndex(function(x) { return  x.name == clinton})
-                                                            let indexTrump = chart.series.findIndex(function(x) { return  x.name == trump})
+                                            
+                                                            var clinton = nameLocation + ' ' + 'Clinton'
+                                                            var trump = nameLocation + ' ' + 'Trump'
+                                                            var indexClinton = chart.series.findIndex(function(x) { return  x.name == clinton})
+                                                            var indexTrump = chart.series.findIndex(function(x) { return  x.name == trump})
                                                             seriesHide(indexClinton, indexTrump)
                                                             clintionTrumpValue()
 

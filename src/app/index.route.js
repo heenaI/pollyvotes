@@ -34,12 +34,12 @@
         templateUrl: 'app/usa/simplemap.html'
       })
       .state('mainlinechrat', {
-        url: '/linechartwithalloptions',
+        url: '/pollygraph',
         templateUrl: 'app/lineChartAlloptions/lineChartalloptions.html',
         controller: 'linechartalloptionsController'
       })
       .state('testinglinechrat', {
-        url: '/testlinechartwithalloptions',
+        url: '/testpollygraph',
         templateUrl: 'app/lineChartAlloptions/testinglinechart.html',
         controller: 'linechartalloptionsController'
       });
