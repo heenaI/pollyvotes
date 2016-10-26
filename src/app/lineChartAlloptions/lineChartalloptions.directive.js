@@ -23,6 +23,7 @@
     };
 
     function link($scope, element, $document) {
+
       var colors = ["#e74c3c", "#f4a582", "#92c5de", "#2980b9"];
 
       function parseValues(data) {
@@ -355,11 +356,10 @@
               xAxis: {
                 gridLineWidth: 0,
                 type: 'datetime',
-
                 tickPositions: [1454329239000, 1465906839000, 1468844439000, 1469708439000, 1474892439000, 1476879639000, 1478607639000],
                 labels: {
+  
                   style: {
-
                     fontSize: '0.75em'
                   },
                   formatter: function() {
@@ -384,7 +384,8 @@
                   label: {
                     text: 'Primaries',
                     style: {
-                      color: '#606060'
+                      color: '#606060',
+                      fontSize: '0.9em'
                     }
                   }
                 }, { // Light air
@@ -396,7 +397,8 @@
                   label: {
                     text: 'Conventions',
                     style: {
-                      color: '#606060'
+                      color: '#606060',
+                      fontSize: '0.9em'
                     }
                   }
                 }, { // Light air
@@ -408,7 +410,8 @@
                   label: {
                     text: 'Debates',
                     style: {
-                      color: '#606060'
+                      color: '#606060',
+                      fontSize: '0.9em'
                     }
                   }
                 }],
@@ -416,6 +419,7 @@
               },
               yAxis: {
                 gridLineWidth: 0,
+                id: 'y-axis',
                 allowDecimals: false,
                 labels: {
                   enabled: true,
@@ -479,6 +483,8 @@
             });
           });
           var chart = $('#container').highcharts()
+          $scope.chart = $('#container').highcharts()
+
 
 
 
@@ -1093,6 +1099,18 @@
                                                           pushSeries('Bread & Peace Clinton', false, breadPeaceClintonValues, 'cc')
                                                           pushSeries('Bread & Peace Trump', false, breadPeaceTrumpValues, 'tt')
 
+                                                          //Crosstab
+                                                          var Crosstab = {}
+                                                          separteData(data, 'Crosstab', Crosstab)
+                                                          var CrosstabCleanData = cleanupData(Crosstab)
+                                                          $scope.CrosstabClintonForecast = CrosstabCleanData[0].clinton
+                                                          $scope.CrosstabTrumpForecast = CrosstabCleanData[0].trump
+                                                          var CrosstabClintonValues = [];
+                                                          var CrosstabTrumpValues = [];
+                                                          getNeededValues(CrosstabClintonValues, CrosstabTrumpValues, CrosstabCleanData)
+                                                          pushSeries('Crosstab Clinton', false, CrosstabClintonValues, 'cc')
+                                                          pushSeries('Crosstab Trump', false, CrosstabTrumpValues, 'tt')
+
                                                           
 
 
@@ -1130,19 +1148,19 @@
                                                               model: 'keysWhiteHouse'
                                                             }, {
                                                               name: 'Issues and Leaders',
-                                                              url: '//pollyvote.com/en/components/index-models/issues-and-leaders/',
+                                                              url: '//pollyvote.com/en/issues-and-leaders/',
                                                               clintonValuesub: $scope.IssuesandLeadersClintonForcast,
                                                               trumpValue: $scope.issuesandLeadersTrumpForecast,
                                                               model: 'issuesAndLeaders'
                                                             }, {
                                                               name: 'Bio-index',
-                                                              url: '//pollyvote.com/en/components/index-models/big-issue',
+                                                              url: '//pollyvote.com/en/components/index-models/bio-index/',
                                                               clintonValuesub: $scope.bioindexClintonForecast,
                                                               trumpValue: $scope.bioindexTrumpForecast,
                                                               model: 'bioIndex'
                                                             }, {
                                                               name: 'Big-issue',
-                                                              url: '//pollyvote.com/en/components/index-models/keys-to-the-white-house/',
+                                                              url: '//pollyvote.com/de/komponenten/index-modelle/big-issue/',
                                                               clintonValuesub: $scope.bigIssueClintonForecast,
                                                               trumpValue: $scope.bigIssueTrumpForecast,
                                                               model: 'bigIssue'
@@ -1234,7 +1252,7 @@
                                                             model: 'expert',
                                                             subvalues: [{
                                                               name: 'IEM (vote-share)',
-                                                              url: '//pollyvote.com/en/components/prediction-markets/',
+                                                              url: '//pollyvote.com/en/components/prediction-markets/iowa-electronic-markets/',
                                                               clintonValuesub: $scope.iemClintonForecast,
                                                               trumpValue: $scope.iemTrumpForecast,
                                                               model: 'iem'
@@ -1277,7 +1295,7 @@
                                                               model: 'tien'
                                                             }, {
                                                               name: 'Leading indicators',
-                                                              url: '//pollyvote.com/en',
+                                                              url: '//pollyvote.com/en/components/econometric-models/leading-economic-indicators-and-the-polls/',
                                                               clintonValuesub: $scope.indicatorsClintonForecast,
                                                               trumpValue: $scope.indicatorsTrumpForecast,
                                                               model: 'indicators'
@@ -1313,7 +1331,7 @@
                                                               model: 'electoralcycle'
                                                             }, {
                                                               name: 'DeSart',
-                                                              url: '/research.uvu.edu/DeSart/forecasting/LongRange/',
+                                                              url: '//pollyvote.com/en/components/econometric-models/desart/',
                                                               clintonValuesub: $scope.desartClintonForecast,
                                                               trumpValue: $scope.desartTrumpForecast,
                                                               model: 'desart'
@@ -1331,7 +1349,7 @@
                                                               model: 'pollsPlus'
                                                             }, {
                                                               name: 'Fiscal model',
-                                                              url: '//pollyvote.com/wp-content/uploads/2016/08/FISCAL-MODEL-FORECAST-FOR-2016-AMERICAN-PRESIDENTIAL-ELECTION.pdf',
+                                                              url: '//pollyvote.com/en/components/econometric-models/fiscal-model/',
                                                               clintonValuesub: $scope.fiscalModelClintonForecast,
                                                               trumpValue: $scope.fiscalModelTrumpForecast,
                                                               model: 'fiscalModel'
@@ -1343,10 +1361,16 @@
                                                               model: 'holbrook'
                                                             }, {
                                                               name: 'Bread & Peace',
-                                                              url: '//douglas-hibbs.com/',
+                                                              url: '//pollyvote.com/en/components/econometric-models/bread-and-peace-model/',
                                                               clintonValuesub: $scope.breadPeaceClintonForecast,
                                                               trumpValue: $scope.breadPeaceTrumpForecast,
                                                               model: 'breadPeace'
+                                                            }, {
+                                                              name: 'Crosstab',
+                                                              url: '//pollyvote.com/en/',
+                                                              clintonValuesub: $scope.CrosstabClintonForecast,
+                                                              trumpValue: $scope.CrosstabTrumpForecast,
+                                                              model: 'Crosstab'
                                                             }]
                                                           }];
 

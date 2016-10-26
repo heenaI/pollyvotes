@@ -1,12 +1,17 @@
+<!-- 
+<div class="alert alert-info" id='smallscreenAlert'>
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Info!</strong> This alert box could indicate a neutral informative change or action.
+  </div> -->
 <!-- modal for embeding -->
-<div class='pollyGraph' style='font-family: Merriweather, Georgia, serif;'>
+<div id='pollyGraph' style='font-family: Merriweather, Georgia, serif;'>
  <div class="Stage-popup Stage-popup-embed" id='myModal' style='width: 50 ; height: 90 ; padding-left:2.5 ; z-index: 1000;'>
             <div class="popup-body">
                 <a class="popup-close-btn">✕</a>
                 <h2 class='embedHeading'>EMBED</h2>
                 <p>Embed the following link to show chart in your webpage. Embedding and sharing is free for everyone. The content is dynamic, i.e. numbers and text change in accordance with the data.</p>
                 <textarea class="embed-code">
-<iframe width="100 " height="450px" src="//charts.pollyvote.com/linechartwithalloptions" frameborder="0" allowfullscreen></iframe>
+<iframe width="100%" height="600px" src="//charts.pollyvote.com//pollygraph" frameborder="0" allowfullscreen></iframe>
                 </textarea>
                 </a>
             </div>
@@ -22,8 +27,10 @@
 </div>
 
 
+
+
 <!-- Chart -->
-<div class='col-xs-8'>
+<div class='col-md-8' resizer ng-class="{ 'large': isLarge }">
 	<!-- chart checkboxes -->
 	<div class='pull-left' id='linechartAlloptionsCheckbox1'>
         <label class='label--checkbox' id='checkbox4'>
@@ -46,19 +53,89 @@
           Trump: {{pollyvoteTrumpForcast}}%
         </span>
         </label>
+        
       </div>
 
+<div class='col-xs-12'>
+<button class="btn-primary" id='buttonSmallscreen' ng-click="showme=true" ng-hide="showme">
+	      <a href="#" class="table-menu-btn">Display Table</a>
+</button>
+
+
+<div id='smallTable' ng-show="showme" >
+<button class="btn-primary" ng-click="showme=false" id='buttonSmallscreen'>
+<a href="#" class="table-menu-btn" >Display Chart</a>	
+</button>
+
+<table   cellspacing="0" st-table="tableData" st-safe-src="tableData" class='table table-striped table-hover table-condensed' id='lineChartTable'>
+	<thead class='lineCharttableHeader'>
+		<tr class='lineCharttableRow'>
+			<th class="linecharttablemainheading">Method</th>
+			<th class="linecharttablevalues">Clinton</th>
+			<th class="linecharttablevalues">Trump</th>
+		</tr>
+	</thead>
+	<tr class='lineCharttableRow' style='font-weight: bold;'>
+			<td>
+			<span style='color:#fff; opacity: .4;'>+</span>
+			<input type="checkbox" ng-model="pollyVote" ng-change="addpollyVote()" class='checkbox'>
+				
+				<a rel="noopener" href="//pollyvote.com/en/combining-forecasts/" target="_blank">
+				PollyVote</a>
+				</td>
+				<td class="linecharttablevalues">{{pollyvoteClintonForcast}}</td>
+				<td class="linecharttablevalues">{{pollyvoteTrumpForcast}}</td>
+				</tr>
+	<tbody class='lineChartTableBody' ng-repeat="data in tableData| orderBy:'-clintonValuemain'">
+		<tr class='lineCharttableRow'>
+		<td>
+		<span ng-show="data.expand" ng-click='data.expand = false'>-</span>
+        <span ng-show="!data.expand" ng-click='data.expand = true'>+</span>
+		<input type="checkbox"  ng-model="data.model" ng-change="onChnage()" class='checkbox'>
+		<a rel="noopener" target="_blank" href={{data.url}} >
+		{{data.name}}
+		</a>
+		</td>
+		<td  class="linecharttablevalues">{{data.clintonValuemain}}</td>
+		<td class="linecharttablevalues">{{data.trumpValue}}</td>
+<tr class="lineCharttableRow">
+<tr ng-show="data.expand" ng-repeat="subs in data.subvalues| orderBy:'-clintonValuesub'">
+<td class="linechartcomponentHeading">
+<span style='color:#fff; opacity: .4;'>--</span>
+<input type="checkbox" ng-model="subs.model" ng-change="onChnage()" class='checkbox subcomponent'>
+<a rel="noopener" target="_blank" href={{subs.url}} >
+{{subs.name}}
+</a>
+</td>
+<td class="linecharttablevalues">
+	{{subs.clintonValuesub}}
+</td>
+<td class="linecharttablevalues">
+	{{subs.trumpValue}}
+</td>
+</tr>
+</tr>
+			
+		</tr>
+	</tbody>
+</table>
+	
+</div>
+</div>
+	      
+        
 
 	<!-- svg -->
-	<div id='box' class='col-xs-12'>
-		<div id="container" config="chartConfig"></div>
+	<div id='box' class='col-xs-12' ng-hide="showme">
+		<div id="container" config="chartConfig" ></div>
 	</div>
 	 
 
 
 </div>
-<div class='col-xs-4'>
-<table st-table="tableData" st-safe-src="tableData" class='table table-striped table-hover table-condensed' id='lineChartTable'>
+
+<div class='col-xs-4 table-responsive' resizer ng-class="{ 'large': isLarge }" id='tableBigScreen'>
+<table cellspacing="0" st-table="tableData" st-safe-src="tableData" class='table table-striped table-hover table-condensed' id='lineChartTable'>
 	<thead class='lineCharttableHeader'>
 		<tr class='lineCharttableRow'>
 			<th class="linecharttablemainheading">Method</th>
@@ -111,8 +188,11 @@
 	</tbody>
 </table>
 
+
+
 <br>
 </div>
+
 
 
 <!-- footer -->
@@ -172,8 +252,6 @@ socialshare-caption="Updated daily">
     });
     $('.Stage-popup .popup-close-btn').click(function() { $('.Stage-popup').hide(); });
 </script>
-
-
 
 
 

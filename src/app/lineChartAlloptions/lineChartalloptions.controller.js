@@ -6,11 +6,16 @@
 		.controller('linechartalloptionsController', linechartalloptionsController);
 
 	/** @ngInject */
-	function linechartalloptionsController($scope, $timeout, lineChart, $translate, tmhDynamicLocale, $filter) {
- 
+	function linechartalloptionsController($scope, $timeout, lineChart, $translate, tmhDynamicLocale, $window) {
+
 		$timeout(function() {
-			console.log($scope.desarTrumpForecast)
-		}, 10000);
+			if ($window.innerWidth <= 399) {
+
+				$scope.chart.yAxis[0].setTitle({
+					text: ''
+				});
+			}
+		}, 1000);
 
 
 
