@@ -1402,7 +1402,7 @@
 
 
                                                           $scope.onChnage = function() {
-                                                            console.log($scope.tableData[5].name)
+                                      
                                                             var i, k
                                                             for (i = 0; i < $scope.tableData.length; i++) {
                                                               if ($scope.tableData[i].model == true) {
