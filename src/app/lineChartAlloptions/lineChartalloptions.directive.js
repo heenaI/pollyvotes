@@ -303,7 +303,36 @@
           getNeededValues($scope.clintonValues, $scope.trumpValues, $scope.pollyvoteData)
 
           $(function() {
+            var adjustingLabels = false;
+
+            function adjustLabelsRotation(chart) {
+              if (chart.chartWidth < 700) {
+                chart.xAxis[0].update({
+                  labels: {
+                    rotation: -45
+                  }
+                });
+              } else {
+                chart.xAxis[0].update({
+                  labels: {
+                    rotation: 0
+                  }
+                });
+              }
+            };
+
             $('#container').highcharts({
+              // chart: {
+              //   events: {
+              //     redraw: function() {
+              //       if (!adjustingLabels) {
+              //         adjustingLabels = true;
+              //         adjustLabelsRotation(this);
+              //         adjustingLabels = false;
+              //       }
+              //     }
+              //   }
+              // },
 
               legend: {
                 enabled: false
@@ -358,7 +387,7 @@
                 type: 'datetime',
                 tickPositions: [1454329239000, 1465906839000, 1468844439000, 1469708439000, 1474892439000, 1476879639000, 1478607639000],
                 labels: {
-  
+
                   style: {
                     fontSize: '0.75em'
                   },
@@ -487,9 +516,6 @@
 
 
 
-
-
-
           $scope.lastThiry = function(key) {
             if ($scope.thirtyDay == true) {
               $scope.timeline = false
@@ -523,11 +549,11 @@
             chart.series[b].hide()
           }
 
-          $scope.addpollyVote = function(){
-            if($scope.pollyVote==true){
+          $scope.addpollyVote = function() {
+            if ($scope.pollyVote == true) {
               seriesShow(0, 1)
-              
-            } else if($scope.pollyVote==false){
+
+            } else if ($scope.pollyVote == false) {
               seriesHide(0, 1)
             }
           }
@@ -545,7 +571,7 @@
               getNeededValues($scope.indexClinton, $scope.indexTrump, $scope.indexModelData)
               pushSeries('Index models Clinton', false, $scope.indexClinton, 'cc')
               pushSeries('Index models Trump', false, $scope.indexTrump, 'tt')
-       
+
 
 
               econometricModels.getData()
@@ -560,7 +586,7 @@
                   getNeededValues($scope.econoClinton, $scope.econoTrump, $scope.econometricData)
                   pushSeries('Econometric models Clinton', false, $scope.econoClinton, 'cc')
                   pushSeries('Econometric models Trump', false, $scope.econoTrump, 'tt')
-                
+
 
 
                   expert.getData()
@@ -574,7 +600,7 @@
                       pushSeries('Expert judgment Clinton', false, $scope.ModelsExpertClinton, 'cc')
                       pushSeries('Expert judgment Trump', false, $scope.ModelsExpertTrump, 'tt')
 
-                   
+
 
                       pollagg.getData()
                         .success(function(pollaggData) {
@@ -586,7 +612,6 @@
                           getNeededValues($scope.pollsClintonValues, $scope.pollsTrumpValues, $scope.pollaggr)
                           pushSeries('Poll aggregators Clinton', false, $scope.pollsClintonValues, 'cc')
                           pushSeries('Poll aggregators Trump', false, $scope.pollsTrumpValues, 'tt')
-                         
 
 
 
@@ -600,7 +625,6 @@
                               getNeededValues($scope.predictionClintonValues, $scope.predictionTrumpValues, $scope.predictionMarketData)
                               pushSeries('Prediction markets Clinton', false, $scope.predictionClintonValues, 'cc')
                               pushSeries('Prediction markets Trump', false, $scope.predictionTrumpValues, 'tt')
-                             
 
 
 
@@ -615,7 +639,7 @@
                                   pushSeries('Citizen forecasts Clinton', false, $scope.citizenClintonValues, 'cc')
                                   pushSeries('Citizen forecasts Trump', false, $scope.citizenTrumpValues, 'tt')
 
-                                  
+
 
                                   pollssubcomponent.getData()
                                     .success(function(data) {
@@ -628,7 +652,7 @@
                                       getNeededValues($scope.TPMClintonData, $scope.TPMTrumpData, $scope.tpmPollTracker)
                                       pushSeries('TPM Poll Tracker Clinton', false, $scope.TPMClintonData, 'cc')
                                       pushSeries('TPM Poll Tracker Trump', false, $scope.TPMTrumpData, 'tt')
-                                     
+
 
                                       //huffingston polls
                                       $scope.huffingston = subcomponentDataClean(data, 'HuffPost Pollster', $scope.huffingston)
@@ -649,7 +673,7 @@
                                       getNeededValues($scope.youGovClintonData, $scope.youGovTrumpData, $scope.youGov)
                                       pushSeries('YouGov Clinton', false, $scope.huffingstonClintonData, 'cc')
                                       pushSeries('YouGov Trump', false, $scope.huffingstonTrumpData, 'tt')
-                                    
+
 
                                       //Election Projection
                                       $scope.electionProjection = subcomponentDataClean(data, 'Election Projection', $scope.electionProjection)
@@ -660,7 +684,7 @@
                                       getNeededValues($scope.ClintionelectionProjection, $scope.TrumpelectionProjection, $scope.electionProjection)
                                       pushSeries('Election Projection Clinton', false, $scope.ClintionelectionProjection, 'cc')
                                       pushSeries('Election Projection Trump', false, $scope.TrumpelectionProjection, 'tt')
-                                     
+
                                       //538 (polls-only)
                                       $scope.pollsOnly = subcomponentDataClean(data, '538 (polls-only)', $scope.pollsOnly)
                                       $scope.clinton538Forcast = getClintonForcast($scope.pollsOnly)
@@ -670,7 +694,7 @@
                                       getNeededValues($scope.Clinton538ForecastValues, $scope.Trump538ForecastValues, $scope.pollsOnly)
                                       pushSeries('538 (polls-only) Clinton', false, $scope.Clinton538ForecastValues, 'cc')
                                       pushSeries('538 (polls-only) Trump', false, $scope.Trump538ForecastValues, 'tt')
-                                     
+
 
 
                                       //270 to win
@@ -682,8 +706,7 @@
                                       getNeededValues($scope.twoSeventyClintonValues, $scope.twoSeventyTrumpValues, $scope.twoSeventy)
                                       pushSeries('270 to win Clinton', false, $scope.twoSeventyClintonValues, 'cc')
                                       pushSeries('270 to win Trump', false, $scope.twoSeventyTrumpValues, 'tt')
-                                      
-                                     
+
 
 
                                       //RealClearPolitics
@@ -695,7 +718,7 @@
                                       getNeededValues($scope.RealClearPoliticsClintonValues, $scope.RealClearPoliticstrumpValues, $scope.RealClearPolitics)
                                       pushSeries('RealClearPolitics Clinton', false, $scope.RealClearPoliticsClintonValues, 'cc')
                                       pushSeries('RealClearPolitics Trump', false, $scope.RealClearPoliticstrumpValues, 'tt')
-                                   
+
 
                                       //PEC
                                       $scope.pec = subcomponentDataClean(data, 'PEC', $scope.pec)
@@ -706,7 +729,6 @@
                                       getNeededValues($scope.pecClintonValues, $scope.pecTrumpValues, $scope.pec)
                                       pushSeries('PEC Clinton', false, $scope.pecClintonValues, 'cc')
                                       pushSeries('PEC Trump', false, $scope.pecTrumpValues, 'tt')
-                                    
 
 
 
@@ -722,7 +744,7 @@
                                           getNeededValues($scope.keystowhiteHouseClintonValues, $scope.keystowhiteHouseTrumpValues, $scope.keystowhitehouseCleanedData)
                                           pushSeries('Keys to the White House Clinton', false, $scope.keystowhiteHouseClintonValues, 'cc')
                                           pushSeries('Keys to the White House Trump', false, $scope.keystowhiteHouseTrumpValues, 'tt')
-                                       
+
 
 
                                           $scope.IssuesandLeaders = {}
@@ -735,7 +757,7 @@
                                           getNeededValues($scope.issuesandleadersClintonValues, $scope.issuesandleadersTrumpValues, $scope.issuesandLeadersCleanedData)
                                           pushSeries('Issues and Leaders Clinton', false, $scope.issuesandleadersClintonValues, 'cc')
                                           pushSeries('Issues and Leaders Trump', false, $scope.issuesandleadersTrumpValues, 'tt')
-                                       
+
 
 
                                           $scope.bioIndex = {}
@@ -748,7 +770,7 @@
                                           getNeededValues($scope.bioindexClintonValues, $scope.bioindexTrumpValues, $scope.bioindexCleanedData)
                                           pushSeries('Bio-index Clinton', false, $scope.bioindexClintonValues, 'cc')
                                           pushSeries('Bio-index Trump', false, $scope.bioindexTrumpValues, 'tt')
-                                        
+
 
                                           $scope.bigIssue = {}
                                           separteData(data, 'Big-issue', $scope.bigIssue)
@@ -760,7 +782,7 @@
                                           getNeededValues($scope.bigIssueClintonValues, $scope.bigIssueTrumpValues, $scope.bigIssue)
                                           pushSeries('Big-issue Clinton', false, $scope.bigIssueClintonValues, 'cc')
                                           pushSeries('Big-issue Trump', false, $scope.bigIssueTrumpValues, 'tt')
-                                       
+
 
 
                                           $scope.issueIndex = {}
@@ -773,7 +795,7 @@
                                           getNeededValues($scope.issueIndexClintonValues, $scope.issueIndextrumpValues, $scope.issueIndexCleanedData)
                                           pushSeries('Issue-index Clinton', false, $scope.issueIndexClintonValues, 'cc')
                                           pushSeries('Issue-index Trump', false, $scope.issueIndextrumpValues, 'tt')
-                                       
+
 
 
                                           expertsubcategory.getData()
@@ -800,7 +822,6 @@
 
 
 
-                                             
                                               subcomponentCitizen.getData()
                                                 .success(function(data) {
                                                   //Quinnipiac University
@@ -819,7 +840,7 @@
                                                   pushSeries('Quinnipiac University Clinton', true, QuinnipiacDataClintonValues, 'cc')
                                                   pushSeries('Quinnipiac University Trump', true, QuinnipiacDataTrumpValues, 'tt')
 
-                                                 
+
 
                                                   //Economist / YouGov
                                                   var economist = {}
@@ -849,7 +870,7 @@
                                                   pushSeries('Suffolk University/USA Today Clinton', true, usaTodayClintonValues, 'cc')
                                                   pushSeries('Suffolk University/USA Today Trump', true, usaTodayTrumpValues, 'tt')
 
-                                                
+
 
                                                   pmsubcomponent.getData()
                                                     .success(function(data) {
@@ -866,7 +887,7 @@
                                                       getNeededValues(iemClintonValues, iemTrumpValues, iemCleanData)
                                                       pushSeries('IEM (vote-share) Clinton', false, iemClintonValues, 'cc')
                                                       pushSeries('IEM (vote-share) Trump', false, iemTrumpValues, 'tt')
-                                                 
+
                                                       ecosubcomponent.getData()
                                                         .success(function(data) {
                                                           //Vox.com
@@ -880,7 +901,7 @@
                                                           getNeededValues(voxClintonValues, voxTrumpValues, voxCleanData)
                                                           pushSeries('Vox.com Clinton', false, voxClintonValues, 'cc')
                                                           pushSeries('Vox.com Trump', false, voxTrumpValues, 'tt')
-                                                   
+
 
                                                           //Time-for-change
                                                           var tfc = {}
@@ -907,7 +928,7 @@
                                                           pushSeries('Primary Clinton', false, primaryClintonValues, 'cc')
                                                           pushSeries('Primary Trump', false, primaryTrumpValues, 'tt')
 
-                                                        
+
 
                                                           // Lockerbie
 
@@ -922,7 +943,7 @@
                                                           pushSeries('Lockerbie Clinton', false, lockerbieClintonValues, 'cc')
                                                           pushSeries('Lockerbie Trump', false, lockerbieTrumpValues, 'tt')
 
-                                                   
+
 
                                                           //Lewis-Beck & Tien
                                                           var tien = {}
@@ -938,7 +959,6 @@
 
 
 
-
                                                           //Leading indicators
                                                           var indicators = {}
                                                           separteData(data, 'Leading indicators', indicators)
@@ -951,7 +971,7 @@
                                                           pushSeries('Leading indicators Clinton', false, indicatorsClintonValues, 'cc')
                                                           pushSeries('Leading indicators Trump', false, indicatorsTrumpValues, 'tt')
 
-                                                        
+
 
                                                           //Jérôme & Jérôme
                                                           var jerome = {}
@@ -965,7 +985,7 @@
                                                           pushSeries('Jérôme & Jérôme Clinton', false, jeromeClintonValues, 'cc')
                                                           pushSeries('Jérôme & Jérôme Trump', false, jeromeTrumpValues, 'tt')
 
-                                                       
+
 
                                                           //Trial-heat
                                                           var heat = {}
@@ -979,7 +999,7 @@
                                                           pushSeries('Trial-heat Clinton', false, heatClintonValues, 'cc')
                                                           pushSeries('Trial-heat Trump', false, heatTrumpValues, 'tt')
 
-                                                         
+
 
                                                           //Holbrook & DeSar
                                                           var desar = {}
@@ -993,7 +1013,7 @@
                                                           pushSeries('Holbrook & DeSart Clinton', false, desarClintonValues, 'cc')
                                                           pushSeries('Holbrook & DeSart Trump', false, desarTrumpValues, 'tt')
 
-                                                         
+
 
                                                           // Fair
                                                           var fair = {}
@@ -1007,7 +1027,7 @@
                                                           pushSeries('Fair Clinton', false, fairClintonValues, 'cc')
                                                           pushSeries('Fair Trump', false, fairTrumpValues, 'tt')
 
-                                                         
+
 
                                                           //Electoral-cycle
                                                           var electoralcycle = {}
@@ -1021,7 +1041,7 @@
                                                           pushSeries('Electoral-cycle Clinton', false, electoralcycleClintonValues, 'cc')
                                                           pushSeries('Electoral-cycle Trump', false, electoralcycleTrumpValues, 'tt')
 
-                                                         
+
                                                           //DeSart
                                                           var desart = {}
                                                           separteData(data, 'DeSart', desart)
@@ -1034,7 +1054,7 @@
                                                           pushSeries('DeSart Clinton', false, desartClintonValues, 'cc')
                                                           pushSeries('DeSart Trump', false, desartTrumpValues, 'tt')
 
-                                                         
+
 
                                                           //Convention bump
                                                           var bump = {}
@@ -1060,7 +1080,7 @@
                                                           pushSeries('538 (polls-plus) Clinton', false, pollsPlusClintonValues, 'cc')
                                                           pushSeries('538 (polls-plus) Trump', false, pollsPlusTrumpValues, 'tt')
 
-                                                         
+
                                                           //Fiscal model
                                                           var fiscalModel = {}
                                                           separteData(data, 'Fiscal model', fiscalModel)
@@ -1073,7 +1093,7 @@
                                                           pushSeries('Fiscal model Clinton', false, fiscalModelClintonValues, 'cc')
                                                           pushSeries('Fiscal model Trump', false, fiscalModelTrumpValues, 'tt')
 
-                                                         
+
 
                                                           //Holbrook
                                                           var holbrook = {}
@@ -1111,7 +1131,6 @@
                                                           pushSeries('Crosstab Clinton', false, CrosstabClintonValues, 'cc')
                                                           pushSeries('Crosstab Trump', false, CrosstabTrumpValues, 'tt')
 
-                                                          
 
 
                                                           $scope.completeTimeLine = function(key) {
@@ -1180,7 +1199,7 @@
                                                             subvalues: [{
                                                               name: 'TPM Poll Tracker',
                                                               url: '//pollyvote.com/en/2016/06/27/tpm-poll-tracker-poll-clinton-with-5-point-lead/',
-                                                              clintonValuesub: $scope.clintonTPMForcast ,
+                                                              clintonValuesub: $scope.clintonTPMForcast,
                                                               trumpValue: $scope.TrumpTPMForcast,
                                                               model: 'tpmPolls'
                                                             }, {
@@ -1222,7 +1241,7 @@
                                                               clintonValuesub: $scope.pecclintonForecast,
                                                               trumpValue: $scope.pecTrumpForecast,
                                                               model: 'pec'
-                                                            },{
+                                                            }, {
                                                               name: 'YouGov',
                                                               url: '//pollyvote.com/en/yougov',
                                                               clintonValuesub: $scope.clintonyouGovForcast,
@@ -1377,22 +1396,30 @@
 
 
                                                           function showValues(nameLocation) {
-                                                           
-                                                            var clinton = nameLocation + ' ' + 'Clinton' 
+
+                                                            var clinton = nameLocation + ' ' + 'Clinton'
                                                             var trump = nameLocation + ' ' + 'Trump'
-                                                            var indexClinton = chart.series.findIndex(function(x) { return x.name == clinton})
-                                                            var indexTrump = chart.series.findIndex(function(x) { return  x.name == trump})
+                                                            var indexClinton = chart.series.findIndex(function(x) {
+                                                              return x.name == clinton
+                                                            })
+                                                            var indexTrump = chart.series.findIndex(function(x) {
+                                                              return x.name == trump
+                                                            })
                                                             seriesShow(indexClinton, indexTrump)
                                                             clintionTrumpValue()
 
                                                           }
 
                                                           function hideValues(nameLocation) {
-                                            
+
                                                             var clinton = nameLocation + ' ' + 'Clinton'
                                                             var trump = nameLocation + ' ' + 'Trump'
-                                                            var indexClinton = chart.series.findIndex(function(x) { return  x.name == clinton})
-                                                            var indexTrump = chart.series.findIndex(function(x) { return  x.name == trump})
+                                                            var indexClinton = chart.series.findIndex(function(x) {
+                                                              return x.name == clinton
+                                                            })
+                                                            var indexTrump = chart.series.findIndex(function(x) {
+                                                              return x.name == trump
+                                                            })
                                                             seriesHide(indexClinton, indexTrump)
                                                             clintionTrumpValue()
 
@@ -1402,7 +1429,7 @@
 
 
                                                           $scope.onChnage = function() {
-                                      
+
                                                             var i, k
                                                             for (i = 0; i < $scope.tableData.length; i++) {
                                                               if ($scope.tableData[i].model == true) {

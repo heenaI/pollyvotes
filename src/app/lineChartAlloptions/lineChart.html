@@ -3,34 +3,15 @@
     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
     <strong>Info!</strong> This alert box could indicate a neutral informative change or action.
   </div> -->
-<!-- modal for embeding -->
-<div id='pollyGraph' style='font-family: Merriweather, Georgia, serif;'>
- <div class="Stage-popup Stage-popup-embed" id='myModal' style='width: 50 ; height: 90 ; padding-left:2.5 ; z-index: 1000;'>
-            <div class="popup-body">
-                <a class="popup-close-btn">✕</a>
-                <h2 class='embedHeading'>EMBED</h2>
-                <p>Embed the following link to show chart in your webpage. Embedding and sharing is free for everyone. The content is dynamic, i.e. numbers and text change in accordance with the data.</p>
-                <textarea class="embed-code">
-<iframe width="100%" height="600px" src="//charts.pollyvote.com//pollygraph" frameborder="0" allowfullscreen></iframe>
-                </textarea>
-                </a>
-            </div>
-        </div>
 
 <!-- chart -->
 
-<div class='col-xs-12 chartbody' style='padding-left:2.5%; padding-bottom: 2%;'>
-	<h2 class='chartHeadline' style='font-weight: bold; text-transform: uppercase; font-family: Montserrat, sans-serif;font-size:16px; margin-bottom: 0;'>POPULAR VOTE FORECAST (TWO-PARTY)
-
-</h2>
-<p>This chart is interactive. Use the checkboxes in the table to compare forecasts. Last updated: {{lastdate}} ({{lastupDated}})</p>
-</div>
 
 
 
 
 <!-- Chart -->
-<div class='col-md-8' resizer ng-class="{ 'large': isLarge }">
+
 	<!-- chart checkboxes -->
 	<div class='pull-left' id='linechartAlloptionsCheckbox1'>
         <label class='label--checkbox' id='checkbox4'>
@@ -56,72 +37,7 @@
         
       </div>
 
-<div class='col-xs-12'>
-<button class="btn-primary" id='buttonSmallscreen' ng-click="showme=true" ng-hide="showme">
-	      <a href="#" class="table-menu-btn">Display Table</a>
-</button>
 
-
-<div id='smallTable' ng-show="showme" >
-<button class="btn-primary" ng-click="showme=false" id='buttonSmallscreen'>
-<a href="#" class="table-menu-btn" >Display Chart</a>	
-</button>
-
-<table   cellspacing="0" st-table="tableData" st-safe-src="tableData" class='table table-striped table-hover table-condensed' id='lineChartTable'>
-	<thead class='lineCharttableHeader'>
-		<tr class='lineCharttableRow'>
-			<th class="linecharttablemainheading">Method</th>
-			<th class="linecharttablevalues">Clinton</th>
-			<th class="linecharttablevalues">Trump</th>
-		</tr>
-	</thead>
-	<tr class='lineCharttableRow' style='font-weight: bold;'>
-			<td>
-			<span style='color:#fff; opacity: .4;'>+</span>
-			<input type="checkbox" ng-model="pollyVote" ng-change="addpollyVote()" class='checkbox'>
-				
-				<a rel="noopener" href="//pollyvote.com/en/combining-forecasts/" target="_blank">
-				PollyVote</a>
-				</td>
-				<td class="linecharttablevalues">{{pollyvoteClintonForcast}}</td>
-				<td class="linecharttablevalues">{{pollyvoteTrumpForcast}}</td>
-				</tr>
-	<tbody class='lineChartTableBody' ng-repeat="data in tableData| orderBy:'-clintonValuemain'">
-		<tr class='lineCharttableRow'>
-		<td>
-		<span ng-show="data.expand" ng-click='data.expand = false'>-</span>
-        <span ng-show="!data.expand" ng-click='data.expand = true'>+</span>
-		<input type="checkbox"  ng-model="data.model" ng-change="onChnage()" class='checkbox'>
-		<a rel="noopener" target="_blank" href={{data.url}} >
-		{{data.name}}
-		</a>
-		</td>
-		<td  class="linecharttablevalues">{{data.clintonValuemain}}</td>
-		<td class="linecharttablevalues">{{data.trumpValue}}</td>
-<tr class="lineCharttableRow">
-<tr ng-show="data.expand" ng-repeat="subs in data.subvalues| orderBy:'-clintonValuesub'">
-<td class="linechartcomponentHeading">
-<span style='color:#fff; opacity: .4;'>--</span>
-<input type="checkbox" ng-model="subs.model" ng-change="onChnage()" class='checkbox subcomponent'>
-<a rel="noopener" target="_blank" href={{subs.url}} >
-{{subs.name}}
-</a>
-</td>
-<td class="linecharttablevalues">
-	{{subs.clintonValuesub}}
-</td>
-<td class="linecharttablevalues">
-	{{subs.trumpValue}}
-</td>
-</tr>
-</tr>
-			
-		</tr>
-	</tbody>
-</table>
-	
-</div>
-</div>
 	      
         
 
@@ -132,118 +48,12 @@
 	 
 
 
-</div>
-
-<div class='col-xs-4 table-responsive' resizer ng-class="{ 'large': isLarge }" id='tableBigScreen'>
-<table cellspacing="0" st-table="tableData" st-safe-src="tableData" class='table table-striped table-hover table-condensed' id='lineChartTable'>
-	<thead class='lineCharttableHeader'>
-		<tr class='lineCharttableRow'>
-			<th class="linecharttablemainheading">Method</th>
-			<th class="linecharttablevalues">Clinton</th>
-			<th class="linecharttablevalues" st-sort="trumpValue">Trump</th>
-		</tr>
-	</thead>
-	<tr class='lineCharttableRow' style='font-weight: bold; font-size: 0.5em;'>
-			<td>
-			<span style='color:#fff; opacity: .4;'>+</span>
-			<input type="checkbox" ng-model="pollyVote" ng-change="addpollyVote()" class='checkbox'>
-				
-				<a rel="noopener" href="//pollyvote.com/en/combining-forecasts/" target="_blank">
-				PollyVote</a>
-				</td>
-				<td class="linecharttablevalues">{{pollyvoteClintonForcast}}</td>
-				<td class="linecharttablevalues">{{pollyvoteTrumpForcast}}</td>
-				</tr>
-	<tbody class='lineChartTableBody' ng-repeat="data in tableData| orderBy:'-clintonValuemain'">
-		<tr class='lineCharttableRow'>
-		<td>
-		<span ng-show="data.expand" ng-click='data.expand = false'>-</span>
-        <span ng-show="!data.expand" ng-click='data.expand = true'>+</span>
-		<input type="checkbox"  ng-model="data.model" ng-change="onChnage()" class='checkbox'>
-		<a rel="noopener" target="_blank" href={{data.url}} >
-		{{data.name}}
-		</a>
-		</td>
-		<td  class="linecharttablevalues">{{data.clintonValuemain}}</td>
-		<td class="linecharttablevalues">{{data.trumpValue}}</td>
-<tr class="lineCharttableRow">
-<tr ng-show="data.expand" ng-repeat="subs in data.subvalues| orderBy:'-clintonValuesub'">
-<td class="linechartcomponentHeading">
-<span style='color:#fff; opacity: .4;'>--</span>
-<input type="checkbox" ng-model="subs.model" ng-change="onChnage()" class='checkbox subcomponent'>
-<a rel="noopener" target="_blank" href={{subs.url}} >
-{{subs.name}}
-</a>
-</td>
-<td class="linecharttablevalues">
-	{{subs.clintonValuesub}}
-</td>
-<td class="linecharttablevalues">
-	{{subs.trumpValue}}
-</td>
-</tr>
-</tr>
-			
-		</tr>
-	</tbody>
-</table>
-
-
-
-<br>
-</div>
-
-
-
-<!-- footer -->
- <div class='footer col-xs-12'> 
- <div class='pull-left'>
- <a href="http://pollyvote.com/en/about/data/" target="_blank"> <img class='footerLogo' src="assets/images/chartFooterLogo.png" width="15%">
- PollyVote
-  </a>
- 
- <p style='color:grey; font-size: 0.7em; vertical-align: baseline; padding:0;'>
-  For more charts head to <a href="http://charts.pollyvote.com/" target='_blank'>charts.pollyvote.com</a>
- </p>
- </div>
 
 
 
 
 
-<!-- socialshare -->
 
-<div class='shareButtons pull-right'>
-<a class="btn-embed shareButtonImage" data-toggle="modal" data-target="#myModal">EMBED</a>
-
-
-<a
-id='twitter'
-socialshare
-socialshare-provider="twitter"
-socialshare-text="Do you want to be a prediction data detective? Take a look at @PollyVote and its components. #ddj #2016election https://goo.gl/VTz1N0"
-socialshare-hashtags="#ddj #2016election"
-socialshare-url="//charts.pollyvote.com/linechartwithalloptions">
-<img class='shareButtonImage' src="assets/images/twitterLogo.png">
-</a>
-
-<a
-id='facebook'
-socialshare
-socialshare-provider="facebook"
-socialshare-type="feed"
-socialshare-media="http://gfx.pollyvote.com/assets/images/facebookShareImage.png"
-socialshare-text="PollyVote Prediction Chart"
-socialshare-description="As of {{dateWithyear}}, @PollyVote predicts the Democrats to garner {{democrates}}  of the two-party popular vote and and Republicans to garner {{repulicans}}  of the two-party popular vote."
-socialshare-hashtags="PollyVote, US-Elections"
-socialshare-url="//charts.pollyvote.com/linechartwithalloptions"
-socialshare-caption="Updated daily">
-<img class='shareButtonImage' src="assets/images/facebookLogo.png">
-</a>
-</div>
-
-
- </div>
 
   <script>
   $(".btn-embed").click(function(){
