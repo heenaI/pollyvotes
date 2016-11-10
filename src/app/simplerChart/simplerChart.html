@@ -2,6 +2,28 @@
 <h2 class='chartHeadline' style='padding-left:2.5%; font-weight: bold; text-transform: uppercase; font-family: Montserrat, sans-serif;font-size:16px;'>
 PollyVote popular vote forecast (two-party)
 </h2>
+        <div class='col-xs-12'>
+        <div class='pull-left' style='padding-left: 2%;'>
+        <label class='label--checkbox'>
+        <input type="checkbox" ng-model="wholeTimeline" ng-change="changeAxis2()" class='checkbox'>
+        <span style='font-family: Montserrat, sans-serif;'>Election timeline</span>
+        </label>
+        </div>
+
+
+
+       <div class='pull-right'>
+        <ul class="list-inline" style='font-size: 1em; margin: 0;font-weight: bold; font-family: Montserrat, sans-serif;'>
+        <li style="list-style: none;">
+        <p id='democrates' style='color:#2980b9;'>Clinton: <span class='values'>{{democrates}}%</span></p>
+        </li>
+        <li style="list-style: none;">
+        <p id='republicans' style='color:#e74c3c;'>Trump: <span class='values'>{{repulicans}}%</span></p>
+        </li>
+        </ul>
+        </div>
+
+        </div>
 
 
         <div class='col-xs-12' id='chartParent'>
@@ -16,7 +38,7 @@ PollyVote popular vote forecast (two-party)
                 </a>
             </div>
         </div>
-       <line data="data" type='testingChart'></line>
+        <div id= "lineChart"></div>
         </div>
 
 

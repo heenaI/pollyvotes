@@ -39,7 +39,7 @@
         controller: 'linechartalloptionsController'
       })
       .state('testinglinechrat', {
-        url: '/testpollygraph',
+        url: '/pollygraph_uncertainty',
         templateUrl: 'app/lineChartAlloptions/testinglinechart.html',
         controller: 'linechartalloptionsController'
       });

@@ -85,6 +85,29 @@
 </div>
 </div>
 <div class='col-md-8' resizer ng-class="{ 'large': isLarge }">
+<div class='pull-left' id='linechartAlloptionsCheckbox1'>
+        <label class='label--checkbox' id='checkbox4'>
+        <input type="checkbox" ng-model="thirtyDay" ng-change="lastThiry('thirtyday')" class='checkbox'>
+        <span class='checkboxLabelText'>
+          Last 30 days
+        </span>
+        </label>
+     </div>
+     <div class='pull-right' id='linechartAlloptionsCheckbox2'>
+        <label class='label--checkbox' id='checkbox2'>
+        <input type="checkbox" ng-model="clintonValues" ng-change="addOnlyClinton('clintonValues')" class='checkbox'>
+        <span class='checkboxLabelText' style="color:#2980b9;">
+          Clinton: {{pollyvoteClintonForcast}}%
+        </span>
+        </label>
+        <label class='label--checkbox' id='checkbox3'>
+        <input type="checkbox" ng-model="trumpValues" ng-change="addOnlyTrump('trumpValues')" class='checkbox'>
+        <span class='checkboxLabelText' style="color:#e74c3c;">
+          Trump: {{pollyvoteTrumpForcast}}%
+        </span>
+        </label>
+        
+      </div>
 
 <line data="data" type='mainchart'></line>
 </div>
@@ -185,6 +208,7 @@ id='facebook'
 socialshare
 socialshare-provider="facebook"
 socialshare-type="feed"
+socialshare-via:"1128198593923252"
 socialshare-media="http://gfx.pollyvote.com/assets/images/facebookShareImage.png"
 socialshare-text="PollyVote Prediction Chart"
 socialshare-description="As of {{dateWithyear}}, @PollyVote predicts the Democrats to garner {{democrates}}  of the two-party popular vote and and Republicans to garner {{repulicans}}  of the two-party popular vote."

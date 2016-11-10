@@ -136,7 +136,7 @@ datacleaned.length = 0;
 
 for(var i=0; i<data.data.length; i++){
   var stateId = data.data[i].state
-    if(data.data[i].fcdate == date){
+    if(data.data[i].fcdate == "08.11.2016"){
 
         var stateid = data.data[i].state
         var republicanWinFreq = data.data[i].fcrepwinfreq
